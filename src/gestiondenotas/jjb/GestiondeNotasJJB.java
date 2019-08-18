@@ -5,6 +5,8 @@
  */
 package gestiondenotas.jjb;
 
+import Views.Login;
+
 /**
  *
  * @author Jorge Villanueva
@@ -16,6 +18,8 @@ public class GestiondeNotasJJB {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Login login = new Login();
+        login.main(args);
     }
     
 }
