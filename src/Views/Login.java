@@ -191,6 +191,7 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
                 /*Prueba git*/
                 /*Prueba proteger */
+                /*Prueba2 proteger2 */
             }
         });
     }
