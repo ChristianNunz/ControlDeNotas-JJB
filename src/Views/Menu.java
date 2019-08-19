@@ -5,6 +5,9 @@
  */
 package Views;
 
+import Views.Administrador.Crear_Alumno;
+import Views.Administrador.Editar_Alumno;
+
 /**
  *
  * @author Jorge Villanueva
@@ -99,6 +102,11 @@ public class Menu extends javax.swing.JFrame {
         Btn_Editar_alumno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
         Btn_Editar_alumno.setText("Editar");
         Btn_Editar_alumno.setToolTipText("Editar Alumno");
+        Btn_Editar_alumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Editar_alumnoActionPerformed(evt);
+            }
+        });
         Btn_Alumnos.add(Btn_Editar_alumno);
 
         jMenuBar1.add(Btn_Alumnos);
@@ -372,9 +380,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void Btn_Registrar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_alumnoActionPerformed
         // TODO add your handling code here:
-        Agregar_Alumno alumn = new Agregar_Alumno();
-       
-        DesktopPanel.add(alumn);
+        Crear_Alumno alumno = new Crear_Alumno();
+        DesktopPanel.add(alumno);
     }//GEN-LAST:event_Btn_Registrar_alumnoActionPerformed
 
     private void Btn_Registrar_NotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_NotasActionPerformed
@@ -394,6 +401,13 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
         login.show();
     }//GEN-LAST:event_Btn_SalirActionPerformed
+
+    private void Btn_Editar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_alumnoActionPerformed
+        // TODO add your handling code here:
+        Editar_Alumno alumn = new Editar_Alumno();
+       
+        DesktopPanel.add(alumn);
+    }//GEN-LAST:event_Btn_Editar_alumnoActionPerformed
 
     /**
      * @param args the command line arguments

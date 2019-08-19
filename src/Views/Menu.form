@@ -41,6 +41,9 @@
                 <Property name="text" type="java.lang.String" value="Editar"/>
                 <Property name="toolTipText" type="java.lang.String" value="Editar Alumno"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_Editar_alumnoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
