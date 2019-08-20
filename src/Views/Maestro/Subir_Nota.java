@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Views.Administrador;
+package Views.Maestro;
 
+import Views.Administrador.*;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,12 +14,12 @@ import java.util.logging.Logger;
  *
  * @author Jorge Villanueva
  */
-public class Crear_Nota extends javax.swing.JInternalFrame {
+public class Subir_Nota extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Agregar_Alumno
      */
-    public Crear_Nota() {
+    public Subir_Nota() {
         
         initComponents();
        

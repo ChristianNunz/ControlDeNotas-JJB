@@ -65,7 +65,7 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
         getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, 20));
 
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 200, 30));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 200, 30));
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Guardar.setText("Guardar");
@@ -76,8 +76,8 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
         });
         getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 100, -1));
 
-        cmb_anho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2015", "2016", "2017", "2018", "2019", "2020", "2021" }));
-        getContentPane().add(cmb_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 100, -1));
+        cmb_anho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lenguaje", "Sociales", "Ciencias", "Matematicas", "Ingles" }));
+        getContentPane().add(cmb_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 180, -1));
 
         lblUsuario1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario1.setText("Nombre:");
