@@ -6,8 +6,10 @@
 package Views.Administrador;
 
 import java.beans.PropertyVetoException;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -62,13 +64,18 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
 
         Btn_Cargar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Cargar.setText("Cargar");
+        Btn_Cargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_CargarActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Telefono", "Direccion", "Fecha Nac.", "Genero"
+                "Nombre", "Apellido", "Telefono", "Dirección", "Fecha Nac.", "Genero", "Nombre", "Apellido", "Dui", "Dirección", "Telefono", "Genero"
             }
         ));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -82,6 +89,7 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Guardar.setText("Guardar");
+        Btn_Guardar.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,6 +126,14 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Btn_CargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CargarActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        
+    }//GEN-LAST:event_Btn_CargarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

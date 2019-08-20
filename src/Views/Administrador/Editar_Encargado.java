@@ -80,23 +80,26 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblUsuario.setText("Nombre:");
-        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
+        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 70, 30));
 
         lblcontra1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblcontra1.setText("Direccion:");
-        getContentPane().add(lblcontra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+        getContentPane().add(lblcontra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 70, 30));
 
         lblUsuario1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblUsuario1.setText("Telefono:");
-        getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+        getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 70, 30));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Telefono", "Direccion", "Fecha Nac.", "Genero"
+                "Id", "Nombre", "Apellido", "Telefono", "Direccion", "Dui", "Genero", "Estado"
             }
         ));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -108,20 +111,21 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 72, 910, 630));
 
         txtTelefono.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 200, -1));
+        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 200, 30));
 
         txtDireccion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 200, -1));
+        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 200, 30));
 
         lblcontra.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblcontra.setText("Apellido:");
-        getContentPane().add(lblcontra, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
+        getContentPane().add(lblcontra, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 70, 30));
 
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 200, -1));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 200, 30));
 
         txtApellido.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 200, -1));
+        getContentPane().add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 200, 30));
 
         Btn_Actualizar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Actualizar.setText("Actualizar");
@@ -134,30 +138,33 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         getContentPane().add(Btn_Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 550, 250, -1));
 
         lblcontra2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblcontra2.setText("Genero:");
-        getContentPane().add(lblcontra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, -1, -1));
+        getContentPane().add(lblcontra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 70, 30));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         jLabel1.setText("Editar Encargado");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 320, -1));
 
         lblcontra3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblcontra3.setText("Dui:");
-        getContentPane().add(lblcontra3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
+        getContentPane().add(lblcontra3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 70, 30));
 
         txtDireccion1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, -1));
+        getContentPane().add(txtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 200, 30));
 
         lblcontra4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblcontra4.setText("Estado:");
-        getContentPane().add(lblcontra4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, -1, -1));
+        getContentPane().add(lblcontra4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 70, 30));
 
         txt_sex.setEditable(false);
         txt_sex.setText("Masculino");
         txt_sex.setAlignmentX(0.0F);
         txt_sex.setFocusable(false);
         txt_sex.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        getContentPane().add(txt_sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 160, 23));
+        getContentPane().add(txt_sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 170, 30));
 
         btn_cmb_sex.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/change.png"))); // NOI18N
         btn_cmb_sex.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -166,12 +173,12 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
                 btn_cmb_sexActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_cmb_sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 30, 23));
+        getContentPane().add(btn_cmb_sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 30, 30));
 
         txt_activ.setEditable(false);
         txt_activ.setText("Activo");
         txt_activ.setFocusable(false);
-        getContentPane().add(txt_activ, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 160, -1));
+        getContentPane().add(txt_activ, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 170, 30));
 
         btn_cmb_estado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/change.png"))); // NOI18N
         btn_cmb_estado.addActionListener(new java.awt.event.ActionListener() {
@@ -179,7 +186,7 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
                 btn_cmb_estadoActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_cmb_estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 29, -1));
+        getContentPane().add(btn_cmb_estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, 29, 30));
 
         Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Limpiar.setText("Limpiar");
@@ -192,12 +199,13 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         getContentPane().add(Btn_Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 250, -1));
 
         lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblUsuario3.setText("Id:");
-        getContentPane().add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, -1));
+        getContentPane().add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, 30));
 
         txt_Id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txt_Id.setEnabled(false);
-        getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
+        getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

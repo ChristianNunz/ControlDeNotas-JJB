@@ -59,7 +59,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         txt_usuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_usuario.setText("Usuario1");
+        txt_usuario.setText("admin");
         txt_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_usuarioActionPerformed(evt);

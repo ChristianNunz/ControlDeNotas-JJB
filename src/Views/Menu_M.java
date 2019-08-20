@@ -271,7 +271,9 @@ public class Menu_M extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_rpt_alumnosActionPerformed
 
     private void Btn_Registrar_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_materiaActionPerformed
+        CerrarHijos();
         Ver_Materias m = new Ver_Materias();
+         m.setSize(sisze());
         DesktopPanel.add(m);
         
     }//GEN-LAST:event_Btn_Registrar_materiaActionPerformed
@@ -290,14 +292,26 @@ public class Menu_M extends javax.swing.JFrame {
 
     private void Btn_Editar_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_notasActionPerformed
         // TODO add your handling code here:
-        Editar_Nota_M nota = new Editar_Nota_M();
+        CerrarHijos();
+        Editar_Nota_M nota = new Editar_Nota_M();        
+        nota.setSize(sisze());
         DesktopPanel.add(nota);
     }//GEN-LAST:event_Btn_Editar_notasActionPerformed
-
+    public Dimension sisze(){
+        Dimension size = this.getSize();        
+        return size;        
+    }
+    public void CerrarHijos(){
+       DesktopPanel.removeAll();
+       DesktopPanel.updateUI();
+    }
     private void Btn_Registrar_NotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_NotasActionPerformed
         // TODO add your handling code here:
+        CerrarHijos();
         Subir_Nota nota = new Subir_Nota();
+        nota.setSize(sisze());
         DesktopPanel.add(nota);
+        
     }//GEN-LAST:event_Btn_Registrar_NotasActionPerformed
 
     /**

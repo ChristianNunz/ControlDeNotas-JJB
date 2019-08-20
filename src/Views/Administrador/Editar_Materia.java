@@ -68,7 +68,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario.setText("Nombre:");
+        lblUsuario.setText("Materia:");
         getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -76,7 +76,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Telefono", "Direccion", "Fecha Nac.", "Genero"
+                "Id", "Materia", "Año"
             }
         ));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);

@@ -64,6 +64,8 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         lblcontra5 = new javax.swing.JLabel();
         lblUsuario3 = new javax.swing.JLabel();
         txt_Id = new javax.swing.JTextField();
+        txtDireccion2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -154,7 +156,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         getContentPane().add(lblcontra3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
 
         txtDireccion1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, -1));
+        getContentPane().add(txtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 200, -1));
 
         dcc_fechaNac.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
             new datechooser.view.appearance.ViewAppearance("custom",
@@ -212,7 +214,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
 
     lblcontra4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
     lblcontra4.setText("Estado:");
-    getContentPane().add(lblcontra4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, -1, -1));
+    getContentPane().add(lblcontra4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
 
     txt_sex.setEditable(false);
     txt_sex.setText("Masculino");
@@ -253,7 +255,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     });
     getContentPane().add(Btn_Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 250, -1));
 
-    cmb_encargado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+    cmb_encargado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Juan Rosales", "Pedro Pineda", "Alberto Castro", " " }));
     getContentPane().add(cmb_encargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 200, -1));
 
     lblcontra5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -267,6 +269,13 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     txt_Id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
     txt_Id.setEnabled(false);
     getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
+
+    txtDireccion2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+    getContentPane().add(txtDireccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, -1));
+
+    jButton1.setText("Agregar Encargado");
+    jButton1.setEnabled(false);
+    getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, -1, -1));
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -309,6 +318,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_cmb_sex;
     private javax.swing.JComboBox cmb_encargado;
     private datechooser.beans.DateChooserCombo dcc_fechaNac;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -325,6 +335,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtDireccion1;
+    private javax.swing.JTextField txtDireccion2;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txt_Id;

@@ -13,12 +13,12 @@ import java.util.logging.Logger;
  *
  * @author Jorge Villanueva
  */
-public class Crear_Materia extends javax.swing.JInternalFrame {
+public class Crear_Seccion extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Agregar_Alumno
      */
-    public Crear_Materia() {
+    public Crear_Seccion() {
         
         initComponents();
        
@@ -46,8 +46,8 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
         setIconifiable(true);
-        setTitle("Registrar Materia");
-        setToolTipText("Registrar Materia");
+        setTitle("Registrar Sección");
+        setToolTipText("Registrar Sección");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(343, 146));
         setMinimumSize(new java.awt.Dimension(343, 146));
@@ -61,28 +61,28 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario.setText("Año:");
-        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, 20));
+        lblUsuario.setText("Sección:");
+        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 30));
 
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 200, 30));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 200, 30));
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        Btn_Guardar.setText("Guardar");
+        Btn_Guardar.setText("Registrar");
         Btn_Guardar.setEnabled(false);
         Btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_GuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 100, -1));
+        getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 110, -1));
 
-        cmb_anho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lenguaje", "Sociales", "Ciencias", "Matematicas", "Ingles" }));
-        getContentPane().add(cmb_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 180, -1));
+        cmb_anho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Matutino", "Vespertino" }));
+        getContentPane().add(cmb_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 200, 30));
 
         lblUsuario1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario1.setText("Nombre:");
-        getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 20));
+        lblUsuario1.setText("Turno:");
+        getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 50, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

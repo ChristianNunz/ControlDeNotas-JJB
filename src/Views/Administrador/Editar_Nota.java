@@ -40,8 +40,6 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         lblUsuario = new javax.swing.JLabel();
         lblcontra1 = new javax.swing.JLabel();
         lblUsuario1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         lblcontra = new javax.swing.JLabel();
@@ -62,6 +60,8 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         cmb_encargado2 = new javax.swing.JComboBox();
         cmb_encargado3 = new javax.swing.JComboBox();
         lblcontra8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -93,22 +93,6 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         lblUsuario1.setText("Nota1:");
         getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Apellido", "Telefono", "Direccion", "Fecha Nac.", "Genero"
-            }
-        ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable1.setAutoscrolls(false);
-        jTable1.setFocusTraversalPolicyProvider(true);
-        jTable1.setFocusable(false);
-        jScrollPane1.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 72, 910, 630));
-
         txtTelefono.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 200, -1));
 
@@ -119,9 +103,11 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         lblcontra.setText("Apellido:");
         getContentPane().add(lblcontra, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
 
+        txtNombre.setEditable(false);
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 200, -1));
 
+        txtApellido.setEditable(false);
         txtApellido.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         getContentPane().add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 200, -1));
 
@@ -196,6 +182,22 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         lblcontra8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra8.setText("Periodo:");
         getContentPane().add(lblcontra8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nombre", "Apellido", "Nota 1 (35%)", "Nota 2 (35%)", "Nota 3 (30%)"
+            }
+        ));
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable1.setAutoscrolls(false);
+        jTable1.setFocusTraversalPolicyProvider(true);
+        jTable1.setFocusable(false);
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 72, 910, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

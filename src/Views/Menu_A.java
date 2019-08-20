@@ -10,7 +10,9 @@ import Views.Administrador.Crear_Alumno;
 import Views.Administrador.Crear_Maestro;
 import Views.Administrador.Crear_Materia;
 import Views.Administrador.Crear_Nota;
+import Views.Administrador.Crear_Seccion;
 import Views.Administrador.Editar_Alumno;
+import Views.Administrador.Editar_Encargado;
 import Views.Administrador.Editar_Maestro;
 import Views.Administrador.Editar_Materia;
 import Views.Administrador.Editar_Nota;
@@ -18,6 +20,9 @@ import java.awt.Dimension;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
+import javax.swing.plaf.DesktopPaneUI;
+import javax.swing.plaf.basic.BasicDesktopPaneUI;
 
 /**
  *
@@ -51,6 +56,7 @@ public class Menu_A extends javax.swing.JFrame {
         Btn_Alumnos = new javax.swing.JMenu();
         Btn_Registrar_alumno = new javax.swing.JMenuItem();
         Btn_Editar_alumno = new javax.swing.JMenuItem();
+        Btn_Editar_Encargado = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         Btn_Asignar_Materias = new javax.swing.JMenu();
         Btn_Registrar_maestros = new javax.swing.JMenuItem();
@@ -65,7 +71,6 @@ public class Menu_A extends javax.swing.JFrame {
         Btn_Registrar_materia = new javax.swing.JMenuItem();
         Btn_Editar_materias = new javax.swing.JMenuItem();
         Btn_Registrar_seccion = new javax.swing.JMenuItem();
-        Btn_Editar_seccion = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         Btn_Reportes = new javax.swing.JMenu();
         Btn_rpt_notas = new javax.swing.JMenuItem();
@@ -120,6 +125,16 @@ public class Menu_A extends javax.swing.JFrame {
             }
         });
         Btn_Alumnos.add(Btn_Editar_alumno);
+
+        Btn_Editar_Encargado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
+        Btn_Editar_Encargado.setText("Editar Encargado");
+        Btn_Editar_Encargado.setToolTipText("Editar Alumno");
+        Btn_Editar_Encargado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Editar_EncargadoActionPerformed(evt);
+            }
+        });
+        Btn_Alumnos.add(Btn_Editar_Encargado);
 
         jMenuBar1.add(Btn_Alumnos);
         Btn_Alumnos.getAccessibleContext().setAccessibleDescription("");
@@ -236,16 +251,6 @@ public class Menu_A extends javax.swing.JFrame {
             }
         });
         Btn_Materias.add(Btn_Registrar_seccion);
-
-        Btn_Editar_seccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
-        Btn_Editar_seccion.setText("Editar Sección");
-        Btn_Editar_seccion.setToolTipText("Editar Sección");
-        Btn_Editar_seccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btn_Editar_seccionActionPerformed(evt);
-            }
-        });
-        Btn_Materias.add(Btn_Editar_seccion);
 
         jMenuBar1.add(Btn_Materias);
 
@@ -377,16 +382,26 @@ public class Menu_A extends javax.swing.JFrame {
 
     private void Btn_Editar_materiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_materiasActionPerformed
         // TODO add your handling code here:
-        Editar_Materia materia = new Editar_Materia();        
+        CerrarHijos();
+        Editar_Materia materia = new Editar_Materia();     
+         materia.setSize(sisze());
         DesktopPanel.add(materia);
     }//GEN-LAST:event_Btn_Editar_materiasActionPerformed
-
+    public void CerrarHijos(){
+       DesktopPanel.removeAll();
+       DesktopPanel.updateUI();
+    }
+    public Dimension sisze(){
+        Dimension size = this.getSize();        
+        return size;        
+    }
     private void Btn_exportar_bkupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_exportar_bkupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Btn_exportar_bkupActionPerformed
 
     private void Btn_rpt_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_notasActionPerformed
         // TODO add your handling code here:
+  
     }//GEN-LAST:event_Btn_rpt_notasActionPerformed
 
     private void Btn_rpt_alumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_alumnosActionPerformed
@@ -403,32 +418,42 @@ public class Menu_A extends javax.swing.JFrame {
 
     private void Btn_Registrar_maestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_maestrosActionPerformed
         // TODO add your handling code here:
-       Crear_Maestro m = new Crear_Maestro();
+        CerrarHijos();
+       Crear_Maestro m = new Crear_Maestro();       
        DesktopPanel.add(m);
+       Dimension desktopSize = DesktopPanel.getSize();
+        Dimension FrameSize = m.getSize();
+        m.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        m.show();
+        
     }//GEN-LAST:event_Btn_Registrar_maestrosActionPerformed
 
+    
     private void Btn_Registrar_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_materiaActionPerformed
+         CerrarHijos();
         Crear_Materia m = new Crear_Materia();
         DesktopPanel.add(m);
+       
+        
         Dimension desktopSize = DesktopPanel.getSize();
         Dimension FrameSize = m.getSize();
         m.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         m.show();
     }//GEN-LAST:event_Btn_Registrar_materiaActionPerformed
 
-    private void Btn_Editar_seccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_seccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Btn_Editar_seccionActionPerformed
-
     private void Btn_Registrar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_alumnoActionPerformed
         // TODO add your handling code here:
+         CerrarHijos();
         Crear_Alumno alumno = new Crear_Alumno();
+         alumno.setSize(sisze());
         DesktopPanel.add(alumno);
     }//GEN-LAST:event_Btn_Registrar_alumnoActionPerformed
 
     private void Btn_Registrar_NotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_NotasActionPerformed
         // TODO add your handling code here:
+         CerrarHijos();
         Crear_Nota nota = new Crear_Nota();
+         nota.setSize(sisze());
         DesktopPanel.add(nota);
     }//GEN-LAST:event_Btn_Registrar_NotasActionPerformed
 
@@ -446,32 +471,54 @@ public class Menu_A extends javax.swing.JFrame {
 
     private void Btn_Editar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_alumnoActionPerformed
         // TODO add your handling code here:
+         CerrarHijos();
         Editar_Alumno alumn = new Editar_Alumno();
-       
+         alumn.setSize(sisze());
         DesktopPanel.add(alumn);
     }//GEN-LAST:event_Btn_Editar_alumnoActionPerformed
 
     private void Btn_Editar_maestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_maestrosActionPerformed
         // TODO add your handling code here:
+         CerrarHijos();
         Editar_Maestro em= new Editar_Maestro();
+         em.setSize(sisze());
         DesktopPanel.add(em);
     }//GEN-LAST:event_Btn_Editar_maestrosActionPerformed
 
     private void Btn_Registrar_seccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_seccionActionPerformed
         // TODO add your handling code here:
+         CerrarHijos();
+        Crear_Seccion sec = new Crear_Seccion();
+        DesktopPanel.add(sec);
+        Dimension desktopSize = DesktopPanel.getSize();
+        Dimension FrameSize = sec.getSize();
+        sec.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        sec.show();
     }//GEN-LAST:event_Btn_Registrar_seccionActionPerformed
 
     private void Btn_Editar_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_notasActionPerformed
         // TODO add your handling code here:
+         CerrarHijos();
         Editar_Nota nota = new Editar_Nota();
+         nota.setSize(sisze());
         DesktopPanel.add(nota);
     }//GEN-LAST:event_Btn_Editar_notasActionPerformed
 
     private void Btn_Editar_maestros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_maestros1ActionPerformed
         // TODO add your handling code here:
+         CerrarHijos();
         Asignar_Materia materia = new Asignar_Materia();
+         materia.setSize(sisze());
         DesktopPanel.add(materia);
     }//GEN-LAST:event_Btn_Editar_maestros1ActionPerformed
+
+    private void Btn_Editar_EncargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_EncargadoActionPerformed
+        // TODO add your handling code here:
+         CerrarHijos();
+        Editar_Encargado encargado = new  Editar_Encargado();
+         encargado.setSize(sisze());
+         DesktopPanel.add(encargado);
+    }//GEN-LAST:event_Btn_Editar_EncargadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -515,12 +562,12 @@ public class Menu_A extends javax.swing.JFrame {
     private javax.swing.JMenu Btn_Alumnos;
     private javax.swing.JMenu Btn_Asignar_Materias;
     private javax.swing.JMenu Btn_Backup;
+    private javax.swing.JMenuItem Btn_Editar_Encargado;
     private javax.swing.JMenuItem Btn_Editar_alumno;
     private javax.swing.JMenuItem Btn_Editar_maestros;
     private javax.swing.JMenuItem Btn_Editar_maestros1;
     private javax.swing.JMenuItem Btn_Editar_materias;
     private javax.swing.JMenuItem Btn_Editar_notas;
-    private javax.swing.JMenuItem Btn_Editar_seccion;
     private javax.swing.JMenu Btn_Logout;
     private javax.swing.JMenu Btn_Materias;
     private javax.swing.JMenu Btn_Notas;
