@@ -307,7 +307,7 @@ public class Menu_M extends javax.swing.JFrame {
     }
     private void Btn_Registrar_NotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_NotasActionPerformed
         // TODO add your handling code here:
-        CerrarHijos();
+        CerrarHijos(); 
         Subir_Nota nota = new Subir_Nota();
         nota.setSize(sisze());
         DesktopPanel.add(nota);
