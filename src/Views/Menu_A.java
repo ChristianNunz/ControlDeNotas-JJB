@@ -5,22 +5,33 @@
  */
 package Views;
 
+import Views.Administrador.Asignar_Materia;
 import Views.Administrador.Crear_Alumno;
+import Views.Administrador.Crear_Maestro;
+import Views.Administrador.Crear_Materia;
+import Views.Administrador.Crear_Nota;
 import Views.Administrador.Editar_Alumno;
+import Views.Administrador.Editar_Maestro;
+import Views.Administrador.Editar_Materia;
+import Views.Administrador.Editar_Nota;
+import java.awt.Dimension;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Jorge Villanueva
  */
-public class Menu extends javax.swing.JFrame {
+public class Menu_A extends javax.swing.JFrame {
 
     /**
      * Creates new form Menu
      */
-    public Menu() {  
+    public Menu_A() {  
        
         
-        this.setExtendedState(Menu.MAXIMIZED_BOTH);
+        this.setExtendedState(Menu_A.MAXIMIZED_BOTH);
         
         initComponents();
       
@@ -41,9 +52,10 @@ public class Menu extends javax.swing.JFrame {
         Btn_Registrar_alumno = new javax.swing.JMenuItem();
         Btn_Editar_alumno = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
-        Btn_Registrar_maestro = new javax.swing.JMenu();
+        Btn_Asignar_Materias = new javax.swing.JMenu();
         Btn_Registrar_maestros = new javax.swing.JMenuItem();
         Btn_Editar_maestros = new javax.swing.JMenuItem();
+        Btn_Editar_maestros1 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         Btn_Notas = new javax.swing.JMenu();
         Btn_Registrar_Notas = new javax.swing.JMenuItem();
@@ -116,9 +128,9 @@ public class Menu extends javax.swing.JFrame {
         jMenu7.setEnabled(false);
         jMenuBar1.add(jMenu7);
 
-        Btn_Registrar_maestro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/teacher.png"))); // NOI18N
-        Btn_Registrar_maestro.setText("Maestros");
-        Btn_Registrar_maestro.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        Btn_Asignar_Materias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/teacher.png"))); // NOI18N
+        Btn_Asignar_Materias.setText("Maestros");
+        Btn_Asignar_Materias.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
         Btn_Registrar_maestros.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         Btn_Registrar_maestros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
@@ -129,15 +141,30 @@ public class Menu extends javax.swing.JFrame {
                 Btn_Registrar_maestrosActionPerformed(evt);
             }
         });
-        Btn_Registrar_maestro.add(Btn_Registrar_maestros);
+        Btn_Asignar_Materias.add(Btn_Registrar_maestros);
 
         Btn_Editar_maestros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
         Btn_Editar_maestros.setText("Editar");
         Btn_Editar_maestros.setToolTipText("Editar Maestro");
-        Btn_Registrar_maestro.add(Btn_Editar_maestros);
+        Btn_Editar_maestros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Editar_maestrosActionPerformed(evt);
+            }
+        });
+        Btn_Asignar_Materias.add(Btn_Editar_maestros);
 
-        jMenuBar1.add(Btn_Registrar_maestro);
-        Btn_Registrar_maestro.getAccessibleContext().setAccessibleDescription("");
+        Btn_Editar_maestros1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
+        Btn_Editar_maestros1.setText("Asignar Materias");
+        Btn_Editar_maestros1.setToolTipText("Editar Maestro");
+        Btn_Editar_maestros1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Editar_maestros1ActionPerformed(evt);
+            }
+        });
+        Btn_Asignar_Materias.add(Btn_Editar_maestros1);
+
+        jMenuBar1.add(Btn_Asignar_Materias);
+        Btn_Asignar_Materias.getAccessibleContext().setAccessibleDescription("");
 
         jMenu6.setText("                ");
         jMenu6.setEnabled(false);
@@ -161,6 +188,11 @@ public class Menu extends javax.swing.JFrame {
         Btn_Editar_notas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
         Btn_Editar_notas.setText("Editar");
         Btn_Editar_notas.setToolTipText("Editar Nota");
+        Btn_Editar_notas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Editar_notasActionPerformed(evt);
+            }
+        });
         Btn_Notas.add(Btn_Editar_notas);
 
         jMenuBar1.add(Btn_Notas);
@@ -198,6 +230,11 @@ public class Menu extends javax.swing.JFrame {
         Btn_Registrar_seccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
         Btn_Registrar_seccion.setText("Registrar Sección");
         Btn_Registrar_seccion.setToolTipText("Registrar Sección");
+        Btn_Registrar_seccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Registrar_seccionActionPerformed(evt);
+            }
+        });
         Btn_Materias.add(Btn_Registrar_seccion);
 
         Btn_Editar_seccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
@@ -340,6 +377,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void Btn_Editar_materiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_materiasActionPerformed
         // TODO add your handling code here:
+        Editar_Materia materia = new Editar_Materia();        
+        DesktopPanel.add(materia);
     }//GEN-LAST:event_Btn_Editar_materiasActionPerformed
 
     private void Btn_exportar_bkupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_exportar_bkupActionPerformed
@@ -364,14 +403,17 @@ public class Menu extends javax.swing.JFrame {
 
     private void Btn_Registrar_maestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_maestrosActionPerformed
         // TODO add your handling code here:
-       Agregar_Empleado emp = new Agregar_Empleado();
-       DesktopPanel.add(emp);
+       Crear_Maestro m = new Crear_Maestro();
+       DesktopPanel.add(m);
     }//GEN-LAST:event_Btn_Registrar_maestrosActionPerformed
 
     private void Btn_Registrar_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_materiaActionPerformed
-        // TODO add your handling code here:
-        Agregar_Materia materia = new Agregar_Materia();
-        DesktopPanel.add(materia);
+        Crear_Materia m = new Crear_Materia();
+        DesktopPanel.add(m);
+        Dimension desktopSize = DesktopPanel.getSize();
+        Dimension FrameSize = m.getSize();
+        m.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        m.show();
     }//GEN-LAST:event_Btn_Registrar_materiaActionPerformed
 
     private void Btn_Editar_seccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_seccionActionPerformed
@@ -386,7 +428,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void Btn_Registrar_NotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_NotasActionPerformed
         // TODO add your handling code here:
-        Agregar_Nota nota = new Agregar_Nota();
+        Crear_Nota nota = new Crear_Nota();
         DesktopPanel.add(nota);
     }//GEN-LAST:event_Btn_Registrar_NotasActionPerformed
 
@@ -409,6 +451,28 @@ public class Menu extends javax.swing.JFrame {
         DesktopPanel.add(alumn);
     }//GEN-LAST:event_Btn_Editar_alumnoActionPerformed
 
+    private void Btn_Editar_maestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_maestrosActionPerformed
+        // TODO add your handling code here:
+        Editar_Maestro em= new Editar_Maestro();
+        DesktopPanel.add(em);
+    }//GEN-LAST:event_Btn_Editar_maestrosActionPerformed
+
+    private void Btn_Registrar_seccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_seccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_Registrar_seccionActionPerformed
+
+    private void Btn_Editar_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_notasActionPerformed
+        // TODO add your handling code here:
+        Editar_Nota nota = new Editar_Nota();
+        DesktopPanel.add(nota);
+    }//GEN-LAST:event_Btn_Editar_notasActionPerformed
+
+    private void Btn_Editar_maestros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_maestros1ActionPerformed
+        // TODO add your handling code here:
+        Asignar_Materia materia = new Asignar_Materia();
+        DesktopPanel.add(materia);
+    }//GEN-LAST:event_Btn_Editar_maestros1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -426,30 +490,34 @@ public class Menu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu_A.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu_A.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu_A.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu_A.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                new Menu_A().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Btn_Alumnos;
+    private javax.swing.JMenu Btn_Asignar_Materias;
     private javax.swing.JMenu Btn_Backup;
     private javax.swing.JMenuItem Btn_Editar_alumno;
     private javax.swing.JMenuItem Btn_Editar_maestros;
+    private javax.swing.JMenuItem Btn_Editar_maestros1;
     private javax.swing.JMenuItem Btn_Editar_materias;
     private javax.swing.JMenuItem Btn_Editar_notas;
     private javax.swing.JMenuItem Btn_Editar_seccion;
@@ -458,7 +526,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu Btn_Notas;
     private javax.swing.JMenuItem Btn_Registrar_Notas;
     private javax.swing.JMenuItem Btn_Registrar_alumno;
-    private javax.swing.JMenu Btn_Registrar_maestro;
     private javax.swing.JMenuItem Btn_Registrar_maestros;
     private javax.swing.JMenuItem Btn_Registrar_materia;
     private javax.swing.JMenuItem Btn_Registrar_seccion;

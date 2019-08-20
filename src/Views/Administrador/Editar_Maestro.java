@@ -60,7 +60,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         txt_activ = new javax.swing.JTextField();
         btn_cmb_estado = new javax.swing.JButton();
         Btn_Limpiar = new javax.swing.JButton();
-        Btn_Guardar = new javax.swing.JButton();
         lblUsuario3 = new javax.swing.JLabel();
         txt_Id = new javax.swing.JTextField();
 
@@ -69,8 +68,8 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Agregar alumno");
-        setToolTipText("Agregar Alumno");
+        setTitle("Editar Maestro");
+        setToolTipText("Editar Maestro");
         setAlignmentX(0.0F);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(890, 408));
@@ -228,9 +227,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         }
     });
 
-    Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    Btn_Guardar.setText("Guardar");
-
     lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
     lblUsuario3.setText("Id:");
 
@@ -247,39 +243,34 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                     .addGap(480, 480, 480)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGap(5, 5, 5)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblUsuario2, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblcontra, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblcontra2, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblUsuario3, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblcontra1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblUsuario1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblcontra3, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblcontra4, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDireccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dcc_fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(5, 5, 5)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblUsuario2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblcontra, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblcontra2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblUsuario3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblcontra1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblUsuario1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblcontra3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblcontra4, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addGap(18, 18, 18)
+                                .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_activ, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtDireccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dcc_fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txt_activ, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btn_cmb_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btn_cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btn_cmb_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGap(45, 45, 45)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createSequentialGroup()
@@ -340,9 +331,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                     .addGap(193, 193, 193)
                     .addComponent(Btn_Actualizar)
                     .addGap(5, 5, 5)
-                    .addComponent(Btn_Limpiar)
-                    .addGap(18, 18, 18)
-                    .addComponent(Btn_Guardar))
+                    .addComponent(Btn_Limpiar))
                 .addGroup(layout.createSequentialGroup()
                     .addGap(2, 2, 2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -384,7 +373,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
-    private javax.swing.JButton Btn_Guardar;
     private javax.swing.JButton Btn_Limpiar;
     private javax.swing.JButton btn_cmb_estado;
     private javax.swing.JButton btn_cmb_sex;

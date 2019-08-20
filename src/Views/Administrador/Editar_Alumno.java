@@ -37,7 +37,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Btn_Cargar = new javax.swing.JButton();
         lblUsuario = new javax.swing.JLabel();
         lblcontra1 = new javax.swing.JLabel();
         lblUsuario1 = new javax.swing.JLabel();
@@ -61,7 +60,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         txt_activ = new javax.swing.JTextField();
         btn_cmb_estado = new javax.swing.JButton();
         Btn_Limpiar = new javax.swing.JButton();
-        Btn_Guardar = new javax.swing.JButton();
         cmb_encargado = new javax.swing.JComboBox();
         lblcontra5 = new javax.swing.JLabel();
         lblUsuario3 = new javax.swing.JLabel();
@@ -72,8 +70,8 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Agregar alumno");
-        setToolTipText("Agregar Alumno");
+        setTitle("Editar Alumno");
+        setToolTipText("Editar Alumno");
         setAlignmentX(0.0F);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(890, 408));
@@ -84,10 +82,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         }
         setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Btn_Cargar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        Btn_Cargar.setText("Cargar");
-        getContentPane().add(Btn_Cargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 620, 250, -1));
 
         lblUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario.setText("Nombre:");
@@ -259,10 +253,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     });
     getContentPane().add(Btn_Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 250, -1));
 
-    Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    Btn_Guardar.setText("Guardar");
-    getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 650, 250, -1));
-
     cmb_encargado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
     getContentPane().add(cmb_encargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 200, -1));
 
@@ -314,8 +304,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
-    private javax.swing.JButton Btn_Cargar;
-    private javax.swing.JButton Btn_Guardar;
     private javax.swing.JButton Btn_Limpiar;
     private javax.swing.JButton btn_cmb_estado;
     private javax.swing.JButton btn_cmb_sex;

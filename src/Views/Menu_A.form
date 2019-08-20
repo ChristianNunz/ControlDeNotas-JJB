@@ -53,7 +53,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="Btn_Registrar_maestro">
+        <Menu class="javax.swing.JMenu" name="Btn_Asignar_Materias">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Images/teacher.png"/>
@@ -90,6 +90,21 @@
                 <Property name="text" type="java.lang.String" value="Editar"/>
                 <Property name="toolTipText" type="java.lang.String" value="Editar Maestro"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_Editar_maestrosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="Btn_Editar_maestros1">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Images/add.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Asignar Materias"/>
+                <Property name="toolTipText" type="java.lang.String" value="Editar Maestro"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_Editar_maestros1ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -136,6 +151,9 @@
                 <Property name="text" type="java.lang.String" value="Editar"/>
                 <Property name="toolTipText" type="java.lang.String" value="Editar Nota"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_Editar_notasActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -191,6 +209,9 @@
                 <Property name="text" type="java.lang.String" value="Registrar Secci&#xf3;n"/>
                 <Property name="toolTipText" type="java.lang.String" value="Registrar Secci&#xf3;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_Registrar_seccionActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Btn_Editar_seccion">
               <Properties>

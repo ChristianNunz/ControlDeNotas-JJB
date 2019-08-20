@@ -150,7 +150,7 @@ public class Login extends javax.swing.JFrame {
 
     private void Btn_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_IniciarActionPerformed
         // TODO add your handling code here:
-        Menu menu = new Menu();        
+        Menu_A menu = new Menu_A();        
         //this.setVisible(false);
         menu.show();
         this.dispose();

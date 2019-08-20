@@ -11,8 +11,8 @@
     <Property name="iconifiable" type="boolean" value="true"/>
     <Property name="maximizable" type="boolean" value="true"/>
     <Property name="resizable" type="boolean" value="true"/>
-    <Property name="title" type="java.lang.String" value="Agregar alumno"/>
-    <Property name="toolTipText" type="java.lang.String" value="Agregar Alumno"/>
+    <Property name="title" type="java.lang.String" value="Editar Maestro"/>
+    <Property name="toolTipText" type="java.lang.String" value="Editar Maestro"/>
     <Property name="alignmentX" type="float" value="0.0"/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
       <Color id="Cursor Por defecto"/>
@@ -48,48 +48,40 @@
                       <Component id="jLabel1" min="-2" pref="320" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblUsuario2" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblcontra" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblcontra2" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblUsuario3" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblUsuario" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblcontra1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblUsuario1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblcontra3" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblcontra4" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtTelefono" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="txtDireccion" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="txtNombre" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="txtApellido" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="txt_Id" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="txtDireccion1" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="dcc_fechaNac" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblUsuario2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblcontra" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblcontra2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblUsuario3" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblUsuario" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblcontra1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblUsuario1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblcontra3" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblcontra4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_sex" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <Component id="txt_activ" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtTelefono" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <Component id="txtDireccion" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <Component id="txtNombre" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <Component id="txtApellido" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <Component id="txt_Id" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <Component id="txtDireccion1" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <Component id="dcc_fechaNac" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txt_sex" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                                          <Component id="txt_activ" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btn_cmb_sex" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="btn_cmb_estado" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="btn_cmb_sex" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="btn_cmb_estado" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
                               </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="Btn_Guardar" min="-2" pref="250" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="45" pref="45" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="910" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -166,8 +158,6 @@
                       <Component id="Btn_Actualizar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                       <Component id="Btn_Limpiar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Btn_Guardar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
@@ -400,14 +390,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_LimpiarActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="Btn_Guardar">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Guardar"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblUsuario3">
       <Properties>

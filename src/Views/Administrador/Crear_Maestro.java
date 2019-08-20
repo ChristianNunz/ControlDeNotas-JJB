@@ -48,8 +48,8 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Agregar alumno");
-        setToolTipText("Agregar Alumno");
+        setTitle("Registrar Maestro");
+        setToolTipText("Registrar Maestro");
         setAlignmentX(0.0F);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(890, 408));
