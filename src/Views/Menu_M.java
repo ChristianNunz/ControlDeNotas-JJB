@@ -180,7 +180,7 @@ public class Menu_M extends javax.swing.JFrame {
         jMenu11.setEnabled(false);
         jMenuBar1.add(jMenu11);
 
-        jMenu13.setText("                ");
+        jMenu13.setText("                 ");
         jMenu13.setEnabled(false);
         jMenuBar1.add(jMenu13);
 
