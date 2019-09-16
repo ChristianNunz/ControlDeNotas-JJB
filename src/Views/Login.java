@@ -5,6 +5,9 @@
  */
 package Views;
 
+import Logica_Negocios.ConfigBD;
+import java.util.LinkedList;
+
 /**
  *
  * @author Jorge Villanueva
@@ -152,8 +155,16 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String user=txt_usuario.getText();
         if (user.equals("admin")) {
-             Menu_A menu = new Menu_A();        
-             menu.show();
+            ConfigBD query = new ConfigBD();
+            String consulta ="SELECT * FROM ALUMNO";
+            
+            LinkedList<String> resultado = query.query(consulta);
+            
+            for (int i = 0; i < resultado.size(); i++) {
+                System.out.println(resultado.get(i));
+            }
+            // Menu_A menu = new Menu_A();        
+             //menu.show();
         }else{
              Menu_M menu = new Menu_M();        
              menu.show();

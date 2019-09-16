@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package Acceso_Datos;
 
 /**
  *
  * @author Jorge Villanueva
  */
-public class Controller1 {
+public class ResponsableD {
     
 }

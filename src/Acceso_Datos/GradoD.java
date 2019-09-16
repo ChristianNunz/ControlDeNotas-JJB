@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package Acceso_Datos;
 
 /**
  *
  * @author Jorge Villanueva
  */
-public class Model1 {
+public class GradoD {
     
 }
