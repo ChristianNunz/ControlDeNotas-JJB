@@ -165,10 +165,7 @@ public class Docente implements Serializable {
             return false;
         }
         Docente other = (Docente) object;
-        if ((this.idDocente == null && other.idDocente != null) || (this.idDocente != null && !this.idDocente.equals(other.idDocente))) {
-            return false;
-        }
-        return true;
+        return !((this.idDocente == null && other.idDocente != null) || (this.idDocente != null && !this.idDocente.equals(other.idDocente)));
     }
 
     @Override
