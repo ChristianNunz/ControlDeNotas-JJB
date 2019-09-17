@@ -3,6 +3,7 @@
   <persistence-unit name="GestiondeNotas--JJBPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Modelo.Docente</class>
+    <class>Modelo.Rol</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
       <property name="javax.persistence.jdbc.user" value="DIRECTOR"/>
