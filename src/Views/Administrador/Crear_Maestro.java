@@ -5,9 +5,19 @@
  */
 package Views.Administrador;
 
+import Acceso_Datos.DocenteJpaController;
+import Acceso_Datos.entityMain;
+import Logica_Negocios.Docente;
 import java.beans.PropertyVetoException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -55,12 +65,12 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
         lblUsuario1 = new javax.swing.JLabel();
         lblUsuario2 = new javax.swing.JLabel();
         lblcontra3 = new javax.swing.JLabel();
-        txtDireccion1 = new javax.swing.JTextField();
+        txtDui = new javax.swing.JTextField();
         dcc_fechaNac = new datechooser.beans.DateChooserCombo();
-        Btn_Actualizar = new javax.swing.JButton();
+        Btn_Guardar = new javax.swing.JButton();
         Btn_Limpiar = new javax.swing.JButton();
-        txtDireccion3 = new javax.swing.JTextField();
-        txtDireccion4 = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
+        txtClave = new javax.swing.JTextField();
         lblcontra6 = new javax.swing.JLabel();
         lblcontra7 = new javax.swing.JLabel();
 
@@ -141,7 +151,7 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
         lblcontra3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra3.setText("Dui:");
 
-        txtDireccion1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtDui.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         dcc_fechaNac.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
             new datechooser.view.appearance.ViewAppearance("custom",
@@ -196,12 +206,11 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
     dcc_fechaNac.setCurrentNavigateIndex(0);
     dcc_fechaNac.setShowOneMonth(true);
 
-    Btn_Actualizar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    Btn_Actualizar.setText("Guardar");
-    Btn_Actualizar.setEnabled(false);
-    Btn_Actualizar.addActionListener(new java.awt.event.ActionListener() {
+    Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+    Btn_Guardar.setText("Guardar");
+    Btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            Btn_ActualizarActionPerformed(evt);
+            Btn_GuardarActionPerformed(evt);
         }
     });
 
@@ -213,9 +222,9 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
         }
     });
 
-    txtDireccion3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+    txtUser.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-    txtDireccion4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+    txtClave.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
     lblcontra6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
     lblcontra6.setText("Usuario:");
@@ -258,16 +267,16 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
                                 .addComponent(btn_cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDireccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDui, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(dcc_fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDireccion3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDireccion4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(119, 119, 119)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Btn_Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
@@ -295,7 +304,7 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
             .addGap(7, 7, 7)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(lblcontra3)
-                .addComponent(txtDireccion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtDui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(10, 10, 10)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -316,14 +325,14 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
                     .addComponent(btn_cmb_estado)))
             .addGap(12, 12, 12)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(txtDireccion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(lblcontra6))
             .addGap(18, 18, 18)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(lblcontra7)
-                .addComponent(txtDireccion4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-            .addComponent(Btn_Actualizar)
+            .addComponent(Btn_Guardar)
             .addGap(5, 5, 5)
             .addComponent(Btn_Limpiar)
             .addContainerGap())
@@ -347,9 +356,53 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
+    private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Btn_ActualizarActionPerformed
+        
+       
+        String nombre=txtNombre.getText().toString();
+        String apellido=txtApellido.getText().toString();
+        String tel=txtTelefono.getText().toString();
+        String direcc=txtDireccion.getText().toString();
+        String dui=txtDui.getText().toString();
+        
+        
+       
+        
+    
+    
+        
+        String estado=txt_activ.getText().toString();
+        String genero=txt_sex.getText().toString();
+        int myInt = 4;
+        BigInteger esta;
+        if (estado.equals("Activo")) {
+            esta = new BigInteger("1");
+        }else{
+            esta = new BigInteger("2");
+        }
+        BigInteger gen;
+        if (genero.equals("Masculino")) {
+            gen = new BigInteger("1");
+        }else{
+            gen = new BigInteger("2");
+        }
+        BigDecimal bd = new BigDecimal(myInt);
+        
+        
+        
+        Docente d = new Docente(bd,nombre,apellido, tel, direcc, dui, new Date(), esta, gen);
+        
+        DocenteJpaController CoDocente = new DocenteJpaController(entityMain.getInstance());
+        
+        try {
+            CoDocente.create(d);
+            JOptionPane.showConfirmDialog(rootPane,"Docente agregado con Exito!!");
+        } catch (Exception e) {
+             JOptionPane.showConfirmDialog(rootPane,"ERROR: "+e.toString());
+        }
+        
+    }//GEN-LAST:event_Btn_GuardarActionPerformed
 
     private void btn_cmb_sexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cmb_sexActionPerformed
         // TODO add your handling code here:
@@ -379,7 +432,7 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Btn_Actualizar;
+    private javax.swing.JButton Btn_Guardar;
     private javax.swing.JButton Btn_Limpiar;
     private javax.swing.JButton btn_cmb_estado;
     private javax.swing.JButton btn_cmb_sex;
@@ -397,12 +450,12 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblcontra6;
     private javax.swing.JLabel lblcontra7;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtDireccion1;
-    private javax.swing.JTextField txtDireccion3;
-    private javax.swing.JTextField txtDireccion4;
+    private javax.swing.JTextField txtDui;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtUser;
     private javax.swing.JTextField txt_activ;
     private javax.swing.JTextField txt_sex;
     // End of variables declaration//GEN-END:variables
