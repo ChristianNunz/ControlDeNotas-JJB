@@ -5,6 +5,13 @@
  */
 package Views;
 
+import Acceso_Datos.ConectionDB;
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 /**
@@ -151,7 +158,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_SalirActionPerformed
 
     private void Btn_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_IniciarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:             
+        
         String user=txt_usuario.getText();
         if (user.equals("admin")) {
             

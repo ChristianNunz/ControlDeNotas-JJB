@@ -8,9 +8,11 @@ package Views;
 import Views.Administrador.Asignar_Materia;
 import Views.Administrador.Crear_Alumno;
 import Views.Administrador.Crear_Maestro;
+
 import Views.Administrador.Crear_Materia;
 import Views.Administrador.Crear_Nota;
 import Views.Administrador.Crear_Seccion;
+
 import Views.Administrador.Editar_Alumno;
 import Views.Administrador.Editar_Encargado;
 import Views.Administrador.Editar_Maestro;
@@ -446,6 +448,7 @@ public class Menu_A extends javax.swing.JFrame {
          CerrarHijos();
         Crear_Alumno alumno = new Crear_Alumno();
          alumno.setSize(sisze());
+
         DesktopPanel.add(alumno);
     }//GEN-LAST:event_Btn_Registrar_alumnoActionPerformed
 

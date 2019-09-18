@@ -5,9 +5,13 @@
  */
 package Views.Administrador;
 
+import Acceso_Datos.ConectionDB;
 import Acceso_Datos.DocenteJpaController;
+import Acceso_Datos.LoginJpaController;
 import Acceso_Datos.entityMain;
 import Logica_Negocios.Docente;
+import Logica_Negocios.Login;
+import Logica_Negocios.Rol;
 import java.beans.PropertyVetoException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -332,8 +336,8 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
                 .addComponent(lblcontra7)
                 .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-            .addComponent(Btn_Guardar)
-            .addGap(5, 5, 5)
+            .addComponent(Btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(Btn_Limpiar)
             .addContainerGap())
     );
@@ -360,44 +364,44 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
        
-        String nombre=txtNombre.getText().toString();
-        String apellido=txtApellido.getText().toString();
-        String tel=txtTelefono.getText().toString();
-        String direcc=txtDireccion.getText().toString();
-        String dui=txtDui.getText().toString();
-        
-        
-       
-        
-    
-    
-        
-        String estado=txt_activ.getText().toString();
-        String genero=txt_sex.getText().toString();
-        int myInt = 4;
-        BigInteger esta;
+        String nombre=txtNombre.getText();
+        String apellido=txtApellido.getText();
+        String tel=txtTelefono.getText();
+        String direcc=txtDireccion.getText();
+        String dui=txtDui.getText();
+        String estado=txt_activ.getText();
+        String genero=txt_sex.getText();        
+        String User=txtUser.getText();
+        String pass=txtClave.getText();
+                
+        BigInteger estad;        
         if (estado.equals("Activo")) {
-            esta = new BigInteger("1");
+            estad = new BigInteger("1");
         }else{
-            esta = new BigInteger("2");
+            estad = new BigInteger("2");
         }
         BigInteger gen;
         if (genero.equals("Masculino")) {
             gen = new BigInteger("1");
         }else{
             gen = new BigInteger("2");
-        }
-        BigDecimal bd = new BigDecimal(myInt);
+        }     
         
-        
-        
-        Docente d = new Docente(bd,nombre,apellido, tel, direcc, dui, new Date(), esta, gen);
-        
-        DocenteJpaController CoDocente = new DocenteJpaController(entityMain.getInstance());
-        
+        ConectionDB cdb = new ConectionDB();                
+        Docente d = new Docente(cdb.GetIdToInsert("DOCENTE","ID_DOCENTE"),nombre,apellido, tel, direcc, dui, new Date(), estad, gen);        
+        DocenteJpaController CoDocente = new DocenteJpaController(entityMain.getInstance());                     
         try {
             CoDocente.create(d);
-            JOptionPane.showConfirmDialog(rootPane,"Docente agregado con Exito!!");
+            Rol r  = new Rol(BigDecimal.ONE, "Administrador");
+            Login l = new Login();        
+            l.setIdLogin(cdb.GetIdToInsert("LOGIN","ID_LOGIN"));
+            l.setIdDocente(cdb.GetLastId("DOCENTE","ID_DOCENTE"));
+            l.setIdRol(r);
+            l.setLoginClave(pass);
+            l.setLoginUsuario(User);        
+            LoginJpaController ljc = new LoginJpaController(entityMain.getInstance());
+            ljc.create(l);
+            JOptionPane.showMessageDialog(rootPane,"Docente agregado con Exito!!");
         } catch (Exception e) {
              JOptionPane.showConfirmDialog(rootPane,"ERROR: "+e.toString());
         }
