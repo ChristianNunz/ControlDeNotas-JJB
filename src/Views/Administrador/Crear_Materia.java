@@ -5,9 +5,15 @@
  */
 package Views.Administrador;
 
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Acceso_Datos.AnhoJpaController;
+import Acceso_Datos.ConectionDB;
+import Acceso_Datos.MateriaJpaController;
+import Acceso_Datos.entityMain;
+import Logica_Negocios.Anho;
+import Logica_Negocios.Materia;
+import java.math.BigDecimal;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,17 +21,16 @@ import java.util.logging.Logger;
  */
 public class Crear_Materia extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Agregar_Alumno
-     */
+   MateriaJpaController Materia = new MateriaJpaController(entityMain.getInstance());
+    
     public Crear_Materia() {
         
         initComponents();
-       
+        List<Materia> Materias = Materia.findMateriaEntities();
+        for (Materia Materia1 : Materias) {
+            cmb_anho.addItem(Materia1.getMateriaNombre());
+        } 
         
-           // this.setMaximum(true);
-        
-
     }
 
     /**
@@ -69,7 +74,6 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Guardar.setText("Guardar");
-        Btn_Guardar.setEnabled(false);
         Btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_GuardarActionPerformed(evt);
@@ -77,7 +81,6 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
         });
         getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 100, -1));
 
-        cmb_anho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lenguaje", "Sociales", "Ciencias", "Matematicas", "Ingles" }));
         getContentPane().add(cmb_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 180, -1));
 
         lblUsuario1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -88,7 +91,44 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
-        // TODO add your handling code here:
+        String anho = txtNombre.getText();
+        String NombreM = cmb_anho.getSelectedItem().toString();
+        
+      
+      BigDecimal id = null;
+      if(NombreM.equals("Lenguaje")){
+      id = new BigDecimal("1");
+      }
+      else if(NombreM.equals("Matemáticas")){
+          id = new BigDecimal("2");
+    }
+      else if(NombreM.equals("Ciencia, Salud y Medio Ambiente")){
+          id = new BigDecimal("3");
+      }
+      else if(NombreM.equals("Estudios Sociales")){
+          id = new BigDecimal("4");
+      }
+      else if(NombreM.equals("Educación Fisica")){
+          id = new BigDecimal("5");
+      }
+      else if(NombreM.equals("Educación Artistica")){
+          id = new BigDecimal("6");
+      }
+      else if(NombreM.equals("Ingles")){
+          id = new BigDecimal("7");
+      }
+      
+
+        try {
+           ConectionDB con = new ConectionDB();
+           AnhoJpaController AnhoM = new AnhoJpaController(entityMain.getInstance());           
+           Anho am = new Anho(con.GetIdToInsert("ANHO", "ID_ANHO"),anho);
+           am.setMateriaIdMateria(new Materia(id, NombreM));
+           AnhoM.create(am);
+           JOptionPane.showMessageDialog(rootPane,"Se inserto con exito.." );
+        } catch (Exception e) {
+        }
+      
     }//GEN-LAST:event_Btn_GuardarActionPerformed
 
 

@@ -5,9 +5,14 @@
  */
 package Views.Administrador;
 
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Acceso_Datos.AnhoJpaController;
+import Acceso_Datos.entityMain;
+import Logica_Negocios.Anho;
+import Logica_Negocios.Materia;
+import java.math.BigDecimal;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,17 +20,12 @@ import java.util.logging.Logger;
  */
 public class Editar_Materia extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Agregar_Alumno
-     */
+    String id="null";
+    AnhoJpaController Anhoo = new AnhoJpaController(entityMain.getInstance());
     public Editar_Materia() {
         
         initComponents();
-       
-        
-           // this.setMaximum(true);
-        
-
+        CargarTabla();
     }
 
     /**
@@ -40,14 +40,14 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
         lblUsuario = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        txtNombre = new javax.swing.JTextField();
+        txt_anho = new javax.swing.JTextField();
         Btn_Actualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         Btn_Limpiar = new javax.swing.JButton();
         lblUsuario3 = new javax.swing.JLabel();
-        txt_Id = new javax.swing.JTextField();
+        txt_materia = new javax.swing.JTextField();
         lblUsuario4 = new javax.swing.JLabel();
-        cmb_anho = new javax.swing.JComboBox();
+        txt_Id1 = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -69,7 +69,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
 
         lblUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario.setText("Materia:");
-        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
+        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,16 +83,20 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
         jTable1.setAutoscrolls(false);
         jTable1.setFocusTraversalPolicyProvider(true);
         jTable1.setFocusable(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 72, 910, 630));
 
-        txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 200, -1));
+        txt_anho.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        getContentPane().add(txt_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 200, -1));
 
         Btn_Actualizar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Actualizar.setText("Actualizar");
-        Btn_Actualizar.setEnabled(false);
         Btn_Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_ActualizarActionPerformed(evt);
@@ -106,7 +110,6 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
 
         Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Limpiar.setText("Limpiar");
-        Btn_Limpiar.setEnabled(false);
         Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_LimpiarActionPerformed(evt);
@@ -118,49 +121,105 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
         lblUsuario3.setText("Id:");
         getContentPane().add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, -1));
 
-        txt_Id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txt_Id.setEnabled(false);
-        getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
+        txt_materia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txt_materia.setEnabled(false);
+        getContentPane().add(txt_materia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 200, -1));
 
         lblUsuario4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario4.setText("Año:");
-        getContentPane().add(lblUsuario4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, 20));
+        getContentPane().add(lblUsuario4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, 20));
 
-        cmb_anho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2015", "2016", "2017", "2018", "2019", "2020", "2021" }));
-        cmb_anho.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmb_anhoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(cmb_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 100, -1));
+        txt_Id1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txt_Id1.setEnabled(false);
+        getContentPane().add(txt_Id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
-        // TODO add your handling code here:
+       id="null";
+        txt_Id1.setText("");
+        txt_materia.setText("");
+        txt_anho.setText("");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
-        // TODO add your handling code here:
+         String NombreM = txt_materia.getText();
+        
+      
+      BigDecimal idM = null;
+      if(NombreM.equals("Lenguaje")){
+      idM = new BigDecimal("1");
+      }
+      else if(NombreM.equals("Matemáticas")){
+          idM = new BigDecimal("2");
+    }
+      else if(NombreM.equals("Ciencia, Salud y Medio Ambiente")){
+          idM = new BigDecimal("3");
+      }
+      else if(NombreM.equals("Estudios Sociales")){
+          idM = new BigDecimal("4");
+      }
+      else if(NombreM.equals("Educación Fisica")){
+          idM = new BigDecimal("5");
+      }
+      else if(NombreM.equals("Educación Artistica")){
+          idM = new BigDecimal("6");
+      }
+      else if(NombreM.equals("Ingles")){
+          idM = new BigDecimal("7");
+      } 
+        try {
+            if(!id.equals("null")){
+                String anhou = txt_anho.getText();
+                Anho am = new Anho();
+                am.setAnho(anhou);
+                am.setIdAnho(new BigDecimal(id));
+                am.setMateriaIdMateria(new Materia(idM,NombreM));
+                Anhoo.edit(am);
+            }
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(rootPane, "ERROR: " + e);
+        }
+        CargarTabla();
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
-    private void cmb_anhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_anhoActionPerformed
+     
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmb_anhoActionPerformed
-
+        id=jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
+        String materia=jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
+        String anho=jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString();
+        
+        txt_Id1.setText(id);
+        txt_materia.setText(materia);
+        txt_anho.setText(anho);
+    }//GEN-LAST:event_jTable1MouseClicked
+    private void CargarTabla() {        
+        List<Anho> lm = Anhoo.findAnhoEntities();         
+        DefaultTableModel modM = (DefaultTableModel) jTable1.getModel(); 
+        modM.setRowCount(0);                
+        for(int i=0; i<lm.size(); i++)
+        {
+            String[] registroC = {lm.get(i).getIdAnho().toString(), 
+                                  lm.get(i).getMateriaIdMateria().getMateriaNombre(),
+                                  lm.get(i).getAnho()};
+            modM.addRow(registroC);
+        }          
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
     private javax.swing.JButton Btn_Limpiar;
-    private javax.swing.JComboBox cmb_anho;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuario3;
     private javax.swing.JLabel lblUsuario4;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txt_Id;
+    private javax.swing.JTextField txt_Id1;
+    private javax.swing.JTextField txt_anho;
+    private javax.swing.JTextField txt_materia;
     // End of variables declaration//GEN-END:variables
+    
 }
