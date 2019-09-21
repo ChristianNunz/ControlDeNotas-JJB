@@ -5,9 +5,11 @@
  */
 package Views.Administrador;
 
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Acceso_Datos.DocenteJpaController;
+import Acceso_Datos.entityMain;
+import Logica_Negocios.Docente;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,11 +23,25 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
     public Editar_Maestro() {
         
         initComponents();
-       
+        DefaultTableModel tableModel = (DefaultTableModel) tablaMaestros.getModel();
+        Docente m = new Docente();
+        DocenteJpaController mjc = new DocenteJpaController(entityMain.getInstance());
+        List<Docente> docentes =mjc.findDocenteEntities();
         
-           // this.setMaximum(true);
-        
-
+        for(int i=0; i<docentes.size(); i++)
+        {
+            String[] registroC = {  docentes.get(i).getIdDocente().toString(), 
+                                    docentes.get(i).getDocenteNombre(),
+                                    docentes.get(i).getDocenteApellido(),
+                                    docentes.get(i).getDocenteTel(),
+                                    docentes.get(i).getDocenteDireccion(),
+                                    docentes.get(i).getDocenteDoc(),
+                                    docentes.get(i).getDocenteFechaNac().toString(),
+                                    docentes.get(i).getDocenteEstado().toString(),
+                                    docentes.get(i).getDocenteGenero().toString(),            
+            };
+            tableModel.addRow(registroC);
+        }        
     }
 
     /**
@@ -42,7 +58,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         lblUsuario1 = new javax.swing.JLabel();
         lblUsuario2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaMaestros = new javax.swing.JTable();
         txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         lblcontra = new javax.swing.JLabel();
@@ -93,7 +109,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         lblUsuario2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario2.setText("Fecha Nacimiento:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMaestros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -101,11 +117,11 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                 "Id", "Nombre", "Apellido", "Telefono", "Direccion", "Dui", "Fecha Nac.", "Genero", "Estado"
             }
         ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable1.setAutoscrolls(false);
-        jTable1.setFocusTraversalPolicyProvider(true);
-        jTable1.setFocusable(false);
-        jScrollPane1.setViewportView(jTable1);
+        tablaMaestros.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaMaestros.setAutoscrolls(false);
+        tablaMaestros.setFocusTraversalPolicyProvider(true);
+        tablaMaestros.setFocusable(false);
+        jScrollPane1.setViewportView(tablaMaestros);
 
         txtTelefono.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -400,7 +416,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
     private datechooser.beans.DateChooserCombo dcc_fechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuario1;
     private javax.swing.JLabel lblUsuario2;
@@ -410,6 +425,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblcontra2;
     private javax.swing.JLabel lblcontra3;
     private javax.swing.JLabel lblcontra4;
+    private javax.swing.JTable tablaMaestros;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtDireccion1;
