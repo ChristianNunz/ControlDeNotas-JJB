@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2019-08-20 04:58:06.808
+-- Last modification date: 2019-09-20 04:56:39.259
 
 -- tables
 -- Table: alumno
@@ -13,6 +13,7 @@ CREATE TABLE alumno (
     alumno_fecha_nac date  NOT NULL,
     alumno_genero integer  NOT NULL,
     alumno_estado integer  NOT NULL,
+    CONSTRAINT alumno_nie_ UNIQUE (alumno_nie),
     CONSTRAINT alumno_pk PRIMARY KEY (id_alumno)
 ) ;
 
@@ -43,6 +44,7 @@ CREATE TABLE docente (
     docente_fecha_nac date  NOT NULL,
     docente_estado integer  NOT NULL,
     docente_genero integer  NOT NULL,
+    CONSTRAINT docente_doc UNIQUE (docente_doc),
     CONSTRAINT docente_pk PRIMARY KEY (id_docente)
 ) ;
 
@@ -58,6 +60,7 @@ CREATE TABLE docente_materia (
 CREATE TABLE grado (
     id_grado integer  NOT NULL,
     grado varchar2(10)  NOT NULL,
+    CONSTRAINT grado_nombre UNIQUE (grado),
     CONSTRAINT grado_pk PRIMARY KEY (id_grado)
 ) ;
 
@@ -68,6 +71,7 @@ CREATE TABLE login (
     login_clave varchar2(900)  NOT NULL,
     id_rol integer  NOT NULL,
     id_docente integer  NULL,
+    CONSTRAINT login_usuario UNIQUE (login_usuario),
     CONSTRAINT login_pk PRIMARY KEY (id_login)
 ) ;
 
@@ -75,6 +79,7 @@ CREATE TABLE login (
 CREATE TABLE materia (
     id_materia integer  NOT NULL,
     materia_nombre varchar2(50)  NOT NULL,
+    CONSTRAINT materia_nombre UNIQUE (materia_nombre),
     CONSTRAINT materia_pk PRIMARY KEY (id_materia)
 ) ;
 
@@ -116,6 +121,7 @@ CREATE TABLE responsable (
     responsable_tel varchar2(10)  NOT NULL,
     responsable_estado integer  NOT NULL,
     responsable_genero integer  NOT NULL,
+    CONSTRAINT responsable_dui UNIQUE (responsable_dui),
     CONSTRAINT responsable_pk PRIMARY KEY (id_responsable)
 ) ;
 
@@ -123,6 +129,7 @@ CREATE TABLE responsable (
 CREATE TABLE rol (
     id_rol integer  NOT NULL,
     rol_nombre varchar2(50)  NOT NULL,
+    CONSTRAINT rol_nombre UNIQUE (rol_nombre),
     CONSTRAINT rol_pk PRIMARY KEY (id_rol)
 ) ;
 
@@ -210,6 +217,7 @@ ALTER TABLE materia_grado ADD CONSTRAINT materia_grado_materia
     REFERENCES materia (id_materia);
 
 -- End of file.
+
 
 --Secuencias
 --secuencia: Alumno
