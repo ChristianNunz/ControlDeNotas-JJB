@@ -403,7 +403,10 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
             ljc.create(l);
             JOptionPane.showMessageDialog(rootPane,"Docente agregado con Exito!!");
         } catch (Exception e) {
-             JOptionPane.showConfirmDialog(rootPane,"ERROR: "+e.toString());
+            if (e.toString().contains("unique constraint")) {
+                JOptionPane.showMessageDialog(rootPane,"El maestro con doc \n" + dui+"\n ya esta registrado.");
+            }
+             JOptionPane.showMessageDialog(rootPane,"ERRO: "+ e);
         }
         
     }//GEN-LAST:event_Btn_GuardarActionPerformed
