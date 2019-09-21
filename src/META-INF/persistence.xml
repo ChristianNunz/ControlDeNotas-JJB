@@ -19,7 +19,7 @@
     <class>Logica_Negocios.MateriaGrado</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-      <property name="javax.persistence.jdbc.user" value="director"/>
+      <property name="javax.persistence.jdbc.user" value="DIRECTOR"/>
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
       <property name="javax.persistence.jdbc.password" value="jjb"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

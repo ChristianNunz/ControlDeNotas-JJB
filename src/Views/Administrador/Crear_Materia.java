@@ -5,20 +5,9 @@
  */
 package Views.Administrador;
 
-import Acceso_Datos.AnhoJpaController;
-import Acceso_Datos.ConectionDB;
-import Acceso_Datos.MateriaJpaController;
-import Acceso_Datos.entityMain;
-import Logica_Negocios.Anho;
-import Logica_Negocios.Materia;
 import java.beans.PropertyVetoException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,7 +20,12 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
      */
     public Crear_Materia() {
         
-        initComponents();               
+        initComponents();
+       
+        
+           // this.setMaximum(true);
+        
+
     }
 
     /**
@@ -44,7 +38,7 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         lblUsuario = new javax.swing.JLabel();
-        txtAnho = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         Btn_Guardar = new javax.swing.JButton();
         cmb_anho = new javax.swing.JComboBox();
         lblUsuario1 = new javax.swing.JLabel();
@@ -70,18 +64,20 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
         lblUsuario.setText("Año:");
         getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, 20));
 
-        txtAnho.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtAnho, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 200, 30));
+        txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 200, 30));
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Guardar.setText("Guardar");
+        Btn_Guardar.setEnabled(false);
         Btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_GuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 100, -1));
+        getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 100, -1));
 
+        cmb_anho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lenguaje", "Sociales", "Ciencias", "Matematicas", "Ingles" }));
         getContentPane().add(cmb_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 180, -1));
 
         lblUsuario1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -92,7 +88,7 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_Btn_GuardarActionPerformed
 
 
@@ -101,6 +97,6 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox cmb_anho;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuario1;
-    private javax.swing.JTextField txtAnho;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
