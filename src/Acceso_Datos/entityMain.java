@@ -5,6 +5,7 @@
  */
 package Acceso_Datos;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -21,5 +22,10 @@ public class entityMain {
     }
     public static EntityManagerFactory getInstance(){
         return ent;
+    }
+    public static EntityManager GetEntityManager(){
+        EntityManager em = ent.createEntityManager();
+        
+        return em;
     }
 }

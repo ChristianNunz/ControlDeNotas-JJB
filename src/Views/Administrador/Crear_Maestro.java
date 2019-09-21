@@ -6,21 +6,11 @@
 package Views.Administrador;
 
 import Acceso_Datos.ConectionDB;
-import Acceso_Datos.DocenteJpaController;
-import Acceso_Datos.LoginJpaController;
 import Acceso_Datos.entityMain;
-import Logica_Negocios.Docente;
-import Logica_Negocios.Login;
-import Logica_Negocios.Rol;
-import java.beans.PropertyVetoException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureQuery;
 import javax.swing.JOptionPane;
 
 /**
@@ -362,8 +352,7 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
         // TODO add your handling code here:
-        
-       
+               
         String nombre=txtNombre.getText();
         String apellido=txtApellido.getText();
         String tel=txtTelefono.getText();
@@ -373,6 +362,8 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
         String genero=txt_sex.getText();        
         String User=txtUser.getText();
         String pass=txtClave.getText();
+        String Mensaje;
+        
                 
         BigInteger estad;        
         if (estado.equals("Activo")) {
@@ -386,28 +377,47 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
         }else{
             gen = new BigInteger("2");
         }     
-        
-        ConectionDB cdb = new ConectionDB();                
-        Docente d = new Docente(cdb.GetIdToInsert("DOCENTE","ID_DOCENTE"),nombre,apellido, tel, direcc, dui, new Date(), estad, gen);        
-        DocenteJpaController CoDocente = new DocenteJpaController(entityMain.getInstance());                     
+        ConectionDB cdb = new ConectionDB();                                
         try {
-            CoDocente.create(d);
-            Rol r  = new Rol(BigDecimal.ONE, "Administrador");
-            Login l = new Login();        
-            l.setIdLogin(cdb.GetIdToInsert("LOGIN","ID_LOGIN"));
-            l.setIdDocente(cdb.GetLastId("DOCENTE","ID_DOCENTE"));
-            l.setIdRol(r);
-            l.setLoginClave(pass);
-            l.setLoginUsuario(User);        
-            LoginJpaController ljc = new LoginJpaController(entityMain.getInstance());
-            ljc.create(l);
-            JOptionPane.showMessageDialog(rootPane,"Docente agregado con Exito!!");
+            StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRARDOCENTE");
+        
+            spq.registerStoredProcedureParameter("dId", Integer.class, ParameterMode.IN);        
+            spq.registerStoredProcedureParameter("dNom", String.class, ParameterMode.IN);
+            spq.registerStoredProcedureParameter("dApe", String.class, ParameterMode.IN);
+            spq.registerStoredProcedureParameter("dTel", String.class, ParameterMode.IN);
+            spq.registerStoredProcedureParameter("dDirec", String.class, ParameterMode.IN);
+            spq.registerStoredProcedureParameter("dDoc", String.class, ParameterMode.IN);        
+            spq.registerStoredProcedureParameter("dFNac", Date.class, ParameterMode.IN);        
+            spq.registerStoredProcedureParameter("dEst", Integer.class, ParameterMode.IN);
+            spq.registerStoredProcedureParameter("dGen", Integer.class, ParameterMode.IN);
+            spq.registerStoredProcedureParameter("lId", Integer.class, ParameterMode.IN);        
+            spq.registerStoredProcedureParameter("dUser", String.class, ParameterMode.IN);
+            spq.registerStoredProcedureParameter("dPass", String.class, ParameterMode.IN);
+            spq.registerStoredProcedureParameter("dRol", String.class, ParameterMode.IN);
+            spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
+            
+            spq.setParameter("dId",cdb.GetIdToInsert("DOCENTE","ID_DOCENTE"));        
+            spq.setParameter("dNom",nombre);
+            spq.setParameter("dApe",apellido);
+            spq.setParameter("dTel",tel);
+            spq.setParameter("dDirec",direcc);
+            spq.setParameter("dDoc",dui);        
+            spq.setParameter("dFNac",new Date());        
+            spq.setParameter("dEst",estad);
+            spq.setParameter("dGen",gen);
+            spq.setParameter("lId",cdb.GetIdToInsert("LOGIN","ID_LOGIN"));        
+            spq.setParameter("dUser",User);
+            spq.setParameter("dPass",pass);
+            spq.setParameter("dRol","Administrador");
+            
+            spq.execute();
+            Mensaje=spq.getOutputParameterValue("msj").toString();
+            JOptionPane.showMessageDialog(rootPane,Mensaje);
         } catch (Exception e) {
-            if (e.toString().contains("unique constraint")) {
-                JOptionPane.showMessageDialog(rootPane,"El maestro con doc \n" + dui+"\n ya esta registrado.");
-            }
-             JOptionPane.showMessageDialog(rootPane,"ERRO: "+ e);
+             JOptionPane.showMessageDialog(rootPane,"Ha ocurrido un error en el sistema");
         }
+         
+        
         
     }//GEN-LAST:event_Btn_GuardarActionPerformed
 
