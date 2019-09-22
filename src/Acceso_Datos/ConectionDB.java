@@ -37,11 +37,12 @@ public class ConectionDB {
         return null;  
         } 
     }
+    
     public LinkedList<String> query (String from){
             try{
             Statement st = conn();
             ResultSet resultSet = st.executeQuery("SELECT MAX(ID_DOCENTE) FROM DOCENTE");
-
+            // CON ESTE METODO OBTENEMOS EL DOCENTE CON MAXIMO ID QUE EN ESTE CASO SERIA EL ULTIMO
             LinkedList<String> result = new LinkedList();
             while(resultSet.next()){
             for(int i=1;i<= resultSet.getMetaData().getColumnCount(); i++){
@@ -53,7 +54,7 @@ public class ConectionDB {
             return null;
             }
     }
-    //obtiene el ultimo id
+    //OBTENEMOS EL ULTIMO ID DE LA TABLA 
     public BigInteger GetLastId(String tabla, String Id){
         try {
             Statement st = conn();

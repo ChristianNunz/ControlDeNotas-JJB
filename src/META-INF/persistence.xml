@@ -2,14 +2,32 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="GestiondeNotas" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>Logica_Negocios.Nota</class>
+    <class>Logica_Negocios.Rol</class>
+    <class>Logica_Negocios.DocenteMateria</class>
+    <class>Logica_Negocios.Periodo</class>
+    <class>Logica_Negocios.Turno</class>
     <class>Logica_Negocios.Anho</class>
+    <class>Logica_Negocios.Seccion</class>
     <class>Logica_Negocios.Materia</class>
+    <class>Logica_Negocios.Docente</class>
+    <class>Logica_Negocios.Login</class>
+    <class>Logica_Negocios.Grado</class>
+    <class>Logica_Negocios.Responsable</class>
+    <class>Logica_Negocios.AlumnoResponsable</class>
+    <class>Logica_Negocios.MateriaGrado</class>
+    <class>Logica_Negocios.Alumno</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-      <property name="javax.persistence.jdbc.user" value="director"/>
+      <!--- cadena de conexion -->
+      <property name="javax.persistence.jdbc.user" value="DIRECTOR"/>
+      <!--- Usuario -->
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+      <!--- Nombre de Driver de Oracle y ruta de paquete-->
       <property name="javax.persistence.jdbc.password" value="jjb"/>
+      <!--- Contraseña -->
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <!--- Accion que se va hacer en el esquema -->
     </properties>
   </persistence-unit>
 </persistence>

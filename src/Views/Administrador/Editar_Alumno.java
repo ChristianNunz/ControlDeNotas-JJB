@@ -5,9 +5,15 @@
  */
 package Views.Administrador;
 
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Acceso_Datos.AlumnoJpaController;
+import Acceso_Datos.entityMain;
+import Logica_Negocios.Alumno;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,6 +21,10 @@ import java.util.logging.Logger;
  */
 public class Editar_Alumno extends javax.swing.JInternalFrame {
 
+   AlumnoJpaController CAlumno = new AlumnoJpaController(entityMain.getInstance());  
+   String id="null";
+  
+    
     /**
      * Creates new form Agregar_Alumno
      */
@@ -22,10 +32,9 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         
         initComponents();
        
+       CargarTabla();
         
-           // this.setMaximum(true);
-        
-
+     Btn_Actualizar.enable(true);
     }
 
     /**
@@ -42,7 +51,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         lblUsuario1 = new javax.swing.JLabel();
         lblUsuario2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_alumnos = new javax.swing.JTable();
         txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         lblcontra = new javax.swing.JLabel();
@@ -52,7 +61,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         lblcontra2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblcontra3 = new javax.swing.JLabel();
-        txtDireccion1 = new javax.swing.JTextField();
         dcc_fechaNac = new datechooser.beans.DateChooserCombo();
         lblcontra4 = new javax.swing.JLabel();
         txt_sex = new javax.swing.JTextField();
@@ -60,12 +68,9 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         txt_activ = new javax.swing.JTextField();
         btn_cmb_estado = new javax.swing.JButton();
         Btn_Limpiar = new javax.swing.JButton();
-        cmb_encargado = new javax.swing.JComboBox();
-        lblcontra5 = new javax.swing.JLabel();
         lblUsuario3 = new javax.swing.JLabel();
         txt_Id = new javax.swing.JTextField();
-        txtDireccion2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtNie = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -101,19 +106,24 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         lblUsuario2.setText("Fecha Nacimiento:");
         getContentPane().add(lblUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_alumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Telefono", "Direccion", "Fecha Nac.", "Genero"
+                "Id", "Nombre", "Apellido", "Telefono", "Nie", "Direccion", "Fecha Nac.", "Genero", "Estado"
             }
         ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable1.setAutoscrolls(false);
-        jTable1.setFocusTraversalPolicyProvider(true);
-        jTable1.setFocusable(false);
-        jScrollPane1.setViewportView(jTable1);
+        tabla_alumnos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabla_alumnos.setAutoscrolls(false);
+        tabla_alumnos.setFocusTraversalPolicyProvider(true);
+        tabla_alumnos.setFocusable(false);
+        tabla_alumnos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_alumnosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabla_alumnos);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 72, 910, 630));
 
@@ -135,7 +145,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
 
         Btn_Actualizar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Actualizar.setText("Actualizar");
-        Btn_Actualizar.setEnabled(false);
         Btn_Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_ActualizarActionPerformed(evt);
@@ -154,9 +163,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         lblcontra3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra3.setText("NIE:");
         getContentPane().add(lblcontra3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
-
-        txtDireccion1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 200, -1));
 
         dcc_fechaNac.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
             new datechooser.view.appearance.ViewAppearance("custom",
@@ -247,20 +253,12 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
 
     Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
     Btn_Limpiar.setText("Limpiar");
-    Btn_Limpiar.setEnabled(false);
     Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             Btn_LimpiarActionPerformed(evt);
         }
     });
     getContentPane().add(Btn_Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 250, -1));
-
-    cmb_encargado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Juan Rosales", "Pedro Pineda", "Alberto Castro", " " }));
-    getContentPane().add(cmb_encargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 200, -1));
-
-    lblcontra5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    lblcontra5.setText("Encargado:");
-    getContentPane().add(lblcontra5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
 
     lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
     lblUsuario3.setText("Id:");
@@ -270,18 +268,53 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     txt_Id.setEnabled(false);
     getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
 
-    txtDireccion2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    getContentPane().add(txtDireccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, -1));
-
-    jButton1.setText("Agregar Encargado");
-    jButton1.setEnabled(false);
-    getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, -1, -1));
+    txtNie.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+    getContentPane().add(txtNie, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, -1));
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
         // TODO add your handling code here:
+        try {
+            if (!id.equals("null")) {
+                
+                String nombre=txtNombre.getText();
+                String apellido=txtApellido.getText();
+                String tel=txtTelefono.getText();
+                String direcc=txtDireccion.getText();
+                String nie =txtNie.getText();
+                String date =dcc_fechaNac.getText();
+                String genero=txt_sex.getText(); 
+                String estado=txt_activ.getText();
+
+                if (txt_sex.getText().equals("Masculino")) {
+                    genero="1";
+                }else{
+                     genero="2";
+                }
+                if (txt_activ.getText().equals("Activo")) {
+                    estado="1";
+                }else{
+                    estado="2";
+                }
+                Alumno alumno = new Alumno();   
+                alumno.setIdAlumno(new BigDecimal(id));
+                alumno.setAlumnoNombre(nombre);
+                alumno.setAlumnoApelidos(apellido);
+                alumno.setAlumnoDireccion(direcc);
+                alumno.setAlumnoTel(tel);            
+                alumno.setAlumnoNie(nie);
+                alumno.setAlumnoFechaNac(new Date());
+                alumno.setAlumnoGenero(new BigInteger(genero));
+                alumno.setAlumnoEstado(new BigInteger(estado));                  
+                CAlumno.edit(alumno);
+            }
+            CargarTabla();
+            JOptionPane.showMessageDialog(null, "Alumno editado Correctamente");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
     private void btn_cmb_sexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cmb_sexActionPerformed
@@ -308,20 +341,76 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
         // TODO add your handling code here:
+        id="null";
+        txt_Id.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+        txtNie.setText("");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
-
+    
+    private void tabla_alumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_alumnosMouseClicked
+        // TODO add your handling code here:
+        
+        id = tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 0).toString();
+        String nom=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 1).toString();
+        String ape=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 2).toString();
+        String dire=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 3).toString();
+        String tel=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 4).toString();
+        String nie=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(),5).toString();
+        String fecha=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 6).toString();
+        String genero=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 7).toString();
+        String estado = tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 8).toString();
+        
+        txt_Id.setText(id);
+        txtNombre.setText(nom);
+        txtApellido.setText(ape);
+        txtDireccion.setText(dire);
+        txtTelefono.setText(tel);
+        txtNie.setText(nie);
+        dcc_fechaNac.setText(fecha);
+        
+        
+        if (genero.equals("1")) {
+            txt_sex.setText("Masculino");
+        }else{
+            txt_sex.setText("Femenino");
+        }
+        if (estado.equals("1")) {
+            txt_activ.setText("Activo");
+        }else{
+            txt_activ.setText("Inactivo");
+        }
+        
+    }//GEN-LAST:event_tabla_alumnosMouseClicked
+     private void CargarTabla() {        
+        List<Alumno> lm = CAlumno.findAlumnoEntities();         
+        DefaultTableModel modM = (DefaultTableModel) tabla_alumnos.getModel(); 
+        modM.setRowCount(0);                
+        for(int i=0; i<lm.size(); i++)
+        {
+            String[] registroC = {lm.get(i).getIdAlumno().toString(), 
+                                  lm.get(i).getAlumnoNombre(),
+                                  lm.get(i).getAlumnoApelidos(),
+            lm.get(i).getAlumnoTel(),
+            lm.get(i).getAlumnoNie(),
+            lm.get(i).getAlumnoDireccion(),
+            lm.get(i).getAlumnoFechaNac().toString(),
+            lm.get(i).getAlumnoGenero().toString(),
+            lm.get(i).getAlumnoEstado().toString()};
+            modM.addRow(registroC);
+        }          
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
     private javax.swing.JButton Btn_Limpiar;
     private javax.swing.JButton btn_cmb_estado;
     private javax.swing.JButton btn_cmb_sex;
-    private javax.swing.JComboBox cmb_encargado;
     private datechooser.beans.DateChooserCombo dcc_fechaNac;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuario1;
     private javax.swing.JLabel lblUsuario2;
@@ -331,11 +420,10 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblcontra2;
     private javax.swing.JLabel lblcontra3;
     private javax.swing.JLabel lblcontra4;
-    private javax.swing.JLabel lblcontra5;
+    private javax.swing.JTable tabla_alumnos;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtDireccion1;
-    private javax.swing.JTextField txtDireccion2;
+    private javax.swing.JTextField txtNie;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txt_Id;
