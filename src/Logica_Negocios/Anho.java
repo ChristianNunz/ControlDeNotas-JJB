@@ -16,19 +16,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author chris
+ * @author Jorge Villanueva
  */
 @Entity
 @Table(name = "ANHO")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Anho.findAll", query = "SELECT a FROM Anho a"),
-    @NamedQuery(name = "Anho.findByIdAnho", query = "SELECT a FROM Anho a WHERE a.idAnho = :idAnho"),
-    @NamedQuery(name = "Anho.findByAnho", query = "SELECT a FROM Anho a WHERE a.anho = :anho")})
+    @NamedQuery(name = "Anho.findAll", query = "SELECT a FROM Anho a")})
 public class Anho implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation

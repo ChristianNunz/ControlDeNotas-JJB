@@ -17,19 +17,16 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author chris
+ * @author Jorge Villanueva
  */
 @Entity
 @Table(name = "MATERIA")
 @NamedQueries({
     @NamedQuery(name = "Materia.findAll", query = "SELECT m FROM Materia m")})
 public class Materia implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materiaIdMateria")
-    private List<Anho> anhoList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -39,6 +36,8 @@ public class Materia implements Serializable {
     @Basic(optional = false)
     @Column(name = "MATERIA_NOMBRE")
     private String materiaNombre;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materiaIdMateria")
+    private List<Anho> anhoList;
 
     public Materia() {
     }
@@ -68,6 +67,14 @@ public class Materia implements Serializable {
         this.materiaNombre = materiaNombre;
     }
 
+    public List<Anho> getAnhoList() {
+        return anhoList;
+    }
+
+    public void setAnhoList(List<Anho> anhoList) {
+        this.anhoList = anhoList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -91,15 +98,6 @@ public class Materia implements Serializable {
     @Override
     public String toString() {
         return "Logica_Negocios.Materia[ idMateria=" + idMateria + " ]";
-    }
-
-    @XmlTransient
-    public List<Anho> getAnhoList() {
-        return anhoList;
-    }
-
-    public void setAnhoList(List<Anho> anhoList) {
-        this.anhoList = anhoList;
     }
     
 }
