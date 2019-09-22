@@ -332,6 +332,67 @@ BEGIN
             
         END IF;        
 END;
+--Procedimiento: registrar docente
+CREATE OR REPLACE PROCEDURE DIRECTOR.RegistrarDocente
+(dId in NUMBER, dNom in VARCHAR2, dApe in VARCHAR2,
+dTel in VARCHAR2, dDirec in VARCHAR2, dDoc in VARCHAR2,
+dFNac in Date, dEst in NUMBER, dGen in NUMBER,
+lId in NUMBER,dUser in VARCHAR2, dPass in VARCHAR2, dRol in VARCHAR2,
+msj out VARCHAR)
+is
+    dui VARCHAR2(12);
+    usser VARCHAR2(50);
+    duiExist NUMBER;
+    userExist NUMBER;
+    rolExist NUMBER;
+    idrol NUMBER;
+    mensaje VARCHAR2(100);
+BEGIN
+
+    BEGIN
+        SELECT d.docente_doc INTO dui FROM docente d WHERE d.docente_doc = dDoc; 
+        duiExist:=1;
+    EXCEPTION
+        when others then
+        duiExist:=0;
+    END;
+
+    BEGIN
+        SELECT l.login_usuario INTO usser FROM login l WHERE l.login_usuario = dUser;
+         userExist:=1;
+    EXCEPTION
+        when others then
+        userExist:=0;
+    END;
+
+    BEGIN
+        SELECT r.id_rol INTO idrol  FROM ROL R WHERE r.rol_nombre=dRol; 
+        rolExist:=1;
+    EXCEPTION
+        when others then
+        rolExist:=0;
+    END;
+
+    IF (duiExist=1) THEN
+        mensaje:='El dui, ya esta registrado';
+    ELSE
+        IF (userExist=1) THEN
+             mensaje:='El usuario, ya esta siendo usado.';
+        ELSE
+
+            BEGIN                
+                INSERT INTO docente VALUES(dId, dNom, dApe, dTel, dDirec, dDoc, dFNac, dEst, dGen);                
+                INSERT INTO login VALUES(lId,dUser,dPass,idrol,dId);                 
+                mensaje:= 'Registrado!!';
+            EXCEPTION
+                when others then
+                Rollback;
+                mensaje:='Ha ocurrido un error al registrar los datos.';
+            END;            
+        END IF;
+    END IF; 
+    msj:=mensaje;
+END;
 
 --Fin de procedimientos almacenados
 
