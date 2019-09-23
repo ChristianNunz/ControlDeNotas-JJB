@@ -6,11 +6,13 @@
 package Views;
 
 import Acceso_Datos.ConectionDB;
+import Excel.Excel;
 import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 
@@ -27,6 +29,7 @@ public class Login extends javax.swing.JFrame {
        
         initComponents();
          setLocationRelativeTo(null);
+         
     }
 
     /**
@@ -159,7 +162,8 @@ public class Login extends javax.swing.JFrame {
 
     private void Btn_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_IniciarActionPerformed
         // TODO add your handling code here:             
-        
+        Excel excel = new Excel();
+        JOptionPane.showMessageDialog(rootPane, excel.ReadFileExcel());
         String user=txt_usuario.getText();
         if (user.equals("admin")) {
             

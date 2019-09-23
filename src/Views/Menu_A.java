@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Excel.Excel;
 import Views.Administrador.Asignar_Materia;
 import Views.Administrador.Crear_Alumno;
 import Views.Administrador.Crear_Maestro;
@@ -41,6 +42,7 @@ public class Menu_A extends javax.swing.JFrame {
         this.setExtendedState(Menu_A.MAXIMIZED_BOTH);
         
         initComponents();
+        
       
     }
 
