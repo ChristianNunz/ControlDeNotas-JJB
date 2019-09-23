@@ -5,27 +5,35 @@
  */
 package Views.Administrador;
 
+import Acceso_Datos.DocenteJpaController;
+import Acceso_Datos.ResponsableJpaController;
+import Acceso_Datos.entityMain;
+import Logica_Negocios.Docente;
+import Logica_Negocios.Responsable;
 import java.beans.PropertyVetoException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Jorge Villanueva
  */
 public class Editar_Maestro extends javax.swing.JInternalFrame {
-
+    DocenteJpaController ConDocen = new DocenteJpaController(entityMain.getInstance());  
+   String id="null";
     /**
      * Creates new form Agregar_Alumno
      */
     public Editar_Maestro() {
         
-        initComponents();
-       
-        
-           // this.setMaximum(true);
-        
-
+        initComponents();      
+        CargarTabla();           
     }
 
     /**
@@ -42,7 +50,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         lblUsuario1 = new javax.swing.JLabel();
         lblUsuario2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla_Docente = new javax.swing.JTable();
         txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         lblcontra = new javax.swing.JLabel();
@@ -52,7 +60,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         lblcontra2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblcontra3 = new javax.swing.JLabel();
-        txtDireccion1 = new javax.swing.JTextField();
+        txtdui = new javax.swing.JTextField();
         dcc_fechaNac = new datechooser.beans.DateChooserCombo();
         lblcontra4 = new javax.swing.JLabel();
         txt_sex = new javax.swing.JTextField();
@@ -62,7 +70,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         Btn_Limpiar = new javax.swing.JButton();
         lblUsuario3 = new javax.swing.JLabel();
         txt_Id = new javax.swing.JTextField();
-        Btn_Actualizar1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -93,7 +100,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         lblUsuario2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario2.setText("Fecha Nacimiento:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla_Docente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -101,11 +108,16 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                 "Id", "Nombre", "Apellido", "Telefono", "Direccion", "Dui", "Fecha Nac.", "Genero", "Estado"
             }
         ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable1.setAutoscrolls(false);
-        jTable1.setFocusTraversalPolicyProvider(true);
-        jTable1.setFocusable(false);
-        jScrollPane1.setViewportView(jTable1);
+        Tabla_Docente.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        Tabla_Docente.setAutoscrolls(false);
+        Tabla_Docente.setFocusTraversalPolicyProvider(true);
+        Tabla_Docente.setFocusable(false);
+        Tabla_Docente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla_DocenteMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Tabla_Docente);
 
         txtTelefono.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -120,7 +132,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
 
         Btn_Actualizar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Actualizar.setText("Actualizar");
-        Btn_Actualizar.setEnabled(false);
         Btn_Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_ActualizarActionPerformed(evt);
@@ -136,7 +147,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         lblcontra3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra3.setText("Dui:");
 
-        txtDireccion1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtdui.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         dcc_fechaNac.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
             new datechooser.view.appearance.ViewAppearance("custom",
@@ -221,7 +232,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
 
     Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
     Btn_Limpiar.setText("Limpiar");
-    Btn_Limpiar.setEnabled(false);
     Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             Btn_LimpiarActionPerformed(evt);
@@ -233,15 +243,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
 
     txt_Id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
     txt_Id.setEnabled(false);
-
-    Btn_Actualizar1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    Btn_Actualizar1.setText("Restablecer Contraseña");
-    Btn_Actualizar1.setEnabled(false);
-    Btn_Actualizar1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            Btn_Actualizar1ActionPerformed(evt);
-        }
-    });
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -268,28 +269,23 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(Btn_Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
+                            .addGap(11, 11, 11)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(Btn_Actualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(1, 1, 1))
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtdui, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dcc_fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(11, 11, 11)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtDireccion1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(dcc_fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txt_activ, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(btn_cmb_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(btn_cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txt_activ, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btn_cmb_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn_cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGap(45, 45, 45)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(Btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -325,7 +321,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                     .addGap(7, 7, 7)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblcontra3)
-                        .addComponent(txtDireccion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtdui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(7, 7, 7)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblUsuario2)
@@ -342,22 +338,59 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                             .addComponent(lblcontra4))
                         .addComponent(txt_activ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_cmb_estado))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(Btn_Actualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(148, 148, 148)
+                    .addGap(195, 195, 195)
                     .addComponent(Btn_Actualizar)
                     .addGap(5, 5, 5)
                     .addComponent(Btn_Limpiar))
                 .addGroup(layout.createSequentialGroup()
                     .addGap(2, 2, 2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(23, Short.MAX_VALUE))
     );
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
-        // TODO add your handling code here:
+         // 
+        try {
+            if (!id.equals("null")) {
+                
+                String nombre=txtNombre.getText();
+                String apellido=txtApellido.getText();
+                String tel=txtTelefono.getText();
+                String direcc=txtDireccion.getText();
+                String dui =txtdui.getText();                
+                String genero=txt_sex.getText(); 
+                String estado=txt_activ.getText();
+
+                if (txt_sex.getText().equals("Masculino")) {
+                    genero="1";
+                }else{
+                     genero="2";
+                }
+                if (txt_activ.getText().equals("Activo")) {
+                    estado="1";
+                }else{
+                    estado="2";
+                }
+                Docente Docent = new Docente();   
+                Docent.setIdDocente(new BigDecimal(id));
+                Docent.setDocenteNombre(nombre);
+                Docent.setDocenteApellido(apellido);
+                Docent.setDocenteTel(tel);
+                Docent.setDocenteDireccion(direcc);            
+                Docent.setDocenteDoc(dui);
+                Docent.setDocenteFechaNac(new Date());
+                Docent.setDocenteGenero(new BigInteger(genero));
+                Docent.setDocenteEstado(new BigInteger(estado));                  
+                ConDocen.edit(Docent);
+            }
+            CargarTabla();
+            JOptionPane.showMessageDialog(null, "Docente Editado Correctamente");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
     private void btn_cmb_sexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cmb_sexActionPerformed
@@ -384,23 +417,76 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
         // TODO add your handling code here:
+        txt_Id.setText(id);
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono.setText("");
+        txtDireccion.setText("");
+        txtdui.setText("");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
-    private void Btn_Actualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Actualizar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Btn_Actualizar1ActionPerformed
-
+    private void Tabla_DocenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla_DocenteMouseClicked
+         // Evento al Seleccionar un dato que este en el grid
+         id = Tabla_Docente.getValueAt(Tabla_Docente.getSelectedRow(), 0).toString();
+        String nom=Tabla_Docente.getValueAt(Tabla_Docente.getSelectedRow(), 1).toString();
+        String ape=Tabla_Docente.getValueAt(Tabla_Docente.getSelectedRow(), 2).toString();
+        String tel=Tabla_Docente.getValueAt(Tabla_Docente.getSelectedRow(), 3).toString();
+        String direc=Tabla_Docente.getValueAt(Tabla_Docente.getSelectedRow(), 4).toString();
+        String dui=Tabla_Docente.getValueAt(Tabla_Docente.getSelectedRow(),5).toString(); 
+        String fecha=Tabla_Docente.getValueAt(Tabla_Docente.getSelectedRow(), 6).toString();
+        String genero=Tabla_Docente.getValueAt(Tabla_Docente.getSelectedRow(), 7).toString();
+        String estado = Tabla_Docente.getValueAt(Tabla_Docente.getSelectedRow(), 8).toString();
+        
+        
+        txt_Id.setText(id);
+        txtNombre.setText(nom);
+        txtApellido.setText(ape);
+        txtTelefono.setText(tel);
+        txtDireccion.setText(direc);
+        txtdui.setText(dui);
+       
+        if (genero.equals("1")) {
+            txt_sex.setText("Masculino");
+        }else{
+            txt_sex.setText("Femenino");
+        }
+        if (estado.equals("1")) {
+            txt_activ.setText("Activo");
+        }else{
+            txt_activ.setText("Inactivo");
+        }
+        
+    }//GEN-LAST:event_Tabla_DocenteMouseClicked
+private void CargarTabla() {        
+        List<Docente> lm = ConDocen.findDocenteEntities();         
+        DefaultTableModel modM = (DefaultTableModel) Tabla_Docente.getModel(); 
+        modM.setRowCount(0);   
+        
+        
+        for(int i=0; i<lm.size(); i++)
+        {
+            String[] registroC = {lm.get(i).getIdDocente().toString(), 
+                                  lm.get(i).getDocenteNombre(),
+                                  lm.get(i).getDocenteApellido(),
+                                  lm.get(i).getDocenteTel(),
+                                  lm.get(i).getDocenteDireccion(),
+                                  lm.get(i).getDocenteDoc(),
+                                  lm.get(i).getDocenteFechaNac().toString(),                                        
+                                  lm.get(i).getDocenteGenero().toString(),
+                                  lm.get(i).getDocenteEstado().toString()};
+                                  modM.addRow(registroC);
+        }  
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
-    private javax.swing.JButton Btn_Actualizar1;
     private javax.swing.JButton Btn_Limpiar;
+    private javax.swing.JTable Tabla_Docente;
     private javax.swing.JButton btn_cmb_estado;
     private javax.swing.JButton btn_cmb_sex;
     private datechooser.beans.DateChooserCombo dcc_fechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuario1;
     private javax.swing.JLabel lblUsuario2;
@@ -412,11 +498,11 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblcontra4;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtDireccion1;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txt_Id;
     private javax.swing.JTextField txt_activ;
     private javax.swing.JTextField txt_sex;
+    private javax.swing.JTextField txtdui;
     // End of variables declaration//GEN-END:variables
 }
