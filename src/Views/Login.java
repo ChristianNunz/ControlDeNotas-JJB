@@ -162,8 +162,8 @@ public class Login extends javax.swing.JFrame {
 
     private void Btn_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_IniciarActionPerformed
         // TODO add your handling code here:             
-        Excel excel = new Excel();
-        JOptionPane.showMessageDialog(rootPane, excel.ReadFileExcel());
+//        Excel excel = new Excel();
+//        JOptionPane.showMessageDialog(rootPane, excel.ReadFileExcel());
         String user=txt_usuario.getText();
         if (user.equals("admin")) {
             

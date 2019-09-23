@@ -78,7 +78,15 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
             new String [] {
                 "Id", "Materia", "Año"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setAutoscrolls(false);
         jTable1.setFocusTraversalPolicyProvider(true);
@@ -144,9 +152,8 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
-         String NombreM = txt_materia.getText();
-        
-      
+      String NombreM = txt_materia.getText();
+
       BigDecimal idM = null;
       if(NombreM.equals("Lenguaje")){
       idM = new BigDecimal("1");
@@ -177,11 +184,12 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
                 am.setIdAnho(new BigDecimal(id));
                 am.setMateriaIdMateria(new Materia(idM,NombreM));
                 Anhoo.edit(am);
-            }
+            CargarTabla();
+                JOptionPane.showMessageDialog(null, "Materia Editada Correctamente");
+            }            
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(rootPane, "ERROR: " + e);
+             JOptionPane.showMessageDialog(rootPane, "Algo salio mal.");
         }
-        CargarTabla();
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
      

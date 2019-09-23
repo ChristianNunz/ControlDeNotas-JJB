@@ -6,17 +6,12 @@
 package Views.Administrador;
 
 import Acceso_Datos.DocenteJpaController;
-import Acceso_Datos.ResponsableJpaController;
 import Acceso_Datos.entityMain;
 import Logica_Negocios.Docente;
-import Logica_Negocios.Responsable;
-import java.beans.PropertyVetoException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -107,7 +102,15 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
             new String [] {
                 "Id", "Nombre", "Apellido", "Telefono", "Direccion", "Dui", "Fecha Nac.", "Genero", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         Tabla_Docente.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         Tabla_Docente.setAutoscrolls(false);
         Tabla_Docente.setFocusTraversalPolicyProvider(true);
@@ -345,7 +348,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(2, 2, 2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(23, Short.MAX_VALUE))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     pack();
@@ -385,11 +388,11 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                 Docent.setDocenteGenero(new BigInteger(genero));
                 Docent.setDocenteEstado(new BigInteger(estado));                  
                 ConDocen.edit(Docent);
-            }
-            CargarTabla();
-            JOptionPane.showMessageDialog(null, "Docente Editado Correctamente");
+                CargarTabla();
+                JOptionPane.showMessageDialog(null, "Docente Editado Correctamente");
+            }            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+             JOptionPane.showMessageDialog(rootPane, "Algo salio mal.");
         }
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
@@ -417,7 +420,8 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
         // TODO add your handling code here:
-        txt_Id.setText(id);
+        id="null";
+        txt_Id.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
         txtTelefono.setText("");

@@ -113,7 +113,15 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
             new String [] {
                 "Id", "Nombre", "Apellido", "Telefono", "Nie", "Direccion", "Fecha Nac.", "Genero", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabla_alumnos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabla_alumnos.setAutoscrolls(false);
         tabla_alumnos.setFocusTraversalPolicyProvider(true);
@@ -309,11 +317,11 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
                 alumno.setAlumnoGenero(new BigInteger(genero));
                 alumno.setAlumnoEstado(new BigInteger(estado));                  
                 CAlumno.edit(alumno);
-            }
-            CargarTabla();
-            JOptionPane.showMessageDialog(null, "Alumno editado Correctamente");
+                CargarTabla();
+                JOptionPane.showMessageDialog(rootPane, "Alumno editado Correctamente");
+            }            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(rootPane, "Algo salio mal.");
         }
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
