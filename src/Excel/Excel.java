@@ -98,15 +98,10 @@ public class Excel {
 		}
     }
     
-    public String ReadFileExcel(){
+    public String ReadFileExcel(File src){
         String result="";
-        try {
-            String filePath = "C:\\Users\\Jorge Villanueva\\Desktop\\TPS 2019\\Proyecto TPS\\Formato.xlsx";
-            
-        File src = new File(filePath);
-        
-        FileInputStream fin = new FileInputStream(src);
-        
+        try {                    
+        FileInputStream fin = new FileInputStream(src);        
         XSSFWorkbook workbook = new XSSFWorkbook(fin);
         XSSFSheet sheet = workbook.getSheetAt(0);
         
