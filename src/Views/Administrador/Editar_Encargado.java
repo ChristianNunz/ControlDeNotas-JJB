@@ -5,26 +5,36 @@
  */
 package Views.Administrador;
 
+import Acceso_Datos.AlumnoJpaController;
+import Acceso_Datos.ResponsableJpaController;
+import Acceso_Datos.entityMain;
+import Logica_Negocios.Alumno;
+import Logica_Negocios.Responsable;
 import java.beans.PropertyVetoException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Jorge Villanueva
  */
 public class Editar_Encargado extends javax.swing.JInternalFrame {
-
+   ResponsableJpaController ConResp = new ResponsableJpaController(entityMain.getInstance());  
+   String id="null";
     /**
      * Creates new form Agregar_Alumno
      */
     public Editar_Encargado() {
         
         initComponents();
-       
-        
-           // this.setMaximum(true);
-        
+           //Mandamos a llamar el metodo que carga el Grid;
+        CargarTabla();
 
     }
 
@@ -41,7 +51,7 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         lblcontra1 = new javax.swing.JLabel();
         lblUsuario1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla_Resp = new javax.swing.JTable();
         txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         lblcontra = new javax.swing.JLabel();
@@ -51,7 +61,7 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         lblcontra2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblcontra3 = new javax.swing.JLabel();
-        txtDireccion1 = new javax.swing.JTextField();
+        txtDui = new javax.swing.JTextField();
         lblcontra4 = new javax.swing.JLabel();
         txt_sex = new javax.swing.JTextField();
         btn_cmb_sex = new javax.swing.JButton();
@@ -94,19 +104,24 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         lblUsuario1.setText("Telefono:");
         getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 70, 30));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla_Resp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nombre", "Apellido", "Telefono", "Direccion", "Dui", "Genero", "Estado"
+                "Id", "Nombre", "Apellido", "Direccion", "Dui", "Telefono", "Genero", "Estado"
             }
         ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable1.setAutoscrolls(false);
-        jTable1.setFocusTraversalPolicyProvider(true);
-        jTable1.setFocusable(false);
-        jScrollPane1.setViewportView(jTable1);
+        Tabla_Resp.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        Tabla_Resp.setAutoscrolls(false);
+        Tabla_Resp.setFocusTraversalPolicyProvider(true);
+        Tabla_Resp.setFocusable(false);
+        Tabla_Resp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla_RespMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Tabla_Resp);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 72, 910, 630));
 
@@ -129,7 +144,6 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
 
         Btn_Actualizar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Actualizar.setText("Actualizar");
-        Btn_Actualizar.setEnabled(false);
         Btn_Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_ActualizarActionPerformed(evt);
@@ -151,8 +165,8 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         lblcontra3.setText("Dui:");
         getContentPane().add(lblcontra3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 70, 30));
 
-        txtDireccion1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 200, 30));
+        txtDui.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        getContentPane().add(txtDui, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 200, 30));
 
         lblcontra4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -190,7 +204,6 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
 
         Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Limpiar.setText("Limpiar");
-        Btn_Limpiar.setEnabled(false);
         Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_LimpiarActionPerformed(evt);
@@ -211,7 +224,45 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
-        // TODO add your handling code here:
+        // 
+        try {
+            if (!id.equals("null")) {
+                
+                String nombre=txtNombre.getText();
+                String apellido=txtApellido.getText();
+                String tel=txtTelefono.getText();
+                String direcc=txtDireccion.getText();
+                String dui =txtDui.getText();                
+                String genero=txt_sex.getText(); 
+                String estado=txt_activ.getText();
+
+                if (txt_sex.getText().equals("Masculino")) {
+                    genero="1";
+                }else{
+                     genero="2";
+                }
+                if (txt_activ.getText().equals("Activo")) {
+                    estado="1";
+                }else{
+                    estado="2";
+                }
+                Responsable responsable = new Responsable();   
+                responsable.setIdResponsable(new BigDecimal(id));
+                responsable.setResponsableNombre(nombre);
+                responsable.setResponsableApellidos(apellido);
+                responsable.setResponsableTel(tel);
+                responsable.setResponsableDireccion(direcc);            
+                responsable.setResponsableDui(dui);
+                responsable.setResponsableGenero(new BigInteger(genero));
+                responsable.setResponsableEstado(new BigInteger(estado));                  
+                ConResp.edit(responsable);
+            }
+            CargarTabla();
+            JOptionPane.showMessageDialog(null, "Encargado Editado Correctamente");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
     private void btn_cmb_sexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cmb_sexActionPerformed
@@ -238,17 +289,74 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
         // TODO add your handling code here:
+        
+        txt_Id.setText(id);
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono.setText("");
+        txtDireccion.setText("");
+        txtDui.setText("");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
+    private void Tabla_RespMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla_RespMouseClicked
+        // Evento al Seleccionar un dato que este en el grid
+         id = Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 0).toString();
+        String nom=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 1).toString();
+        String ape=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 2).toString();
+        String tel=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 3).toString();
+        String direc=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 4).toString();
+        String dui=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(),5).toString();    
+        String genero=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 6).toString();
+        String estado = Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 7).toString();
+        
+        
+        txt_Id.setText(id);
+        txtNombre.setText(nom);
+        txtApellido.setText(ape);
+        txtTelefono.setText(tel);
+        txtDireccion.setText(direc);
+        txtDui.setText(dui);
+       
+        if (genero.equals("1")) {
+            txt_sex.setText("Masculino");
+        }else{
+            txt_sex.setText("Femenino");
+        }
+        if (estado.equals("1")) {
+            txt_activ.setText("Activo");
+        }else{
+            txt_activ.setText("Inactivo");
+        }
+        
+    }//GEN-LAST:event_Tabla_RespMouseClicked
+private void CargarTabla() {        
+        List<Responsable> lm = ConResp.findResponsableEntities();         
+        DefaultTableModel modM = (DefaultTableModel) Tabla_Resp.getModel(); 
+        modM.setRowCount(0);   
+        
+        
+        for(int i=0; i<lm.size(); i++)
+        {
+            String[] registroC = {lm.get(i).getIdResponsable().toString(), 
+                                  lm.get(i).getResponsableNombre(),
+                                  lm.get(i).getResponsableApellidos(),
+                                  lm.get(i).getResponsableDireccion(),
+                                  lm.get(i).getResponsableDui(),
+                                  lm.get(i).getResponsableTel(),                                               
+                                  lm.get(i).getResponsableGenero().toString(),
+                                  lm.get(i).getResponsableEstado().toString()};
+                                  modM.addRow(registroC);
+        }  
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
     private javax.swing.JButton Btn_Limpiar;
+    private javax.swing.JTable Tabla_Resp;
     private javax.swing.JButton btn_cmb_estado;
     private javax.swing.JButton btn_cmb_sex;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuario1;
     private javax.swing.JLabel lblUsuario3;
@@ -259,7 +367,7 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblcontra4;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtDireccion1;
+    private javax.swing.JTextField txtDui;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txt_Id;
