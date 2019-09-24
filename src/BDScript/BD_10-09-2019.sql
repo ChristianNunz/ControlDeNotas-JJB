@@ -25,14 +25,6 @@ CREATE TABLE alumno_responsable (
     CONSTRAINT alumno_responsable_pk PRIMARY KEY (id_alumno_responsable)
 ) ;
 
--- Table: anho
-CREATE TABLE anho (
-    id_anho integer  NOT NULL,
-    anho varchar2(4)  NOT NULL,
-    materia_id_materia integer  NOT NULL,
-    CONSTRAINT anho_pk PRIMARY KEY (id_anho)
-) ;
-
 -- Table: docente
 CREATE TABLE docente (
     id_docente integer  NOT NULL,
@@ -88,6 +80,9 @@ CREATE TABLE materia_grado (
     id_materia_grado integer  NOT NULL,
     id_materia integer  NOT NULL,
     id_grado integer  NOT NULL,
+    id_seccion integer  NOT NULL,
+    id_turno integer  NOT NULL,
+    anho integer  NOT NULL,
     CONSTRAINT materia_grado_pk PRIMARY KEY (id_materia_grado)
 ) ;
 
@@ -137,8 +132,6 @@ CREATE TABLE rol (
 CREATE TABLE seccion (
     id_seccion integer  NOT NULL,
     nombre_seccion char(3)  NOT NULL,
-    id_materia integer  NOT NULL,
-    id_turno integer  NOT NULL,
     estado integer  NOT NULL,
     CONSTRAINT seccion_pk PRIMARY KEY (id_seccion)
 ) ;
@@ -171,16 +164,6 @@ ALTER TABLE periodo ADD CONSTRAINT Periodo_Nota
     FOREIGN KEY (id_nota)
     REFERENCES nota (id_nota);
 
--- Reference: Seccion_Materia (table: seccion)
-ALTER TABLE seccion ADD CONSTRAINT Seccion_Materia
-    FOREIGN KEY (id_materia)
-    REFERENCES materia (id_materia);
-
--- Reference: Seccion_Turno (table: seccion)
-ALTER TABLE seccion ADD CONSTRAINT Seccion_Turno
-    FOREIGN KEY (id_turno)
-    REFERENCES turno (id_turno);
-
 -- Reference: alumno_responsable_Alumno (table: alumno_responsable)
 ALTER TABLE alumno_responsable ADD CONSTRAINT alumno_responsable_Alumno
     FOREIGN KEY (id_alumno)
@@ -190,11 +173,6 @@ ALTER TABLE alumno_responsable ADD CONSTRAINT alumno_responsable_Alumno
 ALTER TABLE alumno_responsable ADD CONSTRAINT alumno_responsable_Responsable
     FOREIGN KEY (id_esponsable)
     REFERENCES responsable (id_responsable);
-
--- Reference: anho_materia (table: anho)
-ALTER TABLE anho ADD CONSTRAINT anho_materia
-    FOREIGN KEY (materia_id_materia)
-    REFERENCES materia (id_materia);
 
 -- Reference: docente_materia_docente (table: docente_materia)
 ALTER TABLE docente_materia ADD CONSTRAINT docente_materia_docente
@@ -215,6 +193,16 @@ ALTER TABLE materia_grado ADD CONSTRAINT materia_grado_grado
 ALTER TABLE materia_grado ADD CONSTRAINT materia_grado_materia
     FOREIGN KEY (id_materia)
     REFERENCES materia (id_materia);
+
+-- Reference: materia_grado_seccion (table: materia_grado)
+ALTER TABLE materia_grado ADD CONSTRAINT materia_grado_seccion
+    FOREIGN KEY (id_seccion)
+    REFERENCES seccion (id_seccion);
+
+-- Reference: materia_grado_turno (table: materia_grado)
+ALTER TABLE materia_grado ADD CONSTRAINT materia_grado_turno
+    FOREIGN KEY (id_turno)
+    REFERENCES turno (id_turno);
 
 -- End of file.
 
@@ -258,8 +246,47 @@ CREATE SEQUENCE tbAlumno
  CACHE 20;
 
  --Fin de secuencias
-
-
+ 
+ ---INSERT INTO MATERIA
+ INSERT INTO MATERIA VALUES(1,'Lenguaje');
+ INSERT INTO MATERIA VALUES(2,'Matemáticas');
+ INSERT INTO MATERIA VALUES(3,'Ciencia, Salud y Medio Ambiente');
+ INSERT INTO MATERIA VALUES(4,'Estudios Sociales');
+ INSERT INTO MATERIA VALUES(5,'Educación Fisica');
+ INSERT INTO MATERIA VALUES(6,'Educación Artistica');
+ INSERT INTO MATERIA VALUES(7,'Ingles');
+ --INSERT INTO GRADO
+ INSERT INTO GRADO VALUES(1,'4');
+ INSERT INTO GRADO VALUES(2,'5');
+ INSERT INTO GRADO VALUES(3,'6');
+ INSERT INTO GRADO VALUES(4,'7');
+ INSERT INTO GRADO VALUES(5,'8');
+ INSERT INTO GRADO VALUES(6,'9');
+ --INSERT INTO SECCION
+ INSERT INTO SECCION VALUES(1,'A',1);
+ INSERT INTO SECCION VALUES(2,'B',1);
+ INSERT INTO SECCION VALUES(3,'C',1);
+ --INSERT INTO TURNO
+ INSERT INTO TURNO VALUES(1,'Matutino');
+ INSERT INTO TURNO VALUES(2,'vespertino');
+ --INSERT INTO ROL
+ INSERT INTO ROL VALUES(1,'Administrador');
+ INSERT INTO ROL VALUES(2,'Docente');
+ --INSERT INTO DOCENTE 
+ INSERT INTO DOCENTE VALUES(1,'Jose Mauricio','Gonzales Renderos','7456-9525','Santa Ana','05041254-8','12/05/1992',1,1);
+ INSERT INTO DOCENTE VALUES(2,'Salvador Alex','Perez Nieto','7586-9525','San Miguel','05031054-8','12/05/1992',1,1);
+--INSERT INTO LOGIN
+ INSERT INTO LOGIN VALUES(1,'USER1','PASS3',1,1);
+ INSERT INTO LOGIN VALUES(2,'USER2','PASS4',1,2);
+ --INSERT INTO ALUMNO
+ INSERT INTO ALUMNO VALUES(1,'Jesus Alfredo','Roque Simeon','Santa Ana','7823-5128','126581238','12/03/2000',1,1);
+ INSERT INTO ALUMNO VALUES(2,'Adrian Victor','Torres Lopez','Santa Ana','7823-5328','129581238','10/03/2000',1,1);
+ --INSERT INTO RESPONSABLE
+ INSERT INTO RESPONSABLE VALUES(1,'Juan Jose','Roque Mendoza','Santa Ana','06054795-5','7195-1973',1,1);
+ INSERT INTO RESPONSABLE VALUES(2,'Francisco Alonso','Torres Mendoza','Santa Ana','06854795-5','7195-1973',1,1);
+ --INSERT INTO ALUMNO_RESPONSABLE
+ INSERT INTO ALUMNO_RESPONSABLE VALUES(1,1,1);
+ INSERT INTO ALUMNO_RESPONSABLE VALUES(2,2,2);
 --Procedimientos Almacenados
 --Procedimiento: Registrar Alumno y Responsable
 CREATE OR REPLACE PROCEDURE registrar_alumno_representante
@@ -303,8 +330,8 @@ BEGIN
         FROM grado GRA
             INNER JOIN materia_grado MATG ON gra.id_grado = matg.id_grado
             INNER JOIN materia MAT ON matg.id_materia=mat.id_materia
-            INNER JOIN seccion SEC ON mat.id_materia=sec.id_materia
-            INNER JOIN docente_materia DM ON sec.id_materia=dm.id_materia
+            INNER JOIN seccion SEC ON matg.id_seccion=sec.id_seccion
+            INNER JOIN docente_materia DM ON mat.id_materia=dm.id_materia
             INNER JOIN docente DOC ON dm.id_docente=doc.id_docente
         WHERE doc.id_docente=dId;
     EXCEPTION
