@@ -255,7 +255,7 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
                     .addComponent(Btn_Cargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Btn_ReCargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Btn_ReCargar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -272,7 +272,8 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
         
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter( new FileNameExtensionFilter("Excel", "xlsx"));
-        chooser.showOpenDialog(null);
+        chooser.setCurrentDirectory(new File(chooser.getCurrentDirectory().getPath().replace(chooser.getCurrentDirectory().getName(),"Desktop")));
+        chooser.showOpenDialog(rootPane);
         src = chooser.getSelectedFile();
         LeerExcel(src);
         CargarTabla();
