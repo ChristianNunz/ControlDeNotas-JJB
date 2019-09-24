@@ -12,11 +12,11 @@ package Excel;
 public class ModeloAlumnoNota {
     private String Nombre;
     private String Apellido;
-    private String Nota1;
-    private String Nota2;
-    private String Nota3;
+    private double Nota1;
+    private double Nota2;
+    private double Nota3;
 
-    public ModeloAlumnoNota(String Nombre, String Apellido, String Nota1, String Nota2, String Nota3) {
+    public ModeloAlumnoNota(String Nombre, String Apellido, double Nota1, double Nota2, double Nota3) {
         this.Nombre = Nombre;
         this.Apellido = Apellido;
         this.Nota1 = Nota1;
@@ -32,15 +32,15 @@ public class ModeloAlumnoNota {
         return Apellido;
     }
 
-    public String getNota1() {
+    public double getNota1() {
         return Nota1;
     }
 
-    public String getNota2() {
+    public double getNota2() {
         return Nota2;
     }
 
-    public String getNota3() {
+    public double getNota3() {
         return Nota3;
     }
     

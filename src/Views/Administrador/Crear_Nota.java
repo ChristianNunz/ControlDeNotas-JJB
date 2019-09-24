@@ -29,9 +29,13 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
     /**
      * Creates new form Agregar_Alumno
      */
+    List<ModeloAlumnoNota> alumnoNotas;
+    DefaultTableModel modM;    
+    File src=null;
     public Crear_Nota() {
         
         initComponents();
+        modM = (DefaultTableModel) tablaNotas.getModel();
        
         
            // this.setMaximum(true);
@@ -101,9 +105,16 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tablaNotas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -118,7 +129,11 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Guardar.setText("Guardar");
-        Btn_Guardar.setEnabled(false);
+        Btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_GuardarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Docente");
@@ -265,18 +280,19 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDocenteActionPerformed
 
-    List<ModeloAlumnoNota> alumnoNotas;
-     File src=null;
+    
     private void Btn_CargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CargarActionPerformed
         // TODO add your handling code here:
-        
+        modM.setRowCount(0);
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter( new FileNameExtensionFilter("Excel", "xlsx"));
         chooser.setCurrentDirectory(new File(chooser.getCurrentDirectory().getPath().replace(chooser.getCurrentDirectory().getName(),"Desktop")));
         chooser.showOpenDialog(rootPane);
         src = chooser.getSelectedFile();
-        LeerExcel(src);
-        CargarTabla();
+        if (src!=null) {
+            LeerExcel(src);
+            CargarTabla();
+        }
     }//GEN-LAST:event_Btn_CargarActionPerformed
 
     private void Btn_ReCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ReCargarActionPerformed
@@ -289,18 +305,23 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_Btn_ReCargarActionPerformed
 
-     DefaultTableModel modM;
+      
     private void Btn_ReCargar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ReCargar1ActionPerformed
         // TODO add your handling code here:
         modM.setRowCount(0);
         src=null;
     }//GEN-LAST:event_Btn_ReCargar1ActionPerformed
+
+    private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_Btn_GuardarActionPerformed
     private void CargarTabla() {        
         List<ModeloAlumnoNota> lm = alumnoNotas;         
-        modM = (DefaultTableModel) tablaNotas.getModel(); 
+        
         modM.setRowCount(0);                
         for (ModeloAlumnoNota lm1 : lm) {
-            String[] registroC = {lm1.getNombre(), lm1.getApellido(), lm1.getNota1(), lm1.getNota2(), lm1.getNota3()};
+            String[] registroC = {lm1.getNombre(), lm1.getApellido(), String.valueOf(lm1.getNota1()), String.valueOf(lm1.getNota2()), String.valueOf(lm1.getNota3())};
             modM.addRow(registroC);
         }          
     }
@@ -342,11 +363,12 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
             }else if (i==2){
                 txtMateria.setText(Colum[1]);                
             }else if (i>=4) {                
-                ModeloAlumnoNota alumnoNota = new ModeloAlumnoNota(Colum[1],Colum[2],Colum[3],Colum[4],Colum[5]);
+                ModeloAlumnoNota alumnoNota = new ModeloAlumnoNota(Colum[1],Colum[2],Double.parseDouble(Colum[3]),Double.parseDouble(Colum[4]),Double.parseDouble(Colum[5]));
                 alumnoNotas.add(alumnoNota);                  
             }           
         }
         } catch (Exception e) {
+            
         }
     }
 }
