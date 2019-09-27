@@ -5,6 +5,8 @@
  */
 package Views.Administrador;
 
+import Acceso_Datos.ConectionDB;
+import Acceso_Datos.entityMain;
 import Excel.Excel;
 import Excel.ModeloAlumnoNota;
 import java.beans.PropertyVetoException;
@@ -14,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureQuery;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -314,7 +318,50 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
         // TODO add your handling code here:
-        
+        ConectionDB cdb = new ConectionDB();
+        try {
+            
+            
+            for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
+                StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRAR_NOTA_DOCENTE");
+            
+                spq.registerStoredProcedureParameter("dId", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dGrado", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dMate", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dPeri", Integer.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dSec", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("ANom", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aApe", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aNotaA", Double.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aNotaB", Double.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aNotaC", Double.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
+            
+                spq.setParameter("dId","1");
+                spq.setParameter("dGrado",txtGrado.getText());
+                spq.setParameter("dMate",txtMateria.getText());
+                spq.setParameter("dPeri",Double.parseDouble(cmbx_Periodo.getSelectedItem().toString()));
+                spq.setParameter("dSec",txtSeccion.getText());
+                spq.setParameter("ANom", alumnoNota.getNombre());
+                spq.setParameter("aApe", alumnoNota.getApellido());
+                spq.setParameter("aNotaA",alumnoNota.getNota1());
+                spq.setParameter("aNotaB", alumnoNota.getNota2());
+                spq.setParameter("aNotaC", alumnoNota.getNota3());
+                
+                spq.execute();
+                
+                String Mensaje=spq.getOutputParameterValue("msj").toString();
+                JOptionPane.showMessageDialog(rootPane,Mensaje);
+            }
+            
+            
+            
+            
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane,"ERROR: " + e);
+        }
     }//GEN-LAST:event_Btn_GuardarActionPerformed
     private void CargarTabla() {        
         List<ModeloAlumnoNota> lm = alumnoNotas;         

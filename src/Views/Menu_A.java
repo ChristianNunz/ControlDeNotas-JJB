@@ -10,7 +10,7 @@ import Views.Administrador.Asignar_Materia;
 import Views.Administrador.Crear_Alumno;
 import Views.Administrador.Crear_Maestro;
 
-import Views.Administrador.Crear_Materia;
+import Views.Administrador.Asignar_SeccionesM;
 import Views.Administrador.Crear_Nota;
 import Views.Administrador.Crear_Seccion;
 
@@ -434,8 +434,9 @@ public class Menu_A extends javax.swing.JFrame {
 
     
     private void Btn_Registrar_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_materiaActionPerformed
-         CerrarHijos();
-        Crear_Materia m = new Crear_Materia();
+        CerrarHijos();
+        Asignar_SeccionesM m = new Asignar_SeccionesM();
+       
         DesktopPanel.add(m);
        
         
@@ -443,6 +444,10 @@ public class Menu_A extends javax.swing.JFrame {
         Dimension FrameSize = m.getSize();
         m.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         m.show();
+        
+        
+        
+        
     }//GEN-LAST:event_Btn_Registrar_materiaActionPerformed
 
     private void Btn_Registrar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_alumnoActionPerformed
@@ -458,7 +463,7 @@ public class Menu_A extends javax.swing.JFrame {
         // TODO add your handling code here:
          CerrarHijos();
         Crear_Nota nota = new Crear_Nota();
-         nota.setSize(sisze());
+         //nota.setSize(sisze());
         DesktopPanel.add(nota);
     }//GEN-LAST:event_Btn_Registrar_NotasActionPerformed
 

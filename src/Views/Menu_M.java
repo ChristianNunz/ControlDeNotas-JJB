@@ -8,7 +8,7 @@ package Views;
 import Views.Administrador.Asignar_Materia;
 import Views.Administrador.Crear_Alumno;
 import Views.Administrador.Crear_Maestro;
-import Views.Administrador.Crear_Materia;
+import Views.Administrador.Asignar_SeccionesM;
 import Views.Administrador.Crear_Nota;
 import Views.Administrador.Editar_Alumno;
 import Views.Administrador.Editar_Maestro;

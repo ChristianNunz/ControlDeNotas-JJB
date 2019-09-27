@@ -7,10 +7,16 @@ package Views.Administrador;
 
 import Acceso_Datos.AnhoJpaController;
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.GradoJpaController;
 import Acceso_Datos.MateriaJpaController;
+import Acceso_Datos.SeccionJpaController;
+import Acceso_Datos.TurnoJpaController;
 import Acceso_Datos.entityMain;
 import Logica_Negocios.Anho;
+import Logica_Negocios.Grado;
 import Logica_Negocios.Materia;
+import Logica_Negocios.Seccion;
+import Logica_Negocios.Turno;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -19,17 +25,20 @@ import javax.swing.JOptionPane;
  *
  * @author Jorge Villanueva
  */
-public class Crear_Materia extends javax.swing.JInternalFrame {
+public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
 
    MateriaJpaController Materia = new MateriaJpaController(entityMain.getInstance());
+    GradoJpaController gjc = new GradoJpaController(entityMain.getInstance());
+    SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
+    TurnoJpaController tjc = new TurnoJpaController(entityMain.getInstance());
     
-    public Crear_Materia() {
+    public Asignar_SeccionesM() {
         
         initComponents();
-        List<Materia> Materias = Materia.findMateriaEntities();
-        for (Materia Materia1 : Materias) {
-            cmb_anho.addItem(Materia1.getMateriaNombre());
-        } 
+        LLenarComboM(); 
+        LLenarComboS(); 
+        LLenarComboG(); 
+        LLenarComboT(); 
         
     }
 
@@ -45,18 +54,26 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
         lblUsuario = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         Btn_Guardar = new javax.swing.JButton();
-        cmb_anho = new javax.swing.JComboBox();
+        cmb_mat = new javax.swing.JComboBox();
         lblUsuario1 = new javax.swing.JLabel();
+        cmb_grado = new javax.swing.JComboBox();
+        lblUsuario2 = new javax.swing.JLabel();
+        cmb_secc = new javax.swing.JComboBox();
+        lblUsuario3 = new javax.swing.JLabel();
+        cmb_turno = new javax.swing.JComboBox();
+        lblUsuario4 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
         setIconifiable(true);
+        setResizable(true);
         setTitle("Registrar Materia");
         setToolTipText("Registrar Materia");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(343, 146));
-        setMinimumSize(new java.awt.Dimension(343, 146));
-        setPreferredSize(new java.awt.Dimension(343, 146));
+        setMinimumSize(new java.awt.Dimension(300, 300));
+        setName(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(300, 300));
+        setRequestFocusEnabled(false);
         try {
             setSelected(true);
         } catch (java.beans.PropertyVetoException e1) {
@@ -67,10 +84,11 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
 
         lblUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario.setText("Año:");
-        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, 20));
+        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, 20));
 
+        txtNombre.setEditable(false);
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 200, 30));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 180, 20));
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Guardar.setText("Guardar");
@@ -79,20 +97,38 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
                 Btn_GuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 100, -1));
+        getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 100, -1));
 
-        getContentPane().add(cmb_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 180, -1));
+        getContentPane().add(cmb_mat, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 180, -1));
 
         lblUsuario1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario1.setText("Nombre:");
-        getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 20));
+        lblUsuario1.setText("Materia:");
+        getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 20));
+
+        getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 180, -1));
+
+        lblUsuario2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario2.setText("Grado:");
+        getContentPane().add(lblUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 20));
+
+        getContentPane().add(cmb_secc, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 180, -1));
+
+        lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario3.setText("Seccion:");
+        getContentPane().add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, 20));
+
+        getContentPane().add(cmb_turno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 180, -1));
+
+        lblUsuario4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario4.setText("Turno:");
+        getContentPane().add(lblUsuario4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
         String anho = txtNombre.getText();
-        String NombreM = cmb_anho.getSelectedItem().toString();
+        String NombreM = cmb_mat.getSelectedItem().toString();
         
       
       BigDecimal id = null;
@@ -134,9 +170,41 @@ public class Crear_Materia extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Guardar;
-    private javax.swing.JComboBox cmb_anho;
+    private javax.swing.JComboBox cmb_grado;
+    private javax.swing.JComboBox cmb_mat;
+    private javax.swing.JComboBox cmb_secc;
+    private javax.swing.JComboBox cmb_turno;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuario1;
+    private javax.swing.JLabel lblUsuario2;
+    private javax.swing.JLabel lblUsuario3;
+    private javax.swing.JLabel lblUsuario4;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void LLenarComboM() {
+        List<Materia> Materias = Materia.findMateriaEntities();
+        for (Materia Materia1 : Materias) {
+            cmb_mat.addItem(Materia1.getMateriaNombre());
+        }
+    }
+    private void LLenarComboS() {
+        List<Seccion> seccions = sjc.findSeccionEntities();
+      
+        for (Seccion seccion : seccions) {
+            cmb_secc.addItem(seccion.getNombreSeccion());
+        }
+    }
+    private void LLenarComboG() {
+        List<Grado> grados = gjc.findGradoEntities();
+        for (Grado grado : grados) {
+            cmb_grado.addItem(grado.getGrado());
+        }
+    }
+    private void LLenarComboT() {
+        List<Turno> turnos = tjc.findTurnoEntities();
+        for (Turno turno : turnos) {
+            cmb_turno.addItem(turno.getTurnoNombre());
+        }
+    }
 }
