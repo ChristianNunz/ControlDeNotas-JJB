@@ -76,7 +76,18 @@ public class ConectionDB {
             BigDecimal id= new BigDecimal(idd);
             return id;
         } catch (Exception e) {
-             return  new BigDecimal("1");
+            return  new BigDecimal("1"); 
+        }
+    }
+    public int GetIdValidar(BigDecimal idm, BigDecimal ids, BigDecimal idg,BigDecimal idt){
+        try {
+            Statement st = conn();
+             ResultSet resultSet = st.executeQuery("SELECT  ID_MATERIA_GRADO FROM MATERIA_GRADO WHERE ID_MATERIA = '"+(idm)+"' AND ID_GRADO =  '"+(ids)+"' AND ID_SECCION = '"+(idg)+"'  AND ID_TURNO = '"+(idt)+"'");
+             resultSet.next();
+              int idd = Integer.parseInt(resultSet.getString(1));
+              return idd;
+        } catch (Exception e) {
+             return 0;
         }
     }
     

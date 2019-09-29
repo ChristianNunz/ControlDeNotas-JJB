@@ -27,6 +27,8 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Materia.findAll", query = "SELECT m FROM Materia m")})
 public class Materia implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMateria")
+    private List<MateriaGrado> materiaGradoList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -98,6 +100,14 @@ public class Materia implements Serializable {
     @Override
     public String toString() {
         return "Logica_Negocios.Materia[ idMateria=" + idMateria + " ]";
+    }
+
+    public List<MateriaGrado> getMateriaGradoList() {
+        return materiaGradoList;
+    }
+
+    public void setMateriaGradoList(List<MateriaGrado> materiaGradoList) {
+        this.materiaGradoList = materiaGradoList;
     }
     
 }

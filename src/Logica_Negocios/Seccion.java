@@ -8,12 +8,15 @@ package Logica_Negocios;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -25,6 +28,8 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Seccion.findAll", query = "SELECT s FROM Seccion s")})
 public class Seccion implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSeccion")
+    private List<MateriaGrado> materiaGradoList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -98,6 +103,14 @@ public class Seccion implements Serializable {
     @Override
     public String toString() {
         return "Logica_Negocios.Seccion[ idSeccion=" + idSeccion + " ]";
+    }
+
+    public List<MateriaGrado> getMateriaGradoList() {
+        return materiaGradoList;
+    }
+
+    public void setMateriaGradoList(List<MateriaGrado> materiaGradoList) {
+        this.materiaGradoList = materiaGradoList;
     }
     
 }
