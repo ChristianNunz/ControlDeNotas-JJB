@@ -478,6 +478,7 @@ END;
 
 
 
+
 ------Consultas
 --select al.alumno_nombre || ' '|| al.alumno_apelidos as Nombres_Alumno,
         --grad.grado,doc.docente_nombre,sec.nombre_seccion,mt.materia_nombre,
