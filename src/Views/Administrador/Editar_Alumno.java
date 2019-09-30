@@ -364,9 +364,10 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         id = tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 0).toString();
         String nom=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 1).toString();
         String ape=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 2).toString();
-        String dire=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 3).toString();
-        String tel=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 4).toString();
-        String nie=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(),5).toString();
+        
+        String tel=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(),3).toString();
+        String nie=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(),4).toString();
+        String dire=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 5).toString();
         String fecha=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 6).toString();
         String genero=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 7).toString();
         String estado = tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 8).toString();

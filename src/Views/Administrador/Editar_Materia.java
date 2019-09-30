@@ -7,6 +7,7 @@ package Views.Administrador;
 
 import Acceso_Datos.AnhoJpaController;
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.DocenteJpaController;
 import Acceso_Datos.GradoJpaController;
 import Acceso_Datos.MateriaGradoJpaController;
 import Acceso_Datos.MateriaJpaController;
@@ -14,6 +15,7 @@ import Acceso_Datos.SeccionJpaController;
 import Acceso_Datos.TurnoJpaController;
 import Acceso_Datos.entityMain;
 import Logica_Negocios.Anho;
+import Logica_Negocios.Docente;
 import Logica_Negocios.Grado;
 import Logica_Negocios.Materia;
 import Logica_Negocios.MateriaGrado;
@@ -39,6 +41,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
     GradoJpaController gjc = new GradoJpaController(entityMain.getInstance());
     SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
     TurnoJpaController tjc = new TurnoJpaController(entityMain.getInstance());
+    DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
     ConectionDB con = new ConectionDB(); 
     public Editar_Materia() {
         
@@ -48,6 +51,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
         LLenarComboS(); 
         LLenarComboG(); 
         LLenarComboT(); 
+        LLenarComboD();
     }
 
     /**
@@ -76,6 +80,8 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
         lblUsuario5 = new javax.swing.JLabel();
         lblUsuario1 = new javax.swing.JLabel();
         txt_id = new javax.swing.JTextField();
+        cmb_docente = new javax.swing.JComboBox();
+        lblUsuario6 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -100,11 +106,11 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Materia", "Grado", "Seccion", "Turno", "Año"
+                "Id", "Materia", "Grado", "Seccion", "Turno", "Año", "Docente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -131,7 +137,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
                 Btn_ActualizarActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 200, -1));
+        getContentPane().add(Btn_Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 200, -1));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         jLabel1.setText("Editar Materia");
@@ -144,7 +150,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
                 Btn_LimpiarActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 200, -1));
+        getContentPane().add(Btn_Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 200, -1));
 
         lblUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario.setText("Año:");
@@ -185,6 +191,12 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
         txt_id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         getContentPane().add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 180, 20));
 
+        getContentPane().add(cmb_docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 180, -1));
+
+        lblUsuario6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario6.setText("Docente:");
+        getContentPane().add(lblUsuario6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, -1, 20));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -204,6 +216,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
       String Grado = cmb_grado.getSelectedItem().toString();
       String seccion = cmb_secc.getSelectedItem().toString();
       String turno = cmb_turno.getSelectedItem().toString();
+      String docente = cmb_docente.getSelectedItem().toString();
       String anho = txtbho.getText();
     
         
@@ -211,14 +224,16 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
          BigDecimal idg = IdGrado(Grado);
          BigDecimal ids = IdSeccion(seccion);
          BigDecimal idt = IdTurno(turno);
+         
        try {
-          
+           BigDecimal idd = con.GetIdDocnete(docente);
            MateriaGrado materiaGrado = new MateriaGrado(new BigDecimal(txt_id.getText()));
            materiaGrado.setAnho(new BigInteger(anho));
            materiaGrado.setIdMateria(new Materia(idm, NombreM));
            materiaGrado.setIdGrado(new Grado(idg, Grado));
            materiaGrado.setIdSeccion(new Seccion(ids, seccion,new BigInteger("1")));
            materiaGrado.setIdTurno(new Turno(idt, turno));
+           materiaGrado.setIdDocente(new Docente(idd));
            MateriaGradoJpaController.edit(materiaGrado);
            cargartabla();
                
@@ -240,11 +255,13 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
         String seccion=jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString();
         String turno=jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString();
         String anho=jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString();
+        String docente=jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString();
         
         cmb_grado.setSelectedItem(grado);
         cmb_mat.setSelectedItem(materia);
         cmb_secc.setSelectedItem(seccion);
         cmb_turno.setSelectedItem(turno);
+        cmb_docente.setSelectedItem(docente);
         txtbho.setText(anho);
   
     }//GEN-LAST:event_jTable1MouseClicked
@@ -261,7 +278,8 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
                                   lmm.get(i).getIdGrado().getGrado(),
                                   lmm.get(i).getIdSeccion().getNombreSeccion(),
                                   lmm.get(i).getIdTurno().getTurnoNombre(),
-                                  lmm.get(i).getAnho().toString()};
+                                  lmm.get(i).getAnho().toString(),
+                                  lmm.get(i).getIdDocente().getDocenteNombre()};
               modM.addRow(registroC);
            }
           
@@ -343,6 +361,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
       }
       return id;
     }
+   
      private void LLenarComboM() {
         List<Materia> Materias = materiaJpaController.findMateriaEntities();
         for (Materia Materia1 : Materias) {
@@ -368,10 +387,17 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
             cmb_turno.addItem(turno.getTurnoNombre());
         }
     }
+    private void LLenarComboD() {
+        List<Docente> docentes = djc.findDocenteEntities();
+        for (Docente docente : docentes) {
+            cmb_docente.addItem(docente.getDocenteNombre());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
     private javax.swing.JButton Btn_Limpiar;
+    private javax.swing.JComboBox cmb_docente;
     private javax.swing.JComboBox cmb_grado;
     private javax.swing.JComboBox cmb_mat;
     private javax.swing.JComboBox cmb_secc;
@@ -385,8 +411,9 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuario3;
     private javax.swing.JLabel lblUsuario4;
     private javax.swing.JLabel lblUsuario5;
+    private javax.swing.JLabel lblUsuario6;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txtbho;
     // End of variables declaration//GEN-END:variables
-    
+
 }

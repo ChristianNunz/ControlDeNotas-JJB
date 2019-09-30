@@ -79,15 +79,27 @@ public class ConectionDB {
             return  new BigDecimal("1"); 
         }
     }
-    public int GetIdValidar(BigDecimal idm, BigDecimal ids, BigDecimal idg,BigDecimal idt){
+    public int GetIdValidar(BigDecimal idm, BigDecimal ids, BigDecimal idg,BigDecimal idt, BigDecimal idd){
         try {
             Statement st = conn();
              ResultSet resultSet = st.executeQuery("SELECT  ID_MATERIA_GRADO FROM MATERIA_GRADO WHERE ID_MATERIA = '"+(idm)+"' AND ID_GRADO =  '"+(ids)+"' AND ID_SECCION = '"+(idg)+"'  AND ID_TURNO = '"+(idt)+"'");
              resultSet.next();
-              int idd = Integer.parseInt(resultSet.getString(1));
-              return idd;
+              int iddd = Integer.parseInt(resultSet.getString(1));
+              return iddd;
         } catch (Exception e) {
              return 0;
+        }
+    }
+    public BigDecimal GetIdDocnete(String NombreD){
+        try {
+            Statement st = conn();
+             ResultSet resultSet = st.executeQuery("SELECT  ID_DOCENTE FROM DOCENTE WHERE DOCENTE_NOMBRE = '"+(NombreD)+"'");
+             resultSet.next();
+              int iddd = Integer.parseInt(resultSet.getString(1));
+              BigDecimal id = new BigDecimal(iddd);
+              return id;
+        } catch (Exception e) {
+             return null;
         }
     }
     

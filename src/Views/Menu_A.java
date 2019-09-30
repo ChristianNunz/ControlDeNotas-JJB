@@ -65,7 +65,6 @@ public class Menu_A extends javax.swing.JFrame {
         Btn_Asignar_Materias = new javax.swing.JMenu();
         Btn_Registrar_maestros = new javax.swing.JMenuItem();
         Btn_Editar_maestros = new javax.swing.JMenuItem();
-        Btn_Editar_maestros1 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         Btn_Notas = new javax.swing.JMenu();
         Btn_Registrar_Notas = new javax.swing.JMenuItem();
@@ -171,16 +170,6 @@ public class Menu_A extends javax.swing.JFrame {
             }
         });
         Btn_Asignar_Materias.add(Btn_Editar_maestros);
-
-        Btn_Editar_maestros1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
-        Btn_Editar_maestros1.setText("Asignar Materias");
-        Btn_Editar_maestros1.setToolTipText("Editar Maestro");
-        Btn_Editar_maestros1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btn_Editar_maestros1ActionPerformed(evt);
-            }
-        });
-        Btn_Asignar_Materias.add(Btn_Editar_maestros1);
 
         jMenuBar1.add(Btn_Asignar_Materias);
         Btn_Asignar_Materias.getAccessibleContext().setAccessibleDescription("");
@@ -514,14 +503,6 @@ public class Menu_A extends javax.swing.JFrame {
         DesktopPanel.add(nota);
     }//GEN-LAST:event_Btn_Editar_notasActionPerformed
 
-    private void Btn_Editar_maestros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_maestros1ActionPerformed
-        // TODO add your handling code here:
-         CerrarHijos();
-        Asignar_Materia materia = new Asignar_Materia();
-         materia.setSize(sisze());
-        DesktopPanel.add(materia);
-    }//GEN-LAST:event_Btn_Editar_maestros1ActionPerformed
-
     private void Btn_Editar_EncargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_EncargadoActionPerformed
         // TODO add your handling code here:
          CerrarHijos();
@@ -575,7 +556,6 @@ public class Menu_A extends javax.swing.JFrame {
     private javax.swing.JMenuItem Btn_Editar_Encargado;
     private javax.swing.JMenuItem Btn_Editar_alumno;
     private javax.swing.JMenuItem Btn_Editar_maestros;
-    private javax.swing.JMenuItem Btn_Editar_maestros1;
     private javax.swing.JMenuItem Btn_Editar_materias;
     private javax.swing.JMenuItem Btn_Editar_notas;
     private javax.swing.JMenu Btn_Logout;

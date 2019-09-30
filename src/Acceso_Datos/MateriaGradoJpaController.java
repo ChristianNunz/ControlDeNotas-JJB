@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import Logica_Negocios.Docente;
 import Logica_Negocios.Grado;
 import Logica_Negocios.Materia;
 import Logica_Negocios.MateriaGrado;
@@ -42,6 +43,11 @@ public class MateriaGradoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Docente idDocente = materiaGrado.getIdDocente();
+            if (idDocente != null) {
+                idDocente = em.getReference(idDocente.getClass(), idDocente.getIdDocente());
+                materiaGrado.setIdDocente(idDocente);
+            }
             Grado idGrado = materiaGrado.getIdGrado();
             if (idGrado != null) {
                 idGrado = em.getReference(idGrado.getClass(), idGrado.getIdGrado());
@@ -63,6 +69,10 @@ public class MateriaGradoJpaController implements Serializable {
                 materiaGrado.setIdTurno(idTurno);
             }
             em.persist(materiaGrado);
+            if (idDocente != null) {
+                idDocente.getMateriaGradoList().add(materiaGrado);
+                idDocente = em.merge(idDocente);
+            }
             if (idGrado != null) {
                 idGrado.getMateriaGradoList().add(materiaGrado);
                 idGrado = em.merge(idGrado);
@@ -98,6 +108,8 @@ public class MateriaGradoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             MateriaGrado persistentMateriaGrado = em.find(MateriaGrado.class, materiaGrado.getIdMateriaGrado());
+            Docente idDocenteOld = persistentMateriaGrado.getIdDocente();
+            Docente idDocenteNew = materiaGrado.getIdDocente();
             Grado idGradoOld = persistentMateriaGrado.getIdGrado();
             Grado idGradoNew = materiaGrado.getIdGrado();
             Materia idMateriaOld = persistentMateriaGrado.getIdMateria();
@@ -106,6 +118,10 @@ public class MateriaGradoJpaController implements Serializable {
             Seccion idSeccionNew = materiaGrado.getIdSeccion();
             Turno idTurnoOld = persistentMateriaGrado.getIdTurno();
             Turno idTurnoNew = materiaGrado.getIdTurno();
+            if (idDocenteNew != null) {
+                idDocenteNew = em.getReference(idDocenteNew.getClass(), idDocenteNew.getIdDocente());
+                materiaGrado.setIdDocente(idDocenteNew);
+            }
             if (idGradoNew != null) {
                 idGradoNew = em.getReference(idGradoNew.getClass(), idGradoNew.getIdGrado());
                 materiaGrado.setIdGrado(idGradoNew);
@@ -123,6 +139,14 @@ public class MateriaGradoJpaController implements Serializable {
                 materiaGrado.setIdTurno(idTurnoNew);
             }
             materiaGrado = em.merge(materiaGrado);
+            if (idDocenteOld != null && !idDocenteOld.equals(idDocenteNew)) {
+                idDocenteOld.getMateriaGradoList().remove(materiaGrado);
+                idDocenteOld = em.merge(idDocenteOld);
+            }
+            if (idDocenteNew != null && !idDocenteNew.equals(idDocenteOld)) {
+                idDocenteNew.getMateriaGradoList().add(materiaGrado);
+                idDocenteNew = em.merge(idDocenteNew);
+            }
             if (idGradoOld != null && !idGradoOld.equals(idGradoNew)) {
                 idGradoOld.getMateriaGradoList().remove(materiaGrado);
                 idGradoOld = em.merge(idGradoOld);
@@ -183,6 +207,11 @@ public class MateriaGradoJpaController implements Serializable {
                 materiaGrado.getIdMateriaGrado();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The materiaGrado with id " + id + " no longer exists.", enfe);
+            }
+            Docente idDocente = materiaGrado.getIdDocente();
+            if (idDocente != null) {
+                idDocente.getMateriaGradoList().remove(materiaGrado);
+                idDocente = em.merge(idDocente);
             }
             Grado idGrado = materiaGrado.getIdGrado();
             if (idGrado != null) {

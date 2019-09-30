@@ -5,9 +5,16 @@
  */
 package Views.Administrador;
 
+import Acceso_Datos.ConectionDB;
+import Acceso_Datos.SeccionJpaController;
+import Acceso_Datos.entityMain;
+import Logica_Negocios.Seccion;
 import java.beans.PropertyVetoException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,8 +47,6 @@ public class Crear_Seccion extends javax.swing.JInternalFrame {
         lblUsuario = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         Btn_Guardar = new javax.swing.JButton();
-        cmb_anho = new javax.swing.JComboBox();
-        lblUsuario1 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -69,7 +74,6 @@ public class Crear_Seccion extends javax.swing.JInternalFrame {
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Guardar.setText("Registrar");
-        Btn_Guardar.setEnabled(false);
         Btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_GuardarActionPerformed(evt);
@@ -77,26 +81,27 @@ public class Crear_Seccion extends javax.swing.JInternalFrame {
         });
         getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 110, -1));
 
-        cmb_anho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Matutino", "Vespertino" }));
-        getContentPane().add(cmb_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 200, 30));
-
-        lblUsuario1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario1.setText("Turno:");
-        getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 50, 30));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
         // TODO add your handling code here:
+        ConectionDB con = new ConectionDB();
+        SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
+        Seccion seccion = new Seccion(con.GetIdToInsert("SECCION","ID_SECCION"), txtNombre.getText(), BigInteger.ONE);
+        
+        try {
+            sjc.create(seccion);
+            JOptionPane.showMessageDialog(rootPane, "Registrada con exito.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Algo salio mal.");
+        }
     }//GEN-LAST:event_Btn_GuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Guardar;
-    private javax.swing.JComboBox cmb_anho;
     private javax.swing.JLabel lblUsuario;
-    private javax.swing.JLabel lblUsuario1;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

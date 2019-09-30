@@ -303,9 +303,9 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
          id = Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 0).toString();
         String nom=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 1).toString();
         String ape=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 2).toString();
-        String tel=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 3).toString();
-        String direc=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 4).toString();
-        String dui=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(),5).toString();    
+        String direc=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 3).toString();
+        String dui=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(),4).toString();   
+        String tel=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 5).toString();
         String genero=Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 6).toString();
         String estado = Tabla_Resp.getValueAt(Tabla_Resp.getSelectedRow(), 7).toString();
         

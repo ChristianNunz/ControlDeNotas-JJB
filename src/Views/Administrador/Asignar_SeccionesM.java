@@ -6,17 +6,20 @@
 package Views.Administrador;
 
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.DocenteJpaController;
 import Acceso_Datos.GradoJpaController;
 import Acceso_Datos.MateriaGradoJpaController;
 import Acceso_Datos.MateriaJpaController;
 import Acceso_Datos.SeccionJpaController;
 import Acceso_Datos.TurnoJpaController;
 import Acceso_Datos.entityMain;
+import Logica_Negocios.Docente;
 import Logica_Negocios.Grado;
 import Logica_Negocios.Materia;
 import Logica_Negocios.MateriaGrado;
 import Logica_Negocios.Seccion;
 import Logica_Negocios.Turno;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
@@ -34,6 +37,7 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
     GradoJpaController gjc = new GradoJpaController(entityMain.getInstance());
     SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
     TurnoJpaController tjc = new TurnoJpaController(entityMain.getInstance());
+   DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
      ConectionDB con = new ConectionDB(); 
  
     
@@ -44,6 +48,7 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
         LLenarComboS(); 
         LLenarComboG(); 
         LLenarComboT(); 
+        LLenarComboD();
         
     }
 
@@ -67,6 +72,8 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
         cmb_turno = new javax.swing.JComboBox();
         lblUsuario4 = new javax.swing.JLabel();
         lblUsuario5 = new javax.swing.JLabel();
+        cmb_docente = new javax.swing.JComboBox();
+        lblUsuario6 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -102,7 +109,7 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
                 Btn_GuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 100, -1));
+        getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 100, -1));
 
         getContentPane().add(cmb_mat, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 180, -1));
 
@@ -128,6 +135,12 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
         lblUsuario5.setText("Materia:");
         getContentPane().add(lblUsuario5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 20));
 
+        getContentPane().add(cmb_docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 180, -1));
+
+        lblUsuario6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario6.setText("Docente:");
+        getContentPane().add(lblUsuario6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, 20));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -139,7 +152,8 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
         String NombreM = cmb_mat.getSelectedItem().toString();
         String Grado = cmb_grado.getSelectedItem().toString();  
         String seccion = cmb_secc.getSelectedItem().toString();  
-        String turno = cmb_turno.getSelectedItem().toString();  
+        String turno = cmb_turno.getSelectedItem().toString(); 
+        String docente = cmb_docente.getSelectedItem().toString();
         
         //obtiene id seleccionado 
          BigDecimal id = IdMateria(NombreM);
@@ -148,12 +162,13 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
          BigDecimal idt = IdTurno(turno);
          
         try {
-          
-            int idv = con.GetIdValidar(id,idg,ids,idt);
+          BigDecimal idd = con.GetIdDocnete(docente);
+           int idv = con.GetIdValidar(id,idg,ids,idt,idd);
            if (idv ==0) {
            MateriaGrado materiaGrado = new MateriaGrado(con.GetIdToInsert("MATERIA_GRADO", "ID_MATERIA_GRADO"));
            materiaGrado.setAnho(new BigInteger("2019"));
            materiaGrado.setIdMateria(new Materia(id, NombreM));
+           materiaGrado.setIdDocente(new Docente(idd));
            materiaGrado.setIdGrado(new Grado(idg, Grado));
            materiaGrado.setIdSeccion(new Seccion(ids, seccion,new BigInteger("1")));
            materiaGrado.setIdTurno(new Turno(idt, turno));
@@ -161,10 +176,11 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
                
            JOptionPane.showMessageDialog(rootPane,"Se inserto con exito.." );
         } else {
-              JOptionPane.showMessageDialog(rootPane,"Ha ocurrido un error.." );
-            }
+            JOptionPane.showMessageDialog(rootPane,"Los datos ya se encuentran registrados." );
+        }
           
         } catch (Exception e) {
+             JOptionPane.showMessageDialog(rootPane,"Ha ocurrido un error.." + e);
         }
    
     }//GEN-LAST:event_Btn_GuardarActionPerformed
@@ -172,6 +188,7 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Guardar;
+    private javax.swing.JComboBox cmb_docente;
     private javax.swing.JComboBox cmb_grado;
     private javax.swing.JComboBox cmb_mat;
     private javax.swing.JComboBox cmb_secc;
@@ -181,6 +198,7 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuario3;
     private javax.swing.JLabel lblUsuario4;
     private javax.swing.JLabel lblUsuario5;
+    private javax.swing.JLabel lblUsuario6;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
@@ -207,6 +225,12 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
         List<Turno> turnos = tjc.findTurnoEntities();
         for (Turno turno : turnos) {
             cmb_turno.addItem(turno.getTurnoNombre());
+        }
+    }
+     private void LLenarComboD() {
+        List<Docente> docentes = djc.findDocenteEntities();
+        for (Docente docente : docentes) {
+            cmb_docente.addItem(docente.getDocenteNombre());
         }
     }
    

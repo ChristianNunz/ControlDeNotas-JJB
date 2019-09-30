@@ -36,6 +36,9 @@ public class MateriaGrado implements Serializable {
     @Basic(optional = false)
     @Column(name = "ANHO")
     private BigInteger anho;
+    @JoinColumn(name = "ID_DOCENTE", referencedColumnName = "ID_DOCENTE")
+    @ManyToOne(optional = false)
+    private Docente idDocente;
     @JoinColumn(name = "ID_GRADO", referencedColumnName = "ID_GRADO")
     @ManyToOne(optional = false)
     private Grado idGrado;
@@ -75,6 +78,14 @@ public class MateriaGrado implements Serializable {
 
     public void setAnho(BigInteger anho) {
         this.anho = anho;
+    }
+
+    public Docente getIdDocente() {
+        return idDocente;
+    }
+
+    public void setIdDocente(Docente idDocente) {
+        this.idDocente = idDocente;
     }
 
     public Grado getIdGrado() {

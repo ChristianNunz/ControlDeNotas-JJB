@@ -476,19 +476,3 @@ END;
 
 
 
-
-
-
-------Consultas
---select al.alumno_nombre || ' '|| al.alumno_apelidos as Nombres_Alumno,
-        --grad.grado,doc.docente_nombre,sec.nombre_seccion,mt.materia_nombre,
-        --p.nota1*0.35+p.nota2*0.35+p.nota3*0.30 as promedio 
---from periodo p
-    --inner join nota nt on p.id_nota=nt.id_nota
-    --inner join alumno al on nt.id_alumno= al.id_alumno
-    --inner join materia mt on nt.id_materia=mt.id_materia
-    --inner join docente_materia dc on mt.id_materia=dc.id_materia
-    --inner join docente doc on dc.id_docente=doc.id_docente
-    --inner join seccion sec on mt.id_materia=sec.id_materia
-    --inner join materia_grado mtg on mt.id_materia=mtg.id_materia
-    --inner join grado grad on mtg.id_grado=grad.id_grado
