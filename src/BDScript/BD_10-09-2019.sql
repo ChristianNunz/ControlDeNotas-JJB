@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2019-09-20 04:56:39.259
+-- Last modification date: 2019-09-30 02:57:45.12
 
 -- tables
 -- Table: alumno
@@ -40,14 +40,6 @@ CREATE TABLE docente (
     CONSTRAINT docente_pk PRIMARY KEY (id_docente)
 ) ;
 
--- Table: docente_materia
-CREATE TABLE docente_materia (
-    id_docente_materia integer  NOT NULL,
-    id_materia integer  NOT NULL,
-    id_docente integer  NOT NULL,
-    CONSTRAINT docente_materia_pk PRIMARY KEY (id_docente_materia)
-) ;
-
 -- Table: grado
 CREATE TABLE grado (
     id_grado integer  NOT NULL,
@@ -83,6 +75,7 @@ CREATE TABLE materia_grado (
     id_seccion integer  NOT NULL,
     id_turno integer  NOT NULL,
     anho integer  NOT NULL,
+    id_docente integer  NOT NULL,
     CONSTRAINT materia_grado_pk PRIMARY KEY (id_materia_grado)
 ) ;
 
@@ -90,7 +83,7 @@ CREATE TABLE materia_grado (
 CREATE TABLE nota (
     id_nota integer  NOT NULL,
     id_alumno integer  NOT NULL,
-    id_materia integer  NOT NULL,
+    id_materia_grado integer  NOT NULL,
     CONSTRAINT nota_pk PRIMARY KEY (id_nota)
 ) ;
 
@@ -154,11 +147,6 @@ ALTER TABLE nota ADD CONSTRAINT Nota_Alumno
     FOREIGN KEY (id_alumno)
     REFERENCES alumno (id_alumno);
 
--- Reference: Nota_Materia (table: nota)
-ALTER TABLE nota ADD CONSTRAINT Nota_Materia
-    FOREIGN KEY (id_materia)
-    REFERENCES materia (id_materia);
-
 -- Reference: Periodo_Nota (table: periodo)
 ALTER TABLE periodo ADD CONSTRAINT Periodo_Nota
     FOREIGN KEY (id_nota)
@@ -174,15 +162,10 @@ ALTER TABLE alumno_responsable ADD CONSTRAINT alumno_responsable_Responsable
     FOREIGN KEY (id_esponsable)
     REFERENCES responsable (id_responsable);
 
--- Reference: docente_materia_docente (table: docente_materia)
-ALTER TABLE docente_materia ADD CONSTRAINT docente_materia_docente
+-- Reference: materia_grado_docente (table: materia_grado)
+ALTER TABLE materia_grado ADD CONSTRAINT materia_grado_docente
     FOREIGN KEY (id_docente)
     REFERENCES docente (id_docente);
-
--- Reference: docente_materia_materia (table: docente_materia)
-ALTER TABLE docente_materia ADD CONSTRAINT docente_materia_materia
-    FOREIGN KEY (id_materia)
-    REFERENCES materia (id_materia);
 
 -- Reference: materia_grado_grado (table: materia_grado)
 ALTER TABLE materia_grado ADD CONSTRAINT materia_grado_grado
@@ -203,6 +186,11 @@ ALTER TABLE materia_grado ADD CONSTRAINT materia_grado_seccion
 ALTER TABLE materia_grado ADD CONSTRAINT materia_grado_turno
     FOREIGN KEY (id_turno)
     REFERENCES turno (id_turno);
+
+-- Reference: nota_materia_grado (table: nota)
+ALTER TABLE nota ADD CONSTRAINT nota_materia_grado
+    FOREIGN KEY (id_materia_grado)
+    REFERENCES materia_grado (id_materia_grado);
 
 -- End of file.
 
