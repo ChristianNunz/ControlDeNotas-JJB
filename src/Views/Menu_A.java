@@ -463,7 +463,7 @@ public class Menu_A extends javax.swing.JFrame {
         // TODO add your handling code here:
          CerrarHijos();
         Crear_Nota nota = new Crear_Nota();
-         //nota.setSize(sisze());
+         nota.setSize(sisze());
         DesktopPanel.add(nota);
     }//GEN-LAST:event_Btn_Registrar_NotasActionPerformed
 

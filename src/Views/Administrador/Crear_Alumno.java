@@ -5,11 +5,25 @@
  */
 package Views.Administrador;
 
+import Acceso_Datos.ConectionDB;
+import Acceso_Datos.entityMain;
+import Excel.Excel;
+import Excel.ModeloAlumnoNota;
+import Excel.ModeloAlumnoResponsable;
 import java.beans.PropertyVetoException;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureQuery;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,10 +34,13 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
     /**
      * Creates new form Agregar_Alumno
      */
+    List<ModeloAlumnoResponsable> alumnoRespon;
+    DefaultTableModel modM;    
+    File src=null;
     public Crear_Alumno() {
         
         initComponents();
-       
+        modM = (DefaultTableModel) tablaAlumnoRes.getModel();
         
            // this.setMaximum(true);
         
@@ -39,11 +56,13 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Btn_Cargar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaAlumnoRes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         Btn_Guardar = new javax.swing.JButton();
+        Btn_ReCargar = new javax.swing.JButton();
+        Btn_Limpiar = new javax.swing.JButton();
+        Btn_Cargar = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -62,6 +81,47 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
         }
         setVisible(true);
 
+        tablaAlumnoRes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Apellido", "Telefono", "Dirección", "Fecha Nac.", "Genero", "Nombre", "Apellido", "Dui", "Dirección", "Telefono", "Genero"
+            }
+        ));
+        tablaAlumnoRes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaAlumnoRes.setAutoscrolls(false);
+        tablaAlumnoRes.setFocusTraversalPolicyProvider(true);
+        tablaAlumnoRes.setFocusable(false);
+        jScrollPane1.setViewportView(tablaAlumnoRes);
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        jLabel1.setText("Registrar Alumno");
+
+        Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Btn_Guardar.setText("Guardar");
+        Btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_GuardarActionPerformed(evt);
+            }
+        });
+
+        Btn_ReCargar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Btn_ReCargar.setText("Re-Cargar Documento");
+        Btn_ReCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_ReCargarActionPerformed(evt);
+            }
+        });
+
+        Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Btn_Limpiar.setText("Limpiar");
+        Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_LimpiarActionPerformed(evt);
+            }
+        });
+
         Btn_Cargar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Cargar.setText("Cargar");
         Btn_Cargar.addActionListener(new java.awt.event.ActionListener() {
@@ -70,27 +130,6 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Apellido", "Telefono", "Dirección", "Fecha Nac.", "Genero", "Nombre", "Apellido", "Dui", "Dirección", "Telefono", "Genero"
-            }
-        ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable1.setAutoscrolls(false);
-        jTable1.setFocusTraversalPolicyProvider(true);
-        jTable1.setFocusable(false);
-        jScrollPane1.setViewportView(jTable1);
-
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
-        jLabel1.setText("Registrar Alumno");
-
-        Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        Btn_Guardar.setText("Guardar");
-        Btn_Guardar.setEnabled(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,17 +137,22 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(510, 510, 510)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(5, 5, 5))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Btn_Cargar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(260, 260, 260)
-                .addComponent(Btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(242, 242, 242))
+                        .addComponent(Btn_Cargar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Btn_ReCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(510, 510, 510)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(5, 5, 5))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,30 +161,145 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Btn_Cargar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(Btn_Guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_Cargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Btn_ReCargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Btn_Limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
+        // TODO add your handling code here:
+        ConectionDB cdb = new ConectionDB();
+        try {
+
+            for (ModeloAlumnoResponsable alumnoRes : alumnoRespon) {
+                StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("registrar_alumno_representante");
+
+                spq.registerStoredProcedureParameter("aNom", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aApe", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aDirec", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aTel", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aFechNac", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aGenero", Integer.class, ParameterMode.IN);
+                
+                spq.registerStoredProcedureParameter("rNom", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("rApe", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("rDirec", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("rDui", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("rTel", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("rGenero", Integer.class, ParameterMode.IN);
+                
+                spq.setParameter("aNom", alumnoRes.getAnombre());
+                spq.setParameter("aApe", alumnoRes.getAapellido());
+                spq.setParameter("aDirec", alumnoRes.getAdireccion());
+                spq.setParameter("aTel", alumnoRes.getAtel());
+                spq.setParameter("aFechNac",alumnoRes.getAfechNac());
+                if (alumnoRes.getAgenero().equals("M")) {
+                    spq.setParameter("aGenero",1);
+                }else{
+                     spq.setParameter("aGenero",2);
+                }
+                
+                spq.setParameter("rNom",alumnoRes.getRnombre());
+                spq.setParameter("rApe",alumnoRes.getRapellido());
+                spq.setParameter("rDirec",alumnoRes.getRdireccion());
+                spq.setParameter("rDui",alumnoRes.getRdui());
+                spq.setParameter("rTel",alumnoRes.getRTel());
+                if (alumnoRes.getRgenero().equals("M")) {
+                    spq.setParameter("rGenero",1);
+                }else{
+                    spq.setParameter("rGenero",1);
+                }
+
+
+                spq.execute();
+
+                
+               
+            }
+             JOptionPane.showMessageDialog(rootPane,"Registrado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane,"ERROR: " + e);
+        }
+    }//GEN-LAST:event_Btn_GuardarActionPerformed
+
+    private void Btn_ReCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ReCargarActionPerformed
+        // TODO add your handling code here:
+        if (src!=null) {
+            LeerExcel(src);
+            CargarTabla();
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "No ha seleccionado un archivo.");
+        }
+    }//GEN-LAST:event_Btn_ReCargarActionPerformed
+
+    private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
+        // TODO add your handling code here:
+        modM.setRowCount(0);
+        src=null;
+    }//GEN-LAST:event_Btn_LimpiarActionPerformed
+
     private void Btn_CargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CargarActionPerformed
         // TODO add your handling code here:
+        modM.setRowCount(0);
         JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
-        File f = chooser.getSelectedFile();
-        
+        chooser.setFileFilter( new FileNameExtensionFilter("Excel", "xlsx"));
+        chooser.setCurrentDirectory(new File(chooser.getCurrentDirectory().getPath().replace(chooser.getCurrentDirectory().getName(),"Desktop")));
+        chooser.showOpenDialog(rootPane);
+        src = chooser.getSelectedFile();
+        if (src!=null) {
+            LeerExcel(src);
+            CargarTabla();
+        }
     }//GEN-LAST:event_Btn_CargarActionPerformed
-
+    private void CargarTabla() {        
+        List<ModeloAlumnoResponsable> lm = alumnoRespon;         
+        
+        modM.setRowCount(0);                
+        for (ModeloAlumnoResponsable lm1 : lm) {
+            String[] registroC = {
+                lm1.getAnombre(), lm1.getAapellido(),lm1.getAtel(),lm1.getAdireccion(),lm1.getAfechNac(),lm1.getAgenero(),
+                lm1.getRnombre(), lm1.getRapellido(),lm1.getRdui(),lm1.getRdireccion(),lm1.getRTel(),lm1.getRgenero()
+            };
+            modM.addRow(registroC);
+        }          
+    }
+    private void LeerExcel(File src) {
+        alumnoRespon = new ArrayList<>();
+        Excel excel = new Excel();
+        String result = excel.ReadFileExcel(src);
+        String Fila[] = result.split("\n");        
+        String turno="";        
+        try {
+            for (int i = 0; i < Fila.length; i++) {
+            String[] Colum = Fila[i].split(",");
+            if (i>=4) {     
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+                String fech[]=Colum[5].split(" ");
+                String fechha = fech[2]+"/"+fech[1]+"/"+fech[5];
+                Date fecha = formatter.parse(fechha);
+                ModeloAlumnoResponsable alumnoResp = new ModeloAlumnoResponsable(Colum[1],Colum[2] , Colum[3], Colum[4], fecha, Colum[6], Colum[7], Colum[8], Colum[9], Colum[10], Colum[11], Colum[12]);
+                 alumnoRespon.add(alumnoResp);                  
+            }           
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, ""+e);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Cargar;
     private javax.swing.JButton Btn_Guardar;
+    private javax.swing.JButton Btn_Limpiar;
+    private javax.swing.JButton Btn_ReCargar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaAlumnoRes;
     // End of variables declaration//GEN-END:variables
 }
