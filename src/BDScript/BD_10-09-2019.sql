@@ -314,14 +314,9 @@ IS
  idNota number;
 BEGIN
     BEGIN
-        SELECT gra.id_grado,mat.id_materia,sec.id_seccion INTO idGrad,idMate,idSec 
-        FROM grado GRA
-            INNER JOIN materia_grado MATG ON gra.id_grado = matg.id_grado
-            INNER JOIN materia MAT ON matg.id_materia=mat.id_materia
-            INNER JOIN seccion SEC ON matg.id_seccion=sec.id_seccion
-            INNER JOIN docente_materia DM ON mat.id_materia=dm.id_materia
-            INNER JOIN docente DOC ON dm.id_docente=doc.id_docente
-        WHERE doc.id_docente=dId;
+        SELECT mg.id_grado,mg.id_materia, mg.id_seccion INTO idGrad,idMate,idSec FROM docente D                 
+                INNER JOIN materia_grado MG ON d.id_docente = mg.id_docente
+            WHERE d.id_docente==dId;
     EXCEPTION
         when others then
         idGrad:=0;
