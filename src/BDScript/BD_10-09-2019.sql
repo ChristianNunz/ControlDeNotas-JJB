@@ -277,8 +277,8 @@ CREATE SEQUENCE tbAlumno
  INSERT INTO ALUMNO_RESPONSABLE VALUES(2,2,2);
 --Procedimientos Almacenados
 --Procedimiento: Registrar Alumno y Responsable
-CREATE OR REPLACE PROCEDURE registrar_alumno_representante
-(aNom IN VARCHAR2, aApe IN VARCHAR2, aDirec IN VARCHAR2, aTel IN VARCHAR2, aFechNac IN DATE, aGenero IN NUMBER,
+create or replace PROCEDURE registrar_alumno_representante
+(aNom IN VARCHAR2, aApe IN VARCHAR2, aDirec IN VARCHAR2, aTel IN VARCHAR2, aFechNac IN VARCHAR2, aGenero IN NUMBER,
  rNom IN VARCHAR2, rApe IN VARCHAR2, rDirec IN VARCHAR2, rDui IN VARCHAR2, rTel IN VARCHAR2, rGenero IN NUMBER
 )
 IS
@@ -291,25 +291,25 @@ BEGIN
         when others then
         idResp:=0;
     END;
-    
-        INSERT INTO alumno values(tbAlumno.NEXTVAL,anom,aape,adirec,atel,'-',afechnac,agenero,1)RETURNING id_alumno INTO idAlumn;
-        
+
+        INSERT INTO alumno values(tbAlumno.NEXTVAL,anom,aape,adirec,atel,tbAlumno.NEXTVAL,afechnac,agenero,1)RETURNING id_alumno INTO idAlumn;
+
         IF (idResp=0) THEN
             INSERT INTO responsable VALUES (tbResponsable.NEXTVAL,rnom,rape,rdirec, rdui,rtel,1,rgenero)RETURNING id_responsable INTO idResp;   
         END IF;
-        
+
         INSERT INTO alumno_responsable values(tbAlumRes.NEXTVAL,idAlumn,idResp); 
 END;
-
 --Procedimiento: Registro de nota por docente
 create or replace PROCEDURE registrar_nota_docente
 (dId IN NUMBER, dGrado IN VARCHAR2, dMate IN VARCHAR2, dPeri IN NUMBER, dSec IN VARCHAR2,
- ANom IN VARCHAR2, aApe IN VARCHAR2, aNotaA IN NUMBER, aNotaB IN NUMBER, aNotaC IN NUMBER)
+ ANom IN VARCHAR2, aApe IN VARCHAR2, aNotaA IN NUMBER, aNotaB IN NUMBER, aNotaC IN NUMBER
+,msj out VARCHAR)
 IS
  idGrad number;
  idMate number; 
  idSec number;
- 
+
  idAlum number;
  idNota number;
 BEGIN
@@ -337,18 +337,18 @@ BEGIN
             when others then
                 idAlum:=0;
             END;
-            
+
             IF (idAlum!=0) THEN
                INSERT INTO nota N values(tbNota.NEXTVAL,idAlum,idMate)RETURNING n.id_nota INTO idNota;
-               
+
                INSERT INTO periodo VALUES(tbPeriodo.NEXTVAL,aNotaA,aNotaB,aNotaC, idNota, dId, dPeri) ;
-               
+               MSJ:='Notas insertas con exito';
             END IF;
-            
+
         END IF;        
 END;
 --Procedimiento: registrar docente
-CREATE OR REPLACE PROCEDURE DIRECTOR.RegistrarDocente
+create or replace PROCEDURE RegistrarDocente
 (dId in NUMBER, dNom in VARCHAR2, dApe in VARCHAR2,
 dTel in VARCHAR2, dDirec in VARCHAR2, dDoc in VARCHAR2,
 dFNac in Date, dEst in NUMBER, dGen in NUMBER,
@@ -407,6 +407,62 @@ BEGIN
         END IF;
     END IF; 
     msj:=mensaje;
+END;
+--Procedimiento: Registro de nota por Admin
+create or replace PROCEDURE registrar_nota_Admin
+(dNombre IN VARCHAR2, dGrado IN VARCHAR2, dMate IN VARCHAR2, dPeri IN NUMBER, dSec IN VARCHAR2,
+ ANom IN VARCHAR2, aApe IN VARCHAR2, aNotaA IN NUMBER, aNotaB IN NUMBER, aNotaC IN NUMBER
+,msj out VARCHAR)
+IS
+ idGrad number;
+ idMate number; 
+ idSec number;
+ idDoce number;
+
+ idAlum number;
+ idNota number;
+BEGIN
+
+    BEGIN
+        SELECT D.ID_DOCENTE INTO idDoce FROM DOCENTE D WHERE D.DOCENTE_NOMBRE ||' '|| D.DOCENTE_APELLIDO = dNombre;
+    EXCEPTION
+        when others then
+        idDoce:=0;
+    END;
+    IF (idDoce>0) THEN
+        BEGIN
+            SELECT mg.id_grado,mg.id_materia, mg.id_seccion INTO idGrad,idMate,idSec FROM docente D                 
+                INNER JOIN materia_grado MG ON d.id_docente = mg.id_docente
+            WHERE d.id_docente=idDoce;       
+        EXCEPTION
+            when others then
+            idGrad:=0;
+            idMate:=0;
+            idSec:=0;
+            msj:='Los datos de cabezera no son correctos,\n verifique que esten escritos correctamente.';
+        END;
+        IF (idGrad!=0 AND idMate!=0 AND idSec!=0) THEN
+            BEGIN
+                SELECT alu.id_alumno INTO idAlum 
+                FROM alumno ALU
+                WHERE alu.alumno_nombre=anom AND alu.alumno_apelidos=aape;                            
+            EXCEPTION
+            when others then
+                msj:='No se ha encontrado el alumno.';
+                idAlum:=0;
+            END;
+
+            IF (idAlum!=0) THEN
+               INSERT INTO nota N values(tbNota.NEXTVAL,idAlum,idMate)RETURNING n.id_nota INTO idNota;
+
+               INSERT INTO periodo VALUES(tbPeriodo.NEXTVAL,aNotaA,aNotaB,aNotaC, idNota, idDoce, dPeri) ;
+               msj:='Notas insertas con exito';
+            END IF;
+
+        END IF;        
+    ELSE
+        msj:='No se encontro el nombre del docente de la base de datos';
+    END IF;
 END;
 
 --Fin de procedimientos almacenados
