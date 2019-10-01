@@ -5,28 +5,39 @@
  */
 package Views.Maestro;
 
-import Views.Administrador.*;
+import Acceso_Datos.ConectionDB;
+import Acceso_Datos.entityMain;
+import Excel.Excel;
+import Excel.ModeloAlumnoNota;
 import java.beans.PropertyVetoException;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureQuery;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Jorge Villanueva
  */
 public class Subir_Nota extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form Agregar_Alumno
-     */
+    List<ModeloAlumnoNota> alumnoNotas;
+    DefaultTableModel modM;    
+    File src=null;
     public Subir_Nota() {
         
         initComponents();
        
-        
-           // this.setMaximum(true);
+        initComponents();
+        modM = (DefaultTableModel) jTable1.getModel();
         
 
     }
@@ -46,15 +57,17 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         Btn_Guardar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtDocente = new javax.swing.JTextField();
+        txtgrado = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtseccion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        txtmateria = new javax.swing.JTextField();
+        cmbperiodo = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
+        Btn_ReCargar = new javax.swing.JButton();
+        Btn_Limpiar = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -108,23 +121,25 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Guardar.setText("Guardar");
-        Btn_Guardar.setEnabled(false);
+        Btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_GuardarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Docente");
 
-        jTextField1.setEditable(false);
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("Jorge Isaquiel Villanueva Chavez");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtDocente.setEditable(false);
+        txtDocente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtDocenteActionPerformed(evt);
             }
         });
 
-        jTextField2.setEditable(false);
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("8");
+        txtgrado.setEditable(false);
+        txtgrado.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Grado");
@@ -132,59 +147,77 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Periodo");
 
-        jTextField3.setEditable(false);
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setText("A");
+        txtseccion.setEditable(false);
+        txtseccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Materia");
 
-        jTextField4.setEditable(false);
-        jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField4.setText("CIENCIA, SALUD Y MEDIO AMBIENTE");
+        txtmateria.setEditable(false);
+        txtmateria.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "1", "2", "3" }));
+        cmbperiodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "1", "2", "3" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Sección");
+
+        Btn_ReCargar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Btn_ReCargar.setText("Re-Cargar Documento");
+        Btn_ReCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_ReCargarActionPerformed(evt);
+            }
+        });
+
+        Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Btn_Limpiar.setText("Limpiar");
+        Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_LimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(79, 79, 79)
                 .addComponent(Btn_Cargar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(260, 260, 260)
+                .addGap(14, 14, 14)
+                .addComponent(Btn_ReCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(242, 242, 242))
+                .addGap(199, 199, 199))
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtgrado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4)
+                        .addComponent(txtmateria)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbperiodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtseccion, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(jLabel1)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(5, 5, 5))
+                .addGap(5, 19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +229,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -205,48 +238,155 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtgrado, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(2, 2, 2))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(txtmateria, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cmbperiodo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtseccion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Btn_Cargar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(Btn_Guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_Cargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Btn_ReCargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Btn_Limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocenteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtDocenteActionPerformed
 
     private void Btn_CargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CargarActionPerformed
         // TODO add your handling code here:
+        modM.setRowCount(0);
         JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
-        File f = chooser.getSelectedFile();
+        chooser.setFileFilter( new FileNameExtensionFilter("Excel", "xlsx"));
+        chooser.setCurrentDirectory(new File(chooser.getCurrentDirectory().getPath().replace(chooser.getCurrentDirectory().getName(),"Desktop")));
+        chooser.showOpenDialog(rootPane);
+        src = chooser.getSelectedFile();
+        if (src!=null) {
+            LeerExcel(src);
+            CargarTabla();
+        }
     }//GEN-LAST:event_Btn_CargarActionPerformed
+
+    private void Btn_ReCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ReCargarActionPerformed
+        // TODO add your handling code here:
+        if (src!=null) {
+            LeerExcel(src);
+            CargarTabla();
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "No ha seleccionado un archivo.");
+        }
+    }//GEN-LAST:event_Btn_ReCargarActionPerformed
+
+    private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
+        // TODO add your handling code here:
+        modM.setRowCount(0);
+        src=null;
+    }//GEN-LAST:event_Btn_LimpiarActionPerformed
+
+    private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
+          ConectionDB cdb = new ConectionDB();
+        try {
+            
+            
+            for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
+                StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRAR_NOTA_DOCENTE");
+            
+                spq.registerStoredProcedureParameter("dId",Integer.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dNombre", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dGrado", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dMate", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dPeri", Integer.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dSec", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("ANom", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aApe", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aNotaA", Double.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aNotaB", Double.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aNotaC", Double.class, ParameterMode.IN);
+              //  spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
+                
+                spq.setParameter("dId", 2);
+                spq.setParameter("dNombre",txtDocente.getText());
+                spq.setParameter("dGrado",txtgrado.getText());
+                spq.setParameter("dMate",txtmateria.getText());
+                spq.setParameter("dPeri",Double.parseDouble(cmbperiodo.getSelectedItem().toString()));
+                spq.setParameter("dSec",txtseccion.getText());
+                spq.setParameter("ANom", alumnoNota.getNombre());
+                spq.setParameter("aApe", alumnoNota.getApellido());
+                spq.setParameter("aNotaA",alumnoNota.getNota1());
+                spq.setParameter("aNotaB", alumnoNota.getNota2());
+                spq.setParameter("aNotaC", alumnoNota.getNota3());
+                
+                spq.execute();
+                
+                String Mensaje=spq.getOutputParameterValue("msj").toString();
+                JOptionPane.showMessageDialog(rootPane,Mensaje);
+            }
+  
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane,"ERROR: " + e);
+        }
+    }//GEN-LAST:event_Btn_GuardarActionPerformed
+    
+       private void CargarTabla() {        
+        List<ModeloAlumnoNota> lm = alumnoNotas;         
+        
+        modM.setRowCount(0);                
+        for (ModeloAlumnoNota lm1 : lm) {
+            String[] registroC = {lm1.getNombre(), lm1.getApellido(), String.valueOf(lm1.getNota1()), String.valueOf(lm1.getNota2()), String.valueOf(lm1.getNota3())};
+            modM.addRow(registroC);
+        }          
+    }
+     private void LeerExcel(File src) {
+        alumnoNotas = new ArrayList<>();
+        Excel excel = new Excel();
+        String result = excel.ReadFileExcel(src);
+        String Fila[] = result.split("\n");        
+        String turno="";        
+        try {
+            for (int i = 0; i < Fila.length; i++) {
+            String[] Colum = Fila[i].split(",");
+            if (i==1) {
+                txtDocente.setText(Colum[1]);
+                txtgrado.setText(Colum[3]);
+                txtseccion.setText(Colum[5]);
+                turno=Colum[7];                    
+            }else if (i==2){
+                txtmateria.setText(Colum[1]);                
+            }else if (i>=4) {                
+                ModeloAlumnoNota alumnoNota = new ModeloAlumnoNota(Colum[1],Colum[2],Double.parseDouble(Colum[3]),Double.parseDouble(Colum[4]),Double.parseDouble(Colum[5]));
+                alumnoNotas.add(alumnoNota);                  
+            }           
+        }
+        } catch (Exception e) {
+            
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Cargar;
     private javax.swing.JButton Btn_Guardar;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton Btn_Limpiar;
+    private javax.swing.JButton Btn_ReCargar;
+    private javax.swing.JComboBox cmbperiodo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -255,9 +395,9 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField txtDocente;
+    private javax.swing.JTextField txtgrado;
+    private javax.swing.JTextField txtmateria;
+    private javax.swing.JTextField txtseccion;
     // End of variables declaration//GEN-END:variables
 }
