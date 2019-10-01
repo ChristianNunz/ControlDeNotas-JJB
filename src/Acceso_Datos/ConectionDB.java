@@ -6,13 +6,16 @@
 package Acceso_Datos;
 
 
+import Logica_Negocios.EditarNota;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -62,6 +65,31 @@ public class ConectionDB {
             resultSet.next();
             BigInteger id= new BigInteger(resultSet.getString(1));
             return id;
+        } catch (Exception e) {
+             return null;
+        }
+    }
+     public List<EditarNota> GetListaNotas(String periodo, String grado, String materia,String Seccion, String docenteid){
+        try {
+            List<EditarNota> editarNotas = new ArrayList<EditarNota>();
+            Statement st = conn();
+            ResultSet resultSet = st.executeQuery("SELECT p.id_periodo,a.alumno_nombre,a.alumno_apelidos,p.nota1,p.nota2,p.nota3,p.periodo,g.grado,m.materia_nombre,s.nombre_seccion FROM alumno A\n" +
+"    INNER JOIN NOTA N ON a.id_alumno = n.id_alumno\n" +
+"    INNER JOIN periodo P ON n.id_nota = p.id_nota\n" +
+"    INNER JOIN materia_grado MG ON n.id_materia_grado=mg.id_materia_grado\n" +
+"    INNER JOIN SECCION S ON mg.id_seccion = s.id_seccion\n" +
+"    INNER JOIN turno T ON mg.id_turno = t.id_turno\n" +
+"    INNER JOIN materia M ON mg.id_materia = m.id_materia\n" +
+"    INNER JOIN docente D ON mg.id_docente=d.id_docente\n" +
+"    INNER JOIN grado G ON mg.id_grado = g.id_grado\n" +
+"WHERE p.periodo="+periodo+" AND g.grado='"+grado+"' AND m.materia_nombre='"+materia+"' AND s.nombre_seccion='"+Seccion+"' AND d.id_docente='"+docenteid+"'");  
+            while(resultSet.next()){
+                 EditarNota editarNota = new EditarNota(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Double.parseDouble(resultSet.getString(4)), Double.parseDouble(resultSet.getString(5)), Double.parseDouble(resultSet.getString(6)));
+                 editarNotas.add(editarNota);                
+            }
+           
+          
+            return editarNotas;
         } catch (Exception e) {
              return null;
         }
