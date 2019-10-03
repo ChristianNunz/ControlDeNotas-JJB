@@ -5,10 +5,14 @@
  */
 package Views.Maestro;
 
+import Acceso_Datos.ConectionDB;
+import Logica_Negocios.EditarNota;
 import Views.Administrador.*;
 import java.beans.PropertyVetoException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -38,15 +42,15 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cmb_encargado = new javax.swing.JComboBox();
+        cmb_grado = new javax.swing.JComboBox();
         lblcontra5 = new javax.swing.JLabel();
-        cmb_encargado1 = new javax.swing.JComboBox();
+        cmb_materia = new javax.swing.JComboBox();
         lblcontra6 = new javax.swing.JLabel();
         lblcontra7 = new javax.swing.JLabel();
-        cmb_encargado2 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        cmb_seccion = new javax.swing.JComboBox();
+        btn_mostrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_alumnos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -67,15 +71,15 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cmb_encargado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4", "5", "6", "7", "8", "9" }));
-        getContentPane().add(cmb_encargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
+        cmb_grado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4", "5", "6", "7", "8", "9" }));
+        getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
 
         lblcontra5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra5.setText("Grado:");
         getContentPane().add(lblcontra5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
 
-        cmb_encargado1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lenguaje", "Matemáticas", "Ciencias Salud y Medio Ambiente", "Estudios Sociales", "Educacion Física", "Artistica", "Ingles" }));
-        getContentPane().add(cmb_encargado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 200, -1));
+        cmb_materia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lenguaje", "Matemáticas", "Ciencias Salud y Medio Ambiente", "Estudios Sociales", "Educacion Física", "Artistica", "Ingles" }));
+        getContentPane().add(cmb_materia, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 200, -1));
 
         lblcontra6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra6.setText("Materia:");
@@ -85,13 +89,18 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         lblcontra7.setText("Sección:");
         getContentPane().add(lblcontra7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
 
-        cmb_encargado2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D" }));
-        getContentPane().add(cmb_encargado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 200, -1));
+        cmb_seccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D" }));
+        getContentPane().add(cmb_seccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 200, -1));
 
-        jButton1.setText("Mostrar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, -1, -1));
+        btn_mostrar.setText("Mostrar");
+        btn_mostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_mostrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_alumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null}
             },
@@ -107,7 +116,7 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla_alumnos);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 800, 300));
 
@@ -117,18 +126,46 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+      List<EditarNota> Alumnos;
+    private void btn_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrarActionPerformed
+        // TODO add your handling code here:
+        
+        String grado=cmb_grado.getSelectedItem().toString();
+        String materia=cmb_materia.getSelectedItem().toString();
+        String seccion=cmb_seccion.getSelectedItem().toString();
 
+        ConectionDB con = new ConectionDB();
+        Alumnos =  con.GetListaAlumnos(grado, materia, seccion,"1" );
+       
+        cargartabla();
+    }//GEN-LAST:event_btn_mostrarActionPerformed
+    private void cargartabla(){
+    
+   
+    
+    DefaultTableModel modM = (DefaultTableModel) tabla_alumnos.getModel(); 
+    modM.setRowCount(0);
+    for(int i=0; i<Alumnos.size(); i++)
+        {
+            String[] registroC = {
+                                  Alumnos.get(i).getNombre(),
+                                  Alumnos.get(i).getApellido()                                  
+                                  };
+              modM.addRow(registroC);
+           }
+          
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox cmb_encargado;
-    private javax.swing.JComboBox cmb_encargado1;
-    private javax.swing.JComboBox cmb_encargado2;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_mostrar;
+    private javax.swing.JComboBox cmb_grado;
+    private javax.swing.JComboBox cmb_materia;
+    private javax.swing.JComboBox cmb_seccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblcontra5;
     private javax.swing.JLabel lblcontra6;
     private javax.swing.JLabel lblcontra7;
+    private javax.swing.JTable tabla_alumnos;
     // End of variables declaration//GEN-END:variables
 }

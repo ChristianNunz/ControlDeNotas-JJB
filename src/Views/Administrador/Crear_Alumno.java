@@ -289,7 +289,7 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
             }           
         }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, ""+e);
+           // JOptionPane.showMessageDialog(rootPane, ""+e);
         }
     }
 

@@ -119,6 +119,8 @@ public class AlumnoJpaController implements Serializable {
             em.close();
         }
     }
+    
+    
 
     public Alumno findAlumno(BigDecimal id) {
         EntityManager em = getEntityManager();

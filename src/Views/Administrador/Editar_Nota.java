@@ -217,7 +217,15 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
             new String [] {
                 "Id", "Nombre", "Apellido", "Nota 1 (35%)", "Nota 2 (35%)", "Nota 3 (30%)"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         Tabla_Edit_Notas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         Tabla_Edit_Notas.setAutoscrolls(false);
         Tabla_Edit_Notas.setFocusTraversalPolicyProvider(true);
@@ -260,22 +268,19 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         try {
             if (!id.equals("null")) {
 
-                String nombre=txtNombre.getText();
-                String apellido=txtApellido.getText();
+              
                  
                  String NotaUno=txtnotaUno.getText();
                  String NotaDos=txtnotaDos.getText();
                  String NotaTres=txtnotaTres.getText();
                 
-                Alumno Alum = new Alumno();
-                Alum.setAlumnoNombre(nombre);
-                Alum.setAlumnoApelidos(apellido);
+              
                 
                 Periodo Peri = new Periodo();
                 Peri.setNota1(new BigDecimal(NotaUno));
                 Peri.setNota2(new BigDecimal(NotaDos));
                 Peri.setNota3(new BigDecimal(NotaTres));
-                CAlumno.edit(Alum); 
+             
                 ConPeriodo.edit(Peri);           
                 cargartabla();
                 
@@ -298,7 +303,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
 
     private void Tabla_Edit_NotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla_Edit_NotasMouseClicked
         // TODO add your handling code here:
-        String id=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 0).toString();
+         id=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 0).toString();
         String nom=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 1).toString();
         String ape=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 2).toString();
         String not1=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 3).toString();

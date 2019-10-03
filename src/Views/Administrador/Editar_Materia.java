@@ -157,7 +157,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
         getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, 20));
 
         txtbho.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtbho, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 180, 20));
+        getContentPane().add(txtbho, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 180, 30));
 
         getContentPane().add(cmb_mat, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 180, -1));
 
@@ -185,11 +185,16 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
 
         lblUsuario1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario1.setText("Id:");
-        getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, 20));
+        getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, 20));
 
         txt_id.setEditable(false);
         txt_id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 180, 20));
+        txt_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_idActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 180, -1));
 
         getContentPane().add(cmb_docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 180, -1));
 
@@ -265,6 +270,10 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
         txtbho.setText(anho);
   
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void txt_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_idActionPerformed
     
     private void cargartabla(){
     

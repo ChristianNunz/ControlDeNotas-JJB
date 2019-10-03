@@ -12,12 +12,21 @@ import Excel.ModeloAlumnoNota;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
+import javax.persistence.Parameter;
 import javax.persistence.ParameterMode;
+import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
+import javax.persistence.TemporalType;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -217,7 +226,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(jLabel1)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(5, 19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,12 +264,12 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Btn_Cargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Btn_ReCargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Btn_Limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Btn_Cargar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -305,14 +314,210 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
           ConectionDB cdb = new ConectionDB();
         try {
             
-            
+            StoredProcedureQuery spq = new StoredProcedureQuery() {
+
+                @Override
+                public StoredProcedureQuery setHint(String hintName, Object value) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public <T> StoredProcedureQuery setParameter(Parameter<T> param, T value) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery setParameter(Parameter<Calendar> param, Calendar value, TemporalType temporalType) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery setParameter(Parameter<Date> param, Date value, TemporalType temporalType) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery setParameter(String name, Object value) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery setParameter(String name, Calendar value, TemporalType temporalType) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery setParameter(String name, Date value, TemporalType temporalType) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery setParameter(int position, Object value) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery setParameter(int position, Calendar value, TemporalType temporalType) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery setParameter(int position, Date value, TemporalType temporalType) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery setFlushMode(FlushModeType flushMode) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery registerStoredProcedureParameter(int position, Class type, ParameterMode mode) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public StoredProcedureQuery registerStoredProcedureParameter(String parameterName, Class type, ParameterMode mode) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Object getOutputParameterValue(int position) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Object getOutputParameterValue(String parameterName) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public boolean execute() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public int executeUpdate() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public List getResultList() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Object getSingleResult() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public boolean hasMoreResults() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public int getUpdateCount() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Query setMaxResults(int maxResult) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public int getMaxResults() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Query setFirstResult(int startPosition) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public int getFirstResult() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Map<String, Object> getHints() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Set<Parameter<?>> getParameters() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Parameter<?> getParameter(String name) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public <T> Parameter<T> getParameter(String name, Class<T> type) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Parameter<?> getParameter(int position) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public <T> Parameter<T> getParameter(int position, Class<T> type) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public boolean isBound(Parameter<?> param) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public <T> T getParameterValue(Parameter<T> param) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Object getParameterValue(String name) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Object getParameterValue(int position) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public FlushModeType getFlushMode() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public Query setLockMode(LockModeType lockMode) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public LockModeType getLockMode() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public <T> T unwrap(Class<T> cls) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+            } ;
             for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
-                StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRAR_NOTA_DOCENTE");
+                spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRAR_NOTA_DOCENTE");
             
                 spq.registerStoredProcedureParameter("dId",Integer.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("dNombre", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dGrado", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dMate", String.class, ParameterMode.IN);
+               // spq.registerStoredProcedureParameter("dMate", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dPeri", Integer.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dSec", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("ANom", String.class, ParameterMode.IN);
@@ -320,10 +525,10 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                 spq.registerStoredProcedureParameter("aNotaA", Double.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("aNotaB", Double.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("aNotaC", Double.class, ParameterMode.IN);
-              //  spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
+                spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
                 
-                spq.setParameter("dId", 2);
-                spq.setParameter("dNombre",txtDocente.getText());
+                spq.setParameter("dId", 1);
+                //spq.setParameter("dNombre",txtDocente.getText());
                 spq.setParameter("dGrado",txtgrado.getText());
                 spq.setParameter("dMate",txtmateria.getText());
                 spq.setParameter("dPeri",Double.parseDouble(cmbperiodo.getSelectedItem().toString()));
@@ -336,9 +541,10 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                 
                 spq.execute();
                 
-                String Mensaje=spq.getOutputParameterValue("msj").toString();
-                JOptionPane.showMessageDialog(rootPane,Mensaje);
+               
             }
+             String Mensaje=spq.getOutputParameterValue("msj").toString();
+             JOptionPane.showMessageDialog(rootPane,Mensaje);
   
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane,"ERROR: " + e);

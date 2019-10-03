@@ -22,7 +22,9 @@ import Logica_Negocios.Turno;
 import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -43,7 +45,13 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
     
     public Asignar_SeccionesM() {
         
+        
         initComponents();
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        Date fech = new Date();
+        
+        txt_anho.setText(formatter.format(fech));
         LLenarComboM(); 
         LLenarComboS(); 
         LLenarComboG(); 
@@ -62,7 +70,7 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         lblUsuario = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txt_anho = new javax.swing.JTextField();
         Btn_Guardar = new javax.swing.JButton();
         cmb_mat = new javax.swing.JComboBox();
         cmb_grado = new javax.swing.JComboBox();
@@ -98,9 +106,9 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
         lblUsuario.setText("Año:");
         getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, 20));
 
-        txtNombre.setEditable(false);
-        txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 180, 20));
+        txt_anho.setEditable(false);
+        txt_anho.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        getContentPane().add(txt_anho, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 180, 30));
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Guardar.setText("Guardar");
@@ -166,7 +174,7 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
            int idv = con.GetIdValidar(id,idg,ids,idt,idd);
            if (idv ==0) {
            MateriaGrado materiaGrado = new MateriaGrado(con.GetIdToInsert("MATERIA_GRADO", "ID_MATERIA_GRADO"));
-           materiaGrado.setAnho(new BigInteger("2019"));
+           materiaGrado.setAnho(new BigInteger(txt_anho.getText()));
            materiaGrado.setIdMateria(new Materia(id, NombreM));
            materiaGrado.setIdDocente(new Docente(idd));
            materiaGrado.setIdGrado(new Grado(idg, Grado));
@@ -199,7 +207,7 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuario4;
     private javax.swing.JLabel lblUsuario5;
     private javax.swing.JLabel lblUsuario6;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txt_anho;
     // End of variables declaration//GEN-END:variables
 
     private void LLenarComboM() {
