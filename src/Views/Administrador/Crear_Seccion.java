@@ -70,7 +70,7 @@ public class Crear_Seccion extends javax.swing.JInternalFrame {
         getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 30));
 
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 200, 30));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 120, 30));
 
         Btn_Guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Guardar.setText("Registrar");
@@ -79,7 +79,7 @@ public class Crear_Seccion extends javax.swing.JInternalFrame {
                 Btn_GuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 110, -1));
+        getContentPane().add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 110, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

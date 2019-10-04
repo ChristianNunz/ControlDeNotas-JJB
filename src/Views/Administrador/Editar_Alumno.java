@@ -10,6 +10,8 @@ import Acceso_Datos.entityMain;
 import Logica_Negocios.Alumno;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -52,7 +54,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         lblUsuario2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_alumnos = new javax.swing.JTable();
-        txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         lblcontra = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -61,7 +62,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         lblcontra2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblcontra3 = new javax.swing.JLabel();
-        dcc_fechaNac = new datechooser.beans.DateChooserCombo();
         lblcontra4 = new javax.swing.JLabel();
         txt_sex = new javax.swing.JTextField();
         btn_cmb_sex = new javax.swing.JButton();
@@ -71,6 +71,8 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         lblUsuario3 = new javax.swing.JLabel();
         txt_Id = new javax.swing.JTextField();
         txtNie = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JFormattedTextField();
+        txtfecha = new javax.swing.JFormattedTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -135,9 +137,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 72, 910, 630));
 
-        txtTelefono.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 200, -1));
-
         txtDireccion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 200, -1));
 
@@ -172,114 +171,70 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         lblcontra3.setText("NIE:");
         getContentPane().add(lblcontra3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
 
-        dcc_fechaNac.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
-            new datechooser.view.appearance.ViewAppearance("custom",
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    true,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 255),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(128, 128, 128),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(255, 0, 0),
-                    false,
-                    false,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                (datechooser.view.BackRenderer)null,
-                false,
-                true)));
-    dcc_fechaNac.setNothingAllowed(false);
-    dcc_fechaNac.setFormat(2);
-    dcc_fechaNac.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, 12));
-    try {
-        dcc_fechaNac.setForbiddenPeriods(new datechooser.model.multiple.PeriodSet());
-    } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
-        e1.printStackTrace();
-    }
-    dcc_fechaNac.setNavigateFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 18));
-    dcc_fechaNac.setCurrentNavigateIndex(0);
-    dcc_fechaNac.setShowOneMonth(true);
-    getContentPane().add(dcc_fechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 200, -1));
+        lblcontra4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra4.setText("Estado:");
+        getContentPane().add(lblcontra4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
 
-    lblcontra4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    lblcontra4.setText("Estado:");
-    getContentPane().add(lblcontra4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
+        txt_sex.setEditable(false);
+        txt_sex.setText("Masculino");
+        txt_sex.setAlignmentX(0.0F);
+        txt_sex.setFocusable(false);
+        txt_sex.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        getContentPane().add(txt_sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 160, 23));
 
-    txt_sex.setEditable(false);
-    txt_sex.setText("Masculino");
-    txt_sex.setAlignmentX(0.0F);
-    txt_sex.setFocusable(false);
-    txt_sex.setMargin(new java.awt.Insets(0, 0, 0, 0));
-    getContentPane().add(txt_sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 160, 23));
+        btn_cmb_sex.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/change.png"))); // NOI18N
+        btn_cmb_sex.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn_cmb_sex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cmb_sexActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_cmb_sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 30, 23));
 
-    btn_cmb_sex.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/change.png"))); // NOI18N
-    btn_cmb_sex.setMargin(new java.awt.Insets(0, 0, 0, 0));
-    btn_cmb_sex.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btn_cmb_sexActionPerformed(evt);
+        txt_activ.setEditable(false);
+        txt_activ.setText("Activo");
+        txt_activ.setFocusable(false);
+        getContentPane().add(txt_activ, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 160, -1));
+
+        btn_cmb_estado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/change.png"))); // NOI18N
+        btn_cmb_estado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cmb_estadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_cmb_estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, 29, -1));
+
+        Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Btn_Limpiar.setText("Limpiar");
+        Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_LimpiarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Btn_Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 250, -1));
+
+        lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario3.setText("Id:");
+        getContentPane().add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, -1));
+
+        txt_Id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txt_Id.setEnabled(false);
+        getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
+
+        txtNie.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        getContentPane().add(txtNie, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, -1));
+
+        try {
+            txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
         }
-    });
-    getContentPane().add(btn_cmb_sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 30, 23));
+        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 200, -1));
 
-    txt_activ.setEditable(false);
-    txt_activ.setText("Activo");
-    txt_activ.setFocusable(false);
-    getContentPane().add(txt_activ, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 160, -1));
+        txtfecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd-MM-yyyy"))));
+        getContentPane().add(txtfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 200, -1));
 
-    btn_cmb_estado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/change.png"))); // NOI18N
-    btn_cmb_estado.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btn_cmb_estadoActionPerformed(evt);
-        }
-    });
-    getContentPane().add(btn_cmb_estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, 29, -1));
-
-    Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    Btn_Limpiar.setText("Limpiar");
-    Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            Btn_LimpiarActionPerformed(evt);
-        }
-    });
-    getContentPane().add(Btn_Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 250, -1));
-
-    lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    lblUsuario3.setText("Id:");
-    getContentPane().add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, -1));
-
-    txt_Id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    txt_Id.setEnabled(false);
-    getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
-
-    txtNie.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    getContentPane().add(txtNie, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, -1));
-
-    pack();
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
@@ -292,7 +247,15 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
                 String tel=txtTelefono.getText();
                 String direcc=txtDireccion.getText();
                 String nie =txtNie.getText();
-                String date =dcc_fechaNac.getText();
+                
+                 String f=txtfecha.getText();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); 
+                 Date fecha = new Date();
+                try {
+                    fecha = sdf.parse(f);
+                } catch (ParseException ex) {
+                    
+                }
                 String genero=txt_sex.getText(); 
                 String estado=txt_activ.getText();
 
@@ -313,7 +276,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
                 alumno.setAlumnoDireccion(direcc);
                 alumno.setAlumnoTel(tel);            
                 alumno.setAlumnoNie(nie);
-                alumno.setAlumnoFechaNac(new Date());
+                alumno.setAlumnoFechaNac(fecha);
                 alumno.setAlumnoGenero(new BigInteger(genero));
                 alumno.setAlumnoEstado(new BigInteger(estado));                  
                 CAlumno.edit(alumno);
@@ -372,21 +335,23 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         String genero=tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 7).toString();
         String estado = tabla_alumnos.getValueAt(tabla_alumnos.getSelectedRow(), 8).toString();
         
+        
         txt_Id.setText(id);
         txtNombre.setText(nom);
         txtApellido.setText(ape);
         txtDireccion.setText(dire);
         txtTelefono.setText(tel);
+        txtfecha.setText(fecha);
         txtNie.setText(nie);
-        dcc_fechaNac.setText(fecha);
         
         
-        if (genero.equals("1")) {
+        
+        if (genero.equals("M")) {
             txt_sex.setText("Masculino");
         }else{
             txt_sex.setText("Femenino");
         }
-        if (estado.equals("1")) {
+        if (estado.equals("Activo")) {
             txt_activ.setText("Activo");
         }else{
             txt_activ.setText("Inactivo");
@@ -405,9 +370,9 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
             lm.get(i).getAlumnoTel(),
             lm.get(i).getAlumnoNie(),
             lm.get(i).getAlumnoDireccion(),
-            lm.get(i).getAlumnoFechaNac().toString(),
-            lm.get(i).getAlumnoGenero().toString(),
-            lm.get(i).getAlumnoEstado().toString()};
+            lm.get(i).getAlumnoFechaNac(),
+            lm.get(i).getAlumnoGenero(),
+            lm.get(i).getAlumnoEstado()};
             modM.addRow(registroC);
         }          
     }
@@ -417,7 +382,6 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     private javax.swing.JButton Btn_Limpiar;
     private javax.swing.JButton btn_cmb_estado;
     private javax.swing.JButton btn_cmb_sex;
-    private datechooser.beans.DateChooserCombo dcc_fechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblUsuario;
@@ -434,9 +398,10 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNie;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JFormattedTextField txtTelefono;
     private javax.swing.JTextField txt_Id;
     private javax.swing.JTextField txt_activ;
     private javax.swing.JTextField txt_sex;
+    private javax.swing.JFormattedTextField txtfecha;
     // End of variables declaration//GEN-END:variables
 }

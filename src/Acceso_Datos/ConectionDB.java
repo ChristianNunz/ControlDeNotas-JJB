@@ -22,9 +22,10 @@ import java.util.List;
  * @author Jorge Villanueva
  */
 public class ConectionDB {
-    String url="jdbc:oracle:thin:@localhost:1521:XE";
-    String user="director";
-    String pass="jjb";
+    private String url="jdbc:oracle:thin:@localhost:1521:XE";
+    private String user="director";
+    private String pass="jjb";
+    public String IdLog;
     
       
     
@@ -155,5 +156,28 @@ public class ConectionDB {
              return null;
         }
     }
-    
+    public void UpdateNota(String id_periodo, String nota1, String nota2, String nota3){
+         try {
+            Statement st = conn();
+            st.executeQuery("UPDATE PERIODO SET nota1="+nota1+", nota2="+nota2+", nota3="+nota3+" WHERE id_periodo="+id_periodo+"");                   
+            
+        } catch (Exception e) {
+            
+        }
+    }
+
+    public String Login(String user, String contra) {
+        try {
+            Statement st = conn();
+            ResultSet resultSet = st.executeQuery("SELECT l.ID_LOGIN,R.ROL_NOMBRE FROM LOGIN L INNER JOIN ROL R ON L.id_rol=R.id_rol WHERE L.LOGIN_USUARIO='"+user+"' AND L.LOGIN_CLAVE='"+contra+"'");
+            resultSet.next();
+            String Id = resultSet.getString(1);
+            String Rol=resultSet.getString(2);
+            
+            IdLog=Id;
+            return Rol;
+        } catch (Exception e) {
+             return "null";
+        }
+    }
 }

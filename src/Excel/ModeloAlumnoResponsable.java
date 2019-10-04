@@ -84,7 +84,7 @@ public class ModeloAlumnoResponsable {
     }
 
     public String getAfechNac() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");                
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");                
         return sdf.format(AfechNac);
     }
 

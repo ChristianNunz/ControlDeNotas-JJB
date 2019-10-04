@@ -52,7 +52,6 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         lblUsuario1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla_Resp = new javax.swing.JTable();
-        txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         lblcontra = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -61,7 +60,6 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         lblcontra2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblcontra3 = new javax.swing.JLabel();
-        txtDui = new javax.swing.JTextField();
         lblcontra4 = new javax.swing.JLabel();
         txt_sex = new javax.swing.JTextField();
         btn_cmb_sex = new javax.swing.JButton();
@@ -70,6 +68,8 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         Btn_Limpiar = new javax.swing.JButton();
         lblUsuario3 = new javax.swing.JLabel();
         txt_Id = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JFormattedTextField();
+        txtDui = new javax.swing.JFormattedTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -125,9 +125,6 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 72, 910, 630));
 
-        txtTelefono.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 200, 30));
-
         txtDireccion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 200, 30));
 
@@ -164,9 +161,6 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         lblcontra3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblcontra3.setText("Dui:");
         getContentPane().add(lblcontra3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 70, 30));
-
-        txtDui.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtDui, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 200, 30));
 
         lblcontra4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -220,6 +214,20 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         txt_Id.setEnabled(false);
         getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, 30));
 
+        try {
+            txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 200, 30));
+
+        try {
+            txtDui.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtDui, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 200, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -256,11 +264,12 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
                 responsable.setResponsableGenero(new BigInteger(genero));
                 responsable.setResponsableEstado(new BigInteger(estado));                  
                 ConResp.edit(responsable);
+                CargarTabla();
+                JOptionPane.showMessageDialog(rootPane, "Encargado Editado Correctamente");
             }
-            CargarTabla();
-            JOptionPane.showMessageDialog(null, "Encargado Editado Correctamente");
+            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(rootPane,"Algo salio mal.");
         }
         
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
@@ -289,8 +298,8 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
         // TODO add your handling code here:
-        
-        txt_Id.setText(id);
+        id="null";
+        txt_Id.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
         txtTelefono.setText("");
@@ -317,12 +326,12 @@ public class Editar_Encargado extends javax.swing.JInternalFrame {
         txtDireccion.setText(direc);
         txtDui.setText(dui);
        
-        if (genero.equals("1")) {
+        if (genero.equals("M")) {
             txt_sex.setText("Masculino");
         }else{
             txt_sex.setText("Femenino");
         }
-        if (estado.equals("1")) {
+        if (estado.equals("Activo")) {
             txt_activ.setText("Activo");
         }else{
             txt_activ.setText("Inactivo");
@@ -343,8 +352,8 @@ private void CargarTabla() {
                                   lm.get(i).getResponsableDireccion(),
                                   lm.get(i).getResponsableDui(),
                                   lm.get(i).getResponsableTel(),                                               
-                                  lm.get(i).getResponsableGenero().toString(),
-                                  lm.get(i).getResponsableEstado().toString()};
+                                  lm.get(i).getResponsableGenero(),
+                                  lm.get(i).getResponsableEstado()};
                                   modM.addRow(registroC);
         }  
 }
@@ -367,9 +376,9 @@ private void CargarTabla() {
     private javax.swing.JLabel lblcontra4;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtDui;
+    private javax.swing.JFormattedTextField txtDui;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JFormattedTextField txtTelefono;
     private javax.swing.JTextField txt_Id;
     private javax.swing.JTextField txt_activ;
     private javax.swing.JTextField txt_sex;

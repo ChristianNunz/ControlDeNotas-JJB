@@ -320,9 +320,8 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
         // TODO add your handling code here:
         ConectionDB cdb = new ConectionDB();
+        String Mensaje="Algo salio mal.";
         try {
-            
-            
             for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
                 StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRAR_NOTA_ADMIN");
             
@@ -351,17 +350,12 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
                 
                 spq.execute();
                 
-                String Mensaje=spq.getOutputParameterValue("msj").toString();
-                JOptionPane.showMessageDialog(rootPane,Mensaje);
+                Mensaje=spq.getOutputParameterValue("msj").toString();
+                
             }
-            
-            
-            
-            
-            
-            
+            JOptionPane.showMessageDialog(rootPane,Mensaje);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane,"ERROR: " + e);
+            JOptionPane.showMessageDialog(rootPane,"Algo salio mal.");
         }
     }//GEN-LAST:event_Btn_GuardarActionPerformed
     private void CargarTabla() {        

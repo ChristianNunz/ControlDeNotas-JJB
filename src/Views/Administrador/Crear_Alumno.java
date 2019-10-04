@@ -225,7 +225,7 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
             }
              JOptionPane.showMessageDialog(rootPane,"Registrado");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane,"ERROR: " + e);
+            JOptionPane.showMessageDialog(rootPane,"Algo salio mal.");
         }
     }//GEN-LAST:event_Btn_GuardarActionPerformed
 

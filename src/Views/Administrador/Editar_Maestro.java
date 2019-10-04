@@ -10,6 +10,8 @@ import Acceso_Datos.entityMain;
 import Logica_Negocios.Docente;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -46,7 +48,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         lblUsuario2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla_Docente = new javax.swing.JTable();
-        txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         lblcontra = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -55,8 +56,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         lblcontra2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblcontra3 = new javax.swing.JLabel();
-        txtdui = new javax.swing.JTextField();
-        dcc_fechaNac = new datechooser.beans.DateChooserCombo();
         lblcontra4 = new javax.swing.JLabel();
         txt_sex = new javax.swing.JTextField();
         btn_cmb_sex = new javax.swing.JButton();
@@ -65,6 +64,9 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         Btn_Limpiar = new javax.swing.JButton();
         lblUsuario3 = new javax.swing.JLabel();
         txt_Id = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JFormattedTextField();
+        txtdui = new javax.swing.JFormattedTextField();
+        txtfecha = new javax.swing.JFormattedTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -122,8 +124,6 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(Tabla_Docente);
 
-        txtTelefono.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
         txtDireccion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         lblcontra.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -150,208 +150,164 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         lblcontra3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra3.setText("Dui:");
 
-        txtdui.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra4.setText("Estado:");
 
-        dcc_fechaNac.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
-            new datechooser.view.appearance.ViewAppearance("custom",
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    true,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 255),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(128, 128, 128),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(255, 0, 0),
-                    false,
-                    false,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                (datechooser.view.BackRenderer)null,
-                false,
-                true)));
-    dcc_fechaNac.setNothingAllowed(false);
-    dcc_fechaNac.setFormat(2);
-    dcc_fechaNac.setFieldFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, 12));
-    try {
-        dcc_fechaNac.setForbiddenPeriods(new datechooser.model.multiple.PeriodSet());
-    } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
-        e1.printStackTrace();
-    }
-    dcc_fechaNac.setNavigateFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 18));
-    dcc_fechaNac.setCurrentNavigateIndex(0);
-    dcc_fechaNac.setShowOneMonth(true);
+        txt_sex.setEditable(false);
+        txt_sex.setText("Masculino");
+        txt_sex.setAlignmentX(0.0F);
+        txt_sex.setFocusable(false);
+        txt_sex.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-    lblcontra4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    lblcontra4.setText("Estado:");
+        btn_cmb_sex.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/change.png"))); // NOI18N
+        btn_cmb_sex.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btn_cmb_sex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cmb_sexActionPerformed(evt);
+            }
+        });
 
-    txt_sex.setEditable(false);
-    txt_sex.setText("Masculino");
-    txt_sex.setAlignmentX(0.0F);
-    txt_sex.setFocusable(false);
-    txt_sex.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        txt_activ.setEditable(false);
+        txt_activ.setText("Activo");
+        txt_activ.setFocusable(false);
 
-    btn_cmb_sex.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/change.png"))); // NOI18N
-    btn_cmb_sex.setMargin(new java.awt.Insets(0, 0, 0, 0));
-    btn_cmb_sex.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btn_cmb_sexActionPerformed(evt);
+        btn_cmb_estado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/change.png"))); // NOI18N
+        btn_cmb_estado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cmb_estadoActionPerformed(evt);
+            }
+        });
+
+        Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Btn_Limpiar.setText("Limpiar");
+        Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_LimpiarActionPerformed(evt);
+            }
+        });
+
+        lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario3.setText("Id:");
+
+        txt_Id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txt_Id.setEnabled(false);
+
+        try {
+            txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
         }
-    });
 
-    txt_activ.setEditable(false);
-    txt_activ.setText("Activo");
-    txt_activ.setFocusable(false);
-
-    btn_cmb_estado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/change.png"))); // NOI18N
-    btn_cmb_estado.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btn_cmb_estadoActionPerformed(evt);
+        try {
+            txtdui.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
         }
-    });
 
-    Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    Btn_Limpiar.setText("Limpiar");
-    Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            Btn_LimpiarActionPerformed(evt);
-        }
-    });
+        txtfecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd-MM-yyyy"))));
 
-    lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    lblUsuario3.setText("Id:");
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuario2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblcontra, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblcontra2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblUsuario3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblcontra1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblUsuario1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblcontra3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblcontra4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Btn_Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_activ, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_cmb_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btn_cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtdui, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(480, 480, 480)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1)
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUsuario3)
+                            .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUsuario)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblcontra)
+                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblUsuario1)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblcontra1)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblcontra3)
+                            .addComponent(txtdui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblUsuario2)
+                            .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblcontra2)
+                            .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_cmb_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblcontra4))
+                            .addComponent(txt_activ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_cmb_estado))
+                        .addGap(197, 197, 197)
+                        .addComponent(Btn_Actualizar)
+                        .addGap(5, 5, 5)
+                        .addComponent(Btn_Limpiar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
 
-    txt_Id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    txt_Id.setEnabled(false);
-
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(480, 480, 480)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(5, 5, 5)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblUsuario2, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblcontra, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblcontra2, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblUsuario3, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblcontra1, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblUsuario1, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblcontra3, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblcontra4, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addGap(7, 7, 7)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Btn_Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(11, 11, 11)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtdui, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dcc_fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txt_activ, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btn_cmb_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btn_cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(45, 45, 45)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(Btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGap(9, 9, 9))
-    );
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addGap(10, 10, 10)
-            .addComponent(jLabel1)
-            .addGap(17, 17, 17)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblUsuario3)
-                        .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(17, 17, 17)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblUsuario)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(17, 17, 17)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblcontra)
-                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(7, 7, 7)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblUsuario1)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(7, 7, 7)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblcontra1)
-                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(7, 7, 7)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblcontra3)
-                        .addComponent(txtdui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(7, 7, 7)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblUsuario2)
-                        .addComponent(dcc_fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(10, 10, 10)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblcontra2)
-                        .addComponent(txt_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_cmb_sex, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(7, 7, 7)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(lblcontra4))
-                        .addComponent(txt_activ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_cmb_estado))
-                    .addGap(195, 195, 195)
-                    .addComponent(Btn_Actualizar)
-                    .addGap(5, 5, 5)
-                    .addComponent(Btn_Limpiar))
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(2, 2, 2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
-
-    pack();
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
@@ -363,6 +319,15 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                 String apellido=txtApellido.getText();
                 String tel=txtTelefono.getText();
                 String direcc=txtDireccion.getText();
+                
+                String f=txtfecha.getText();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); 
+                 Date fecha = new Date();
+                try {
+                    fecha = sdf.parse(f);
+                } catch (ParseException ex) {
+                    
+                }
                 String dui =txtdui.getText();                
                 String genero=txt_sex.getText(); 
                 String estado=txt_activ.getText();
@@ -384,7 +349,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                 Docent.setDocenteTel(tel);
                 Docent.setDocenteDireccion(direcc);            
                 Docent.setDocenteDoc(dui);
-                Docent.setDocenteFechaNac(new Date());
+                Docent.setDocenteFechaNac(fecha);
                 Docent.setDocenteGenero(new BigInteger(genero));
                 Docent.setDocenteEstado(new BigInteger(estado));                  
                 ConDocen.edit(Docent);
@@ -448,13 +413,14 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
         txtTelefono.setText(tel);
         txtDireccion.setText(direc);
         txtdui.setText(dui);
+        txtfecha.setText(fecha);
        
-        if (genero.equals("1")) {
+        if (genero.equals("M")) {
             txt_sex.setText("Masculino");
         }else{
             txt_sex.setText("Femenino");
         }
-        if (estado.equals("1")) {
+        if (estado.equals("Activo")) {
             txt_activ.setText("Activo");
         }else{
             txt_activ.setText("Inactivo");
@@ -475,9 +441,9 @@ private void CargarTabla() {
                                   lm.get(i).getDocenteTel(),
                                   lm.get(i).getDocenteDireccion(),
                                   lm.get(i).getDocenteDoc(),
-                                  lm.get(i).getDocenteFechaNac().toString(),                                        
-                                  lm.get(i).getDocenteGenero().toString(),
-                                  lm.get(i).getDocenteEstado().toString()};
+                                  lm.get(i).getDocenteFechaNac(),                                        
+                                  lm.get(i).getDocenteGenero(),
+                                  lm.get(i).getDocenteEstado()};
                                   modM.addRow(registroC);
         }  
 }
@@ -488,7 +454,6 @@ private void CargarTabla() {
     private javax.swing.JTable Tabla_Docente;
     private javax.swing.JButton btn_cmb_estado;
     private javax.swing.JButton btn_cmb_sex;
-    private datechooser.beans.DateChooserCombo dcc_fechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblUsuario;
@@ -503,10 +468,11 @@ private void CargarTabla() {
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JFormattedTextField txtTelefono;
     private javax.swing.JTextField txt_Id;
     private javax.swing.JTextField txt_activ;
     private javax.swing.JTextField txt_sex;
-    private javax.swing.JTextField txtdui;
+    private javax.swing.JFormattedTextField txtdui;
+    private javax.swing.JFormattedTextField txtfecha;
     // End of variables declaration//GEN-END:variables
 }

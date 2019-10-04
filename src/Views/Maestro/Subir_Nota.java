@@ -511,6 +511,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 }
             } ;
+            ConectionDB con = new ConectionDB();
             for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
                 spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRAR_NOTA_DOCENTE");
             
@@ -527,7 +528,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                 spq.registerStoredProcedureParameter("aNotaC", Double.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
                 
-                spq.setParameter("dId", 1);
+                spq.setParameter("dId", con.IdLog);
                 //spq.setParameter("dNombre",txtDocente.getText());
                 spq.setParameter("dGrado",txtgrado.getText());
                 spq.setParameter("dMate",txtmateria.getText());

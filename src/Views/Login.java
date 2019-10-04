@@ -161,18 +161,26 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_SalirActionPerformed
 
     private void Btn_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_IniciarActionPerformed
-        // TODO add your handling code here:             
+        // TODO add your handling code here:
+        ConectionDB con = new ConectionDB();
+       
         String user=txt_usuario.getText();
-        if (user.equals("admin")) {
+        String contra=txt_pass.getText();
+        String Rol=con.Login(user,contra);
+        if (Rol.equals("Administrador")) {
             
              Menu_A menu = new Menu_A();        
-             menu.show();
-        }else{
+             menu.setVisible(true);
+             this.dispose();
+        }else if (Rol.equals("Docente")) {
              Menu_M menu = new Menu_M();        
              menu.show();
+             this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Los datos ingresados, no son validos.");
         }
        
-        this.dispose();
+       
         
     }//GEN-LAST:event_Btn_IniciarActionPerformed
 

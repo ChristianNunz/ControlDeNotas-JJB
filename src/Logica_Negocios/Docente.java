@@ -8,6 +8,7 @@ package Logica_Negocios;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -132,24 +133,38 @@ public class Docente implements Serializable {
         this.docenteDoc = docenteDoc;
     }
 
-    public Date getDocenteFechaNac() {
-        return docenteFechaNac;
+    public String getDocenteFechaNac() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String fecha=sdf.format(docenteFechaNac);
+        return fecha;
     }
 
     public void setDocenteFechaNac(Date docenteFechaNac) {
         this.docenteFechaNac = docenteFechaNac;
     }
 
-    public BigInteger getDocenteEstado() {
-        return docenteEstado;
+    public String getDocenteEstado() {
+        BigInteger dos = new BigInteger("2");
+        int result=dos.compareTo(docenteEstado);
+        if (result==0) {
+            return "Inactivo";
+        }else{
+            return "Activo";
+        }
     }
 
     public void setDocenteEstado(BigInteger docenteEstado) {
         this.docenteEstado = docenteEstado;
     }
 
-    public BigInteger getDocenteGenero() {
-        return docenteGenero;
+    public String getDocenteGenero() {
+        BigInteger dos = new BigInteger("2");
+        int result=dos.compareTo(docenteGenero);
+        if (result==0) {
+            return "F";
+        }else{
+            return "M";
+        }
     }
 
     public void setDocenteGenero(BigInteger docenteGenero) {

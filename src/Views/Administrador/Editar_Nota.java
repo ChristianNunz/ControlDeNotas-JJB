@@ -45,6 +45,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     /**
      * Creates new form Agregar_Alumno
      */
+    DefaultTableModel modM;
     public Editar_Nota() {
         
         initComponents();
@@ -71,15 +72,12 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         lblUsuario = new javax.swing.JLabel();
         lblcontra1 = new javax.swing.JLabel();
         lblUsuario1 = new javax.swing.JLabel();
-        txtnotaUno = new javax.swing.JTextField();
-        txtnotaDos = new javax.swing.JTextField();
         lblcontra = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         Btn_Actualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lblcontra3 = new javax.swing.JLabel();
-        txtnotaTres = new javax.swing.JTextField();
         Btn_Limpiar = new javax.swing.JButton();
         cmb_grado = new javax.swing.JComboBox();
         lblcontra5 = new javax.swing.JLabel();
@@ -96,6 +94,9 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         cmb_docente = new javax.swing.JComboBox();
         cmb_periodo = new javax.swing.JComboBox();
         lblcontra9 = new javax.swing.JLabel();
+        txtnotaDos = new javax.swing.JFormattedTextField();
+        txtnotaTres = new javax.swing.JFormattedTextField();
+        txtnotaUno = new javax.swing.JFormattedTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -127,12 +128,6 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         lblUsuario1.setText("Nota1:");
         getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
 
-        txtnotaUno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtnotaUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 180, -1));
-
-        txtnotaDos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtnotaDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 180, -1));
-
         lblcontra.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra.setText("Apellido:");
         getContentPane().add(lblcontra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
@@ -161,14 +156,6 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         lblcontra3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra3.setText("Nota 3:");
         getContentPane().add(lblcontra3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
-
-        txtnotaTres.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtnotaTres.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnotaTresActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtnotaTres, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 180, -1));
 
         Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Limpiar.setText("Limpiar");
@@ -260,6 +247,15 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         lblcontra9.setText("Periodo");
         getContentPane().add(lblcontra9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
 
+        txtnotaDos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        getContentPane().add(txtnotaDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 180, -1));
+
+        txtnotaTres.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        getContentPane().add(txtnotaTres, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 180, -1));
+
+        txtnotaUno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        getContentPane().add(txtnotaUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 180, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -270,18 +266,12 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
 
               
                  
-                 String NotaUno=txtnotaUno.getText();
-                 String NotaDos=txtnotaDos.getText();
-                 String NotaTres=txtnotaTres.getText();
+                 String NotaUno=txtnotaUno.getText().replace(",", ".");
+                 String NotaDos=txtnotaDos.getText().replace(",", ".");
+                 String NotaTres=txtnotaTres.getText().replace(",", ".");
                 
-              
-                
-                Periodo Peri = new Periodo();
-                Peri.setNota1(new BigDecimal(NotaUno));
-                Peri.setNota2(new BigDecimal(NotaDos));
-                Peri.setNota3(new BigDecimal(NotaTres));
-             
-                ConPeriodo.edit(Peri);           
+                 ConectionDB con = new ConectionDB();
+                 con.UpdateNota(id, NotaUno, NotaDos, NotaTres);
                 cargartabla();
                 
                 JOptionPane.showMessageDialog(rootPane, "Notas Editadas Correctamente");
@@ -295,11 +285,15 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
         // TODO add your handling code here:
+         
+         txt_Id.setText("");
+         txtNombre.setText("");
+         txtApellido.setText("");
+         txtnotaUno.setText("");
+         txtnotaDos.setText("");
+         txtnotaTres.setText("");
+         id="null";
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
-
-    private void txtnotaTresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnotaTresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtnotaTresActionPerformed
 
     private void Tabla_Edit_NotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla_Edit_NotasMouseClicked
         // TODO add your handling code here:
@@ -321,14 +315,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     List<EditarNota> editarNotas;
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-        String periodo= cmb_periodo.getSelectedItem().toString();
-        String grado=cmb_grado.getSelectedItem().toString();
-        String materia=cmb_mat.getSelectedItem().toString();
-        String seccion=cmb_secc.getSelectedItem().toString();
-        String[] docent =cmb_docente.getSelectedItem().toString().split(",");
-        String docente =docent[0];
-        ConectionDB con = new ConectionDB();
-        editarNotas =  con.GetListaNotas(periodo, grado, materia, seccion, docente);
+        
        
         cargartabla();
         //JOptionPane.showMessageDialog(rootPane,"G "+grado+" M "+materia+" S "+seccion);
@@ -340,18 +327,25 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
 
      private void cargartabla(){
     
-   
+        String periodo= cmb_periodo.getSelectedItem().toString();
+        String grado=cmb_grado.getSelectedItem().toString();
+        String materia=cmb_mat.getSelectedItem().toString();
+        String seccion=cmb_secc.getSelectedItem().toString();
+        String[] docent =cmb_docente.getSelectedItem().toString().split(",");
+        String docente =docent[0];
+        ConectionDB con = new ConectionDB();
+        editarNotas =  con.GetListaNotas(periodo, grado, materia, seccion, docente);
     
-    DefaultTableModel modM = (DefaultTableModel) Tabla_Edit_Notas.getModel(); 
+    modM = (DefaultTableModel) Tabla_Edit_Notas.getModel(); 
     modM.setRowCount(0);
     for(int i=0; i<editarNotas.size(); i++)
         {
             String[] registroC = {editarNotas.get(i).getId().toString(),
                                   editarNotas.get(i).getNombre(),
                                   editarNotas.get(i).getApellido(),
-                                  Double.toString(editarNotas.get(i).getNota1()),
-                                   Double.toString(editarNotas.get(i).getNota2()),
-                                   Double.toString(editarNotas.get(i).getNota3())
+                                  Double.toString(editarNotas.get(i).getNota1()).replace(".", ","),
+                                   Double.toString(editarNotas.get(i).getNota2()).replace(".", ","),
+                                   Double.toString(editarNotas.get(i).getNota3()).replace(".", ",")
                                   };
               modM.addRow(registroC);
            }
@@ -386,9 +380,9 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txt_Id;
-    private javax.swing.JTextField txtnotaDos;
-    private javax.swing.JTextField txtnotaTres;
-    private javax.swing.JTextField txtnotaUno;
+    private javax.swing.JFormattedTextField txtnotaDos;
+    private javax.swing.JFormattedTextField txtnotaTres;
+    private javax.swing.JFormattedTextField txtnotaUno;
     // End of variables declaration//GEN-END:variables
 
 

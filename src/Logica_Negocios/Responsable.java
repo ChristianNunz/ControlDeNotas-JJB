@@ -120,16 +120,28 @@ public class Responsable implements Serializable {
         this.responsableTel = responsableTel;
     }
 
-    public BigInteger getResponsableEstado() {
-        return responsableEstado;
+    public String getResponsableEstado() {
+        BigInteger dos = new BigInteger("2");
+        int result=dos.compareTo(responsableEstado);
+        if (result==0) {
+            return "Inactivo";
+        }else{
+            return "Activo";
+        }
     }
 
     public void setResponsableEstado(BigInteger responsableEstado) {
         this.responsableEstado = responsableEstado;
     }
 
-    public BigInteger getResponsableGenero() {
-        return responsableGenero;
+    public String getResponsableGenero() {
+        BigInteger dos = new BigInteger("2");
+        int result=dos.compareTo(responsableGenero);
+        if (result==0) {
+            return "F";
+        }else{
+            return "M";
+        }
     }
 
     public void setResponsableGenero(BigInteger responsableGenero) {
