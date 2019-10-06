@@ -415,6 +415,14 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
         // TODO add your handling code here:
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono1.setText("");
+        txtDireccion.setText("");
+        txtDui1.setText("");
+        txtfecha.setText("");
+        txtUser.setText("");
+        txtClave.setText("");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
 

@@ -304,7 +304,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                         .addGap(5, 5, 5)
                         .addComponent(Btn_Limpiar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
