@@ -157,7 +157,7 @@ public class ConectionDB {
         try {
             List<EditarNota> editarNotas = new ArrayList<EditarNota>();
             Statement st = conn();
-            ResultSet resultSet = st.executeQuery("SELECT p.id_periodo,a.alumno_nombre,a.alumno_apelidos,p.nota1,p.nota2,p.nota3 FROM alumno A"
+            ResultSet resultSet = st.executeQuery("SELECT p.id_periodo,a.alumno_nombre,a.alumno_apelidos,a.ALUMNO_ESTADO FROM alumno A"
                     + " INNER JOIN NOTA N ON a.id_alumno = n.id_alumno "
                     + "INNER JOIN periodo P ON n.id_nota = p.id_nota "
                     + "INNER JOIN materia_grado MG ON n.id_materia_grado=mg.id_materia_grado "
@@ -170,7 +170,7 @@ public class ConectionDB {
             while(resultSet.next()){
                 
                 
-                 EditarNota editarNota = new EditarNota(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Double.parseDouble(resultSet.getString(4)), Double.parseDouble(resultSet.getString(5)), Double.parseDouble(resultSet.getString(6)));
+                 EditarNota editarNota = new EditarNota(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),resultSet.getString(4));
                  editarNotas.add(editarNota);                
            }
             return editarNotas;

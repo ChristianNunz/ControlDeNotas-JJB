@@ -97,25 +97,32 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
 
         getContentPane().add(cmb_seccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 200, -1));
 
-        btn_mostrar.setText("Actualizar");
+        btn_mostrar.setText("Ver");
         btn_mostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_mostrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 470, -1, -1));
+        getContentPane().add(btn_mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 70, -1));
 
         tabla_alumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "Estado"
+                "id", "Nombre", "Apellido", "Estado"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -129,13 +136,13 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         jLabel1.setText("Materias");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 320, -1));
 
-        btn_mostrar1.setText("Mostrar");
+        btn_mostrar1.setText("Actualizar");
         btn_mostrar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_mostrar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_mostrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, -1, -1));
+        getContentPane().add(btn_mostrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 140, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -163,10 +170,13 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     modM.setRowCount(0);
     for(int i=0; i<Alumnos.size(); i++)
         {
-            String[] registroC = {
-                                  Alumnos.get(i).getNombre(),
-                                  Alumnos.get(i).getApellido()                                  
-                                  };
+            Object[] registroC = new Object[4];
+            registroC[0]=Alumnos.get(i).getId();
+            registroC[1]=Alumnos.get(i).getNombre();
+            registroC[2]=Alumnos.get(i).getApellido();
+            registroC[3]=Alumnos.get(i).getEstado();
+            
+                              
               modM.addRow(registroC);
            }
         }

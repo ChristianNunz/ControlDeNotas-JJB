@@ -16,6 +16,7 @@ public class EditarNota {
     private double Nota1;
     private double Nota2;
     private double Nota3;
+    private String Estado;
 
     public EditarNota(String Id, String Nombre, String Apellido, double Nota1, double Nota2, double Nota3) {
         this.Id = Id;
@@ -25,6 +26,26 @@ public class EditarNota {
         this.Nota2 = Nota2;
         this.Nota3 = Nota3;
     }
+
+    public EditarNota(String Id, String Nombre, String Apellido, String Estado) {
+        this.Id = Id;
+        this.Nombre = Nombre;
+        this.Apellido = Apellido;
+        this.Estado = Estado;
+    }
+
+    public Boolean getEstado() {
+        if(Estado.equals("1")){
+            return true;
+        }else{
+            return false;
+        }
+      
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }    
 
     public String getId() {
         return Id;
