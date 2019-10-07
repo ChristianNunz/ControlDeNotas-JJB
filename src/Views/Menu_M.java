@@ -295,7 +295,8 @@ public class Menu_M extends javax.swing.JFrame {
     private void Btn_Editar_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_notasActionPerformed
         // TODO add your handling code here:
         CerrarHijos();
-        Editar_Nota_M nota = new Editar_Nota_M();        
+        Editar_Nota_M nota = new Editar_Nota_M();    
+        nota.setIdLog(idLog);
         nota.setSize(sisze());
         DesktopPanel.add(nota);
     }//GEN-LAST:event_Btn_Editar_notasActionPerformed

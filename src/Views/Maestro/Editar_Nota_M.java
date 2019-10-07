@@ -5,10 +5,12 @@
  */
 package Views.Maestro;
 
-import Views.Administrador.*;
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Acceso_Datos.ConectionDB;
+import Logica_Negocios.EditarNota;
+import Logica_Negocios.Materia;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +21,9 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
     /**
      * Creates new form Agregar_Alumno
      */
+      DefaultTableModel modM;
+       public String idLog;
+       String id="null";
     public Editar_Nota_M() {
         
         initComponents();
@@ -27,6 +32,13 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
            // this.setMaximum(true);
         
 
+    }
+       public void setIdLog(String id){
+        this.idLog=id;
+        LlenarComboM();
+        LlenarGrados();
+        LlenarSecciones();
+         
     }
 
     /**
@@ -41,28 +53,31 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
         lblUsuario = new javax.swing.JLabel();
         lblcontra1 = new javax.swing.JLabel();
         lblUsuario1 = new javax.swing.JLabel();
-        txtTelefono = new javax.swing.JTextField();
-        txtDireccion = new javax.swing.JTextField();
+        txtnota1 = new javax.swing.JTextField();
+        txtnota2 = new javax.swing.JTextField();
         lblcontra = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         Btn_Actualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lblcontra3 = new javax.swing.JLabel();
-        txtDireccion1 = new javax.swing.JTextField();
+        txtnota3 = new javax.swing.JTextField();
         Btn_Limpiar = new javax.swing.JButton();
-        cmb_encargado = new javax.swing.JComboBox();
-        lblcontra5 = new javax.swing.JLabel();
+        cmb_grado = new javax.swing.JComboBox();
+        lblgrado = new javax.swing.JLabel();
         lblUsuario3 = new javax.swing.JLabel();
         txt_Id = new javax.swing.JTextField();
-        cmb_encargado1 = new javax.swing.JComboBox();
+        cmb_materia = new javax.swing.JComboBox();
         lblcontra6 = new javax.swing.JLabel();
         lblcontra7 = new javax.swing.JLabel();
-        cmb_encargado2 = new javax.swing.JComboBox();
-        cmb_encargado3 = new javax.swing.JComboBox();
+        cmb_seccion = new javax.swing.JComboBox();
+        cmb_periodo = new javax.swing.JComboBox();
         lblcontra8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla_Edit_Notas = new javax.swing.JTable();
+        lblcontra4 = new javax.swing.JLabel();
+        txtpromedio = new javax.swing.JTextField();
+        btn_buscar = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -94,11 +109,11 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
         lblUsuario1.setText("Nota1:");
         getContentPane().add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
 
-        txtTelefono.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 200, -1));
+        txtnota1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        getContentPane().add(txtnota1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 200, -1));
 
-        txtDireccion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 200, -1));
+        txtnota2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        getContentPane().add(txtnota2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 200, -1));
 
         lblcontra.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra.setText("Apellido:");
@@ -114,7 +129,6 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
 
         Btn_Actualizar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Actualizar.setText("Actualizar");
-        Btn_Actualizar.setEnabled(false);
         Btn_Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_ActualizarActionPerformed(evt);
@@ -130,17 +144,16 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
         lblcontra3.setText("Nota 3:");
         getContentPane().add(lblcontra3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, -1, -1));
 
-        txtDireccion1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtDireccion1.addActionListener(new java.awt.event.ActionListener() {
+        txtnota3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtnota3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDireccion1ActionPerformed(evt);
+                txtnota3ActionPerformed(evt);
             }
         });
-        getContentPane().add(txtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 200, -1));
+        getContentPane().add(txtnota3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 200, -1));
 
         Btn_Limpiar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Limpiar.setText("Limpiar");
-        Btn_Limpiar.setEnabled(false);
         Btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_LimpiarActionPerformed(evt);
@@ -148,12 +161,11 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
         });
         getContentPane().add(Btn_Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 250, -1));
 
-        cmb_encargado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4", "5", "6", "7", "8", "9" }));
-        getContentPane().add(cmb_encargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
+        getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
 
-        lblcontra5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblcontra5.setText("Grado:");
-        getContentPane().add(lblcontra5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
+        lblgrado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblgrado.setText("Grado:");
+        getContentPane().add(lblgrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
 
         lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario3.setText("Id:");
@@ -163,8 +175,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
         txt_Id.setEnabled(false);
         getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, -1));
 
-        cmb_encargado1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lenguaje", "Matemáticas", "Ciencias Salud y Medio Ambiente", "Estudios Sociales", "Educacion Física", "Artistica", "Ingles" }));
-        getContentPane().add(cmb_encargado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 200, -1));
+        getContentPane().add(cmb_materia, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 200, -1));
 
         lblcontra6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra6.setText("Materia:");
@@ -174,73 +185,208 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
         lblcontra7.setText("Sección:");
         getContentPane().add(lblcontra7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
 
-        cmb_encargado2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D" }));
-        getContentPane().add(cmb_encargado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 200, -1));
+        getContentPane().add(cmb_seccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 200, -1));
 
-        cmb_encargado3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
-        getContentPane().add(cmb_encargado3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 200, -1));
+        cmb_periodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
+        getContentPane().add(cmb_periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 200, -1));
 
         lblcontra8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra8.setText("Periodo:");
         getContentPane().add(lblcontra8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla_Edit_Notas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nombre", "Apellido", "Nota 1 (35%)", "Nota 2 (35%)", "Nota 3 (30%)"
+                "Id", "Nombre", "Apellido", "Nota 1 (35%)", "Nota 2 (35%)", "Nota 3 (30%)", "Promedio"
             }
-        ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable1.setAutoscrolls(false);
-        jTable1.setFocusTraversalPolicyProvider(true);
-        jTable1.setFocusable(false);
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Tabla_Edit_Notas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        Tabla_Edit_Notas.setAutoscrolls(false);
+        Tabla_Edit_Notas.setFocusTraversalPolicyProvider(true);
+        Tabla_Edit_Notas.setFocusable(false);
+        Tabla_Edit_Notas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla_Edit_NotasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Tabla_Edit_Notas);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 72, 910, 630));
+
+        lblcontra4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra4.setText("Promedio:");
+        getContentPane().add(lblcontra4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 440, -1, 20));
+
+        txtpromedio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtpromedio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpromedioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtpromedio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, 200, -1));
+
+        btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 200, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
-        // TODO add your handling code here:
+      try {
+            if (!id.equals("null")) {
+
+              
+                 
+                 String NotaUno=txtnota1.getText().replace(",", ".");
+                 String NotaDos=txtnota2.getText().replace(",", ".");
+                 String NotaTres=txtnota3.getText().replace(",", ".");
+                
+                 ConectionDB con = new ConectionDB();
+                 con.UpdateNota(id, NotaUno, NotaDos, NotaTres);
+                cargartabla();
+                
+                JOptionPane.showMessageDialog(rootPane, "Notas Editadas Correctamente");
+            }            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Algo salio mal.");
+        }
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
-        // TODO add your handling code here:
+          txt_Id.setText("");
+         txtNombre.setText("");
+         txtApellido.setText("");
+         txtnota1.setText("");
+         txtnota2.setText("");
+         txtnota3.setText("");
+         txtpromedio.setText("");
+         id="null";
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
-    private void txtDireccion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccion1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccion1ActionPerformed
+    private void txtnota3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnota3ActionPerformed
+        
+    }//GEN-LAST:event_txtnota3ActionPerformed
+
+    private void Tabla_Edit_NotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla_Edit_NotasMouseClicked
+         id=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 0).toString();
+        String nom=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 1).toString();
+        String ape=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 2).toString();
+        String not1=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 3).toString();
+        String not2=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 4).toString();
+        String not3=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 5).toString();
+        String proM=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 6).toString();
+       
+        txt_Id.setText(id);
+        txtNombre.setText(nom);
+        txtApellido.setText(ape);
+        txtnota1.setText(not1);
+        txtnota2.setText(not2);
+        txtnota3.setText(not3);
+        txtpromedio.setText(proM);
+    }//GEN-LAST:event_Tabla_Edit_NotasMouseClicked
+    List<EditarNota> editarNotas;
+    
+       private void cargartabla(){
+    
+        String periodo= cmb_periodo.getSelectedItem().toString();
+        String grado=cmb_grado.getSelectedItem().toString();
+        String materia=cmb_materia.getSelectedItem().toString();
+        String seccion=cmb_seccion.getSelectedItem().toString();
+       // String[] docent =cmb_docente.getSelectedItem().toString().split(",");
+       //String docente =docent[0];
+        ConectionDB con = new ConectionDB();
+        editarNotas =  con.GetListaNotas(periodo, grado, materia, seccion, idLog);
+    
+    modM = (DefaultTableModel) Tabla_Edit_Notas.getModel(); 
+    modM.setRowCount(0);
+    for(int i=0; i<editarNotas.size(); i++)
+        {
+            String[] registroC = {editarNotas.get(i).getId(),
+                                  editarNotas.get(i).getNombre(),
+                                  editarNotas.get(i).getApellido(),
+                                  Double.toString(editarNotas.get(i).getNota1()).replace(".", ","),
+                                   Double.toString(editarNotas.get(i).getNota2()).replace(".", ","),
+                                   Double.toString(editarNotas.get(i).getNota3()).replace(".", ","),
+                                   Double.toString(Math.round((editarNotas.get(i).getNota1()*0.35+editarNotas.get(i).getNota2()*0.35+editarNotas.get(i).getNota3()*0.30)*100d)/100d).replace(".", ",")
+                                  };
+              modM.addRow(registroC);
+           }
+          
+        }
+       private void  LlenarComboM(){
+        ConectionDB con = new ConectionDB();
+        List<Materia> materia = con.GetMaterias(idLog);
+         for (Materia Materia1 : materia) {
+            cmb_materia.addItem(Materia1.getMateriaNombre());
+        }
+    }
+    private void LlenarSecciones(){
+        ConectionDB con = new ConectionDB();
+        List<String> secciones = con.GetSecciones(idLog);
+         for (String seccion : secciones) {
+            cmb_seccion.addItem(seccion);
+        }
+        
+    }
+     private void LlenarGrados(){
+        ConectionDB con = new ConectionDB();
+        List<String> grados = con.GetGrados(idLog);
+         for (String grado : grados) {
+            cmb_grado.addItem(grado);
+        }
+    }
+    private void txtpromedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpromedioActionPerformed
+    
+    }//GEN-LAST:event_txtpromedioActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+      cargartabla(); 
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
     private javax.swing.JButton Btn_Limpiar;
-    private javax.swing.JComboBox cmb_encargado;
-    private javax.swing.JComboBox cmb_encargado1;
-    private javax.swing.JComboBox cmb_encargado2;
-    private javax.swing.JComboBox cmb_encargado3;
+    private javax.swing.JTable Tabla_Edit_Notas;
+    private javax.swing.JButton btn_buscar;
+    private javax.swing.JComboBox cmb_grado;
+    private javax.swing.JComboBox cmb_materia;
+    private javax.swing.JComboBox cmb_periodo;
+    private javax.swing.JComboBox cmb_seccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuario1;
     private javax.swing.JLabel lblUsuario3;
     private javax.swing.JLabel lblcontra;
     private javax.swing.JLabel lblcontra1;
     private javax.swing.JLabel lblcontra3;
-    private javax.swing.JLabel lblcontra5;
+    private javax.swing.JLabel lblcontra4;
     private javax.swing.JLabel lblcontra6;
     private javax.swing.JLabel lblcontra7;
     private javax.swing.JLabel lblcontra8;
+    private javax.swing.JLabel lblgrado;
     private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtDireccion1;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txt_Id;
+    private javax.swing.JTextField txtnota1;
+    private javax.swing.JTextField txtnota2;
+    private javax.swing.JTextField txtnota3;
+    private javax.swing.JTextField txtpromedio;
     // End of variables declaration//GEN-END:variables
 }
