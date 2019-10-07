@@ -31,6 +31,7 @@ public class Menu_M extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    public String idLog;
     public Menu_M() {  
        
         
@@ -273,6 +274,7 @@ public class Menu_M extends javax.swing.JFrame {
     private void Btn_Registrar_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_materiaActionPerformed
         CerrarHijos();
         Ver_Materias m = new Ver_Materias();
+        m.setIdLog(idLog);
          m.setSize(sisze());
         DesktopPanel.add(m);
         

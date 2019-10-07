@@ -7,15 +7,21 @@ package Acceso_Datos;
 
 
 import Logica_Negocios.EditarNota;
+import Logica_Negocios.Grado;
+import Logica_Negocios.Materia;
+import Logica_Negocios.Seccion;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,7 +31,7 @@ public class ConectionDB {
     private String url="jdbc:oracle:thin:@localhost:1521:XE";
     private String user="director";
     private String pass="jjb";
-    public String IdLog;
+    
     
       
     
@@ -95,7 +101,59 @@ public class ConectionDB {
              return null;
         }
     }
-     public List<EditarNota> GetListaAlumnos( String grado, String materia,String Seccion, String docenteid){
+     public List<Materia> GetMaterias(String IdLog){
+        try {
+            List<Materia> materias = new ArrayList<Materia>();
+            Statement st = conn();
+            ResultSet resultSet = st.executeQuery("Select M.ID_MATERIA, MATERIA_NOMBRE from MATERIA_GRADO A " +
+                                                    "INNER JOIN MATERIA M ON A.ID_MATERIA = M.ID_MATERIA " +
+                                                  "WHERE ID_DOCENTE ="+IdLog);
+            while(resultSet.next()){
+                Materia materiass = new Materia(new BigDecimal(resultSet.getString(1)), resultSet.getString(2));
+                materias.add(materiass);
+            }
+            return materias;
+        } catch (Exception e) {
+            
+        }
+        return null;
+     }
+     public List<String> GetSecciones(String IdLog){
+         try { 
+             List<String> secciones = new ArrayList<>();
+              Statement st = conn();
+            ResultSet resultSet = st.executeQuery("SELECT S.NOMBRE_SECCION FROM MATERIA_GRADO M " +
+                                                    "INNER JOIN SECCION S ON M.ID_SECCION= S.ID_SECCION " +
+                                                    "WHERE ID_DOCENTE ="+IdLog+" " +
+                                                    "GROUP BY NOMBRE_SECCION");
+            while(resultSet.next()){
+            String sec = resultSet.getString(1);
+            secciones.add(sec);
+            }
+            return secciones;
+         } catch (Exception e) {
+         }
+         return null;
+     }
+     public List<String> GetGrados(String IdLog){
+         try {
+             List<String> grados = new ArrayList<>();
+             Statement st = conn();
+             ResultSet resultSet = st.executeQuery("SELECT GRADO FROM MATERIA_GRADO M " +
+                                                    "INNER JOIN GRADO G ON M.ID_GRADO = G.ID_GRADO " +
+                                                    "WHERE ID_DOCENTE ="+IdLog+"" +
+                                                    "GROUP BY GRADO");
+              while(resultSet.next()){
+              String grad = resultSet.getString(1);
+              grados.add(grad);
+              }
+               return grados;
+         } catch (Exception e) {
+         }
+         return null;
+     }
+     
+     public List<EditarNota> GetListaAlumnos( String grado, String materia,String Seccion, String docenteid)    {
         try {
             List<EditarNota> editarNotas = new ArrayList<EditarNota>();
             Statement st = conn();
@@ -174,8 +232,8 @@ public class ConectionDB {
             String Id = resultSet.getString(1);
             String Rol=resultSet.getString(2);
             
-            IdLog=Id;
-            return Rol;
+//            IdLog=Id;
+            return Rol+","+Id;
         } catch (Exception e) {
              return "null";
         }

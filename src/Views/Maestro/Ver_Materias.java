@@ -7,7 +7,11 @@ package Views.Maestro;
 
 import Acceso_Datos.ConectionDB;
 import Logica_Negocios.EditarNota;
+import Logica_Negocios.Grado;
+import Logica_Negocios.Materia;
+import Logica_Negocios.Seccion;
 import Views.Administrador.*;
+import Views.Menu_A;
 import java.beans.PropertyVetoException;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,14 +27,17 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     /**
      * Creates new form Agregar_Alumno
      */
+    public String idLog;
     public Ver_Materias() {
         
         initComponents();
-       
-        
-           // this.setMaximum(true);
-        
-
+      
+    }
+    public void setIdLog(String id){
+        this.idLog=id;
+         LlenarComboM();
+         LlenarSecciones();
+         LlenarGrados();
     }
 
     /**
@@ -52,6 +59,7 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_alumnos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        btn_mostrar1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -71,14 +79,12 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cmb_grado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4", "5", "6", "7", "8", "9" }));
         getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
 
         lblcontra5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra5.setText("Grado:");
         getContentPane().add(lblcontra5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
 
-        cmb_materia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lenguaje", "Matemáticas", "Ciencias Salud y Medio Ambiente", "Estudios Sociales", "Educacion Física", "Artistica", "Ingles" }));
         getContentPane().add(cmb_materia, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 200, -1));
 
         lblcontra6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -89,27 +95,26 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         lblcontra7.setText("Sección:");
         getContentPane().add(lblcontra7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
 
-        cmb_seccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D" }));
         getContentPane().add(cmb_seccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 200, -1));
 
-        btn_mostrar.setText("Mostrar");
+        btn_mostrar.setText("Actualizar");
         btn_mostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_mostrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, -1, -1));
+        getContentPane().add(btn_mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 470, -1, -1));
 
         tabla_alumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+                {null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido"
+                "Nombre", "Apellido", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -124,6 +129,14 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         jLabel1.setText("Materias");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 320, -1));
 
+        btn_mostrar1.setText("Mostrar");
+        btn_mostrar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_mostrar1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_mostrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
       List<EditarNota> Alumnos;
@@ -135,14 +148,17 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         String seccion=cmb_seccion.getSelectedItem().toString();
 
         ConectionDB con = new ConectionDB();
-        Alumnos =  con.GetListaAlumnos(grado, materia, seccion,"1" );
+       
+        Alumnos =  con.GetListaAlumnos(grado, materia, seccion,idLog );
        
         cargartabla();
     }//GEN-LAST:event_btn_mostrarActionPerformed
+
+    private void btn_mostrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btn_mostrar1ActionPerformed
     private void cargartabla(){
-    
-   
-    
     DefaultTableModel modM = (DefaultTableModel) tabla_alumnos.getModel(); 
     modM.setRowCount(0);
     for(int i=0; i<Alumnos.size(); i++)
@@ -153,11 +169,34 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
                                   };
               modM.addRow(registroC);
            }
-          
         }
-
+    
+    /* FILTRADO DE MATERIAS, SECCIONES Y GRADOS ASIGNADOS AL MAESTRO*/
+    private void  LlenarComboM(){
+        ConectionDB con = new ConectionDB();
+        List<Materia> materia = con.GetMaterias(idLog);
+         for (Materia Materia1 : materia) {
+            cmb_materia.addItem(Materia1.getMateriaNombre());
+        }
+    }
+    private void LlenarSecciones(){
+        ConectionDB con = new ConectionDB();
+        List<String> secciones = con.GetSecciones(idLog);
+         for (String seccion : secciones) {
+            cmb_seccion.addItem(seccion);
+        }
+        
+    }
+     private void LlenarGrados(){
+        ConectionDB con = new ConectionDB();
+        List<String> grados = con.GetGrados(idLog);
+         for (String grado : grados) {
+            cmb_grado.addItem(grado);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_mostrar;
+    private javax.swing.JButton btn_mostrar1;
     private javax.swing.JComboBox cmb_grado;
     private javax.swing.JComboBox cmb_materia;
     private javax.swing.JComboBox cmb_seccion;

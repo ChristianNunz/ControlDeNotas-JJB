@@ -36,6 +36,7 @@ public class Menu_A extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    public String idLog;
     public Menu_A() {  
        
         

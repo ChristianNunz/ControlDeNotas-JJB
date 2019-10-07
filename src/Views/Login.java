@@ -164,15 +164,17 @@ public class Login extends javax.swing.JFrame {
        
         String user=txt_usuario.getText();
         String contra=txt_pass.getText();
-        String Rol=con.Login(user,contra);
-        if (Rol.equals("Administrador")) {
+        String[] Rol=con.Login(user,contra).split(",");
+        if (Rol[0].equals("Administrador")) {
             
-             Menu_A menu = new Menu_A();        
+             Menu_A menu = new Menu_A();   
+             menu.idLog=Rol[1];
              menu.setVisible(true);
              this.dispose();
-        }else if (Rol.equals("Docente")) {
-             Menu_M menu = new Menu_M();        
-             menu.show();
+        }else if (Rol[0].equals("Docente")) {
+             Menu_M menu = new Menu_M(); 
+             menu.idLog=Rol[1];
+             menu.setVisible(true);
              this.dispose();
         }else{
             JOptionPane.showMessageDialog(rootPane, "Los datos ingresados, no son validos.");
