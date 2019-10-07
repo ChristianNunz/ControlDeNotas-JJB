@@ -41,14 +41,19 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
     List<ModeloAlumnoNota> alumnoNotas;
     DefaultTableModel modM;    
     File src=null;
+    String IdLog;
     public Subir_Nota() {
         
         initComponents();
        
-        initComponents();
+       
         modM = (DefaultTableModel) jTable1.getModel();
         
 
+    }
+     public void setIdLog(String id){
+        this.IdLog=id;
+         
     }
 
     /**
@@ -528,7 +533,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                 spq.registerStoredProcedureParameter("aNotaC", Double.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
                 
-                spq.setParameter("dId", con.IdLog);
+                spq.setParameter("dId", IdLog);
                 //spq.setParameter("dNombre",txtDocente.getText());
                 spq.setParameter("dGrado",txtgrado.getText());
                 spq.setParameter("dMate",txtmateria.getText());

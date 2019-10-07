@@ -97,6 +97,8 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         txtnotaDos = new javax.swing.JFormattedTextField();
         txtnotaTres = new javax.swing.JFormattedTextField();
         txtnotaUno = new javax.swing.JFormattedTextField();
+        lblcontra2 = new javax.swing.JLabel();
+        txtPromedio = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -134,11 +136,11 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
 
         txtNombre.setEditable(false);
         txtNombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 180, -1));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 200, -1));
 
         txtApellido.setEditable(false);
         txtApellido.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        getContentPane().add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 180, -1));
+        getContentPane().add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 200, -1));
 
         Btn_Actualizar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         Btn_Actualizar.setText("Actualizar");
@@ -166,11 +168,11 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         });
         getContentPane().add(Btn_Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, 250, -1));
 
-        getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 170, -1));
+        getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 200, -1));
 
         lblcontra5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra5.setText("Grado:");
-        getContentPane().add(lblcontra5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+        getContentPane().add(lblcontra5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario3.setText("Id:");
@@ -178,35 +180,35 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
 
         txt_Id.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txt_Id.setEnabled(false);
-        getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 180, -1));
+        getContentPane().add(txt_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 200, -1));
 
         cmb_mat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_matActionPerformed(evt);
             }
         });
-        getContentPane().add(cmb_mat, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 170, -1));
+        getContentPane().add(cmb_mat, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 200, -1));
 
         lblcontra6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra6.setText("Materia:");
-        getContentPane().add(lblcontra6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        getContentPane().add(lblcontra6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         lblcontra7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra7.setText("Sección:");
-        getContentPane().add(lblcontra7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        getContentPane().add(lblcontra7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
-        getContentPane().add(cmb_secc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 170, -1));
+        getContentPane().add(cmb_secc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 200, -1));
 
         Tabla_Edit_Notas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nombre", "Apellido", "Nota 1 (35%)", "Nota 2 (35%)", "Nota 3 (30%)"
+                "Id", "Nombre", "Apellido", "Nota 1 (35%)", "Nota 2 (35%)", "Nota 3 (30%)", "Promedio"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -232,29 +234,37 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
                 btn_buscarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 170, -1));
+        getContentPane().add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 200, -1));
 
         lblcontra8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra8.setText("Docente");
-        getContentPane().add(lblcontra8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+        getContentPane().add(lblcontra8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
-        getContentPane().add(cmb_docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 170, -1));
+        getContentPane().add(cmb_docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 200, -1));
 
         cmb_periodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
-        getContentPane().add(cmb_periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 170, -1));
+        getContentPane().add(cmb_periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 200, -1));
 
         lblcontra9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblcontra9.setText("Periodo");
-        getContentPane().add(lblcontra9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
+        getContentPane().add(lblcontra9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         txtnotaDos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        getContentPane().add(txtnotaDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 180, -1));
+        getContentPane().add(txtnotaDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 200, -1));
 
         txtnotaTres.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        getContentPane().add(txtnotaTres, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 180, -1));
+        getContentPane().add(txtnotaTres, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 200, -1));
 
         txtnotaUno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        getContentPane().add(txtnotaUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 180, -1));
+        getContentPane().add(txtnotaUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 200, -1));
+
+        lblcontra2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra2.setText("Promedio:");
+        getContentPane().add(lblcontra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
+
+        txtPromedio.setEditable(false);
+        txtPromedio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        getContentPane().add(txtPromedio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 200, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -292,6 +302,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
          txtnotaUno.setText("");
          txtnotaDos.setText("");
          txtnotaTres.setText("");
+         txtPromedio.setText("");
          id="null";
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
@@ -303,6 +314,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         String not1=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 3).toString();
         String not2=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 4).toString();
         String not3=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 5).toString();
+        String proM=Tabla_Edit_Notas.getValueAt(Tabla_Edit_Notas.getSelectedRow(), 6).toString();
        
         txt_Id.setText(id);
         txtNombre.setText(nom);
@@ -310,6 +322,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         txtnotaUno.setText(not1);
         txtnotaDos.setText(not2);
         txtnotaTres.setText(not3);
+        txtPromedio.setText(proM);
   
     }//GEN-LAST:event_Tabla_Edit_NotasMouseClicked
     List<EditarNota> editarNotas;
@@ -340,12 +353,13 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     modM.setRowCount(0);
     for(int i=0; i<editarNotas.size(); i++)
         {
-            String[] registroC = {editarNotas.get(i).getId().toString(),
+            String[] registroC = {editarNotas.get(i).getId(),
                                   editarNotas.get(i).getNombre(),
                                   editarNotas.get(i).getApellido(),
                                   Double.toString(editarNotas.get(i).getNota1()).replace(".", ","),
                                    Double.toString(editarNotas.get(i).getNota2()).replace(".", ","),
-                                   Double.toString(editarNotas.get(i).getNota3()).replace(".", ",")
+                                   Double.toString(editarNotas.get(i).getNota3()).replace(".", ","),
+                                   Double.toString(Math.round((editarNotas.get(i).getNota1()*0.35+editarNotas.get(i).getNota2()*0.35+editarNotas.get(i).getNota3()*0.30)*100d)/100d).replace(".", ",")
                                   };
               modM.addRow(registroC);
            }
@@ -371,6 +385,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuario3;
     private javax.swing.JLabel lblcontra;
     private javax.swing.JLabel lblcontra1;
+    private javax.swing.JLabel lblcontra2;
     private javax.swing.JLabel lblcontra3;
     private javax.swing.JLabel lblcontra5;
     private javax.swing.JLabel lblcontra6;
@@ -379,6 +394,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblcontra9;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPromedio;
     private javax.swing.JTextField txt_Id;
     private javax.swing.JFormattedTextField txtnotaDos;
     private javax.swing.JFormattedTextField txtnotaTres;

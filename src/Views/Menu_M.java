@@ -275,7 +275,7 @@ public class Menu_M extends javax.swing.JFrame {
         CerrarHijos();
         Ver_Materias m = new Ver_Materias();
         m.setIdLog(idLog);
-         m.setSize(sisze());
+        m.setSize(sisze());
         DesktopPanel.add(m);
         
     }//GEN-LAST:event_Btn_Registrar_materiaActionPerformed
@@ -311,6 +311,7 @@ public class Menu_M extends javax.swing.JFrame {
         // TODO add your handling code here:
         CerrarHijos(); 
         Subir_Nota nota = new Subir_Nota();
+        nota.setIdLog(idLog);
         nota.setSize(sisze());
         DesktopPanel.add(nota);
         
