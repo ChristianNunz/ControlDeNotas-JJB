@@ -6,11 +6,14 @@
 package Views.Maestro;
 
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.DocenteJpaController;
 import Acceso_Datos.entityMain;
 import Excel.Excel;
 import Excel.ModeloAlumnoNota;
+import Logica_Negocios.Docente;
 import java.beans.PropertyVetoException;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,7 +56,9 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
     }
      public void setIdLog(String id){
         this.IdLog=id;
-         
+         DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
+         Docente docente=djc.findDocente(new BigDecimal(id));
+         txtDocente.setText(docente.getDocenteNombre()+" "+docente.getDocenteApellido());
     }
 
     /**
@@ -533,7 +538,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                 spq.registerStoredProcedureParameter("aNotaC", Double.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
                 
-                spq.setParameter("dId", IdLog);
+                spq.setParameter("dId", Integer.parseInt(IdLog));
                 //spq.setParameter("dNombre",txtDocente.getText());
                 spq.setParameter("dGrado",txtgrado.getText());
                 spq.setParameter("dMate",txtmateria.getText());
@@ -576,7 +581,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
             for (int i = 0; i < Fila.length; i++) {
             String[] Colum = Fila[i].split(",");
             if (i==1) {
-                txtDocente.setText(Colum[1]);
+                //txtDocente.setText(Colum[1]);
                 txtgrado.setText(Colum[3]);
                 txtseccion.setText(Colum[5]);
                 turno=Colum[7];                    

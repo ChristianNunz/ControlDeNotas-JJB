@@ -7,15 +7,8 @@ package Views.Maestro;
 
 import Acceso_Datos.ConectionDB;
 import Logica_Negocios.EditarNota;
-import Logica_Negocios.Grado;
 import Logica_Negocios.Materia;
-import Logica_Negocios.Seccion;
-import Views.Administrador.*;
-import Views.Menu_A;
-import java.beans.PropertyVetoException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -107,7 +100,7 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
 
         tabla_alumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "id", "Nombre", "Apellido", "Estado"
@@ -150,23 +143,33 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     private void btn_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrarActionPerformed
         // TODO add your handling code here:
         
-        String grado=cmb_grado.getSelectedItem().toString();
-        String materia=cmb_materia.getSelectedItem().toString();
-        String seccion=cmb_seccion.getSelectedItem().toString();
-
-        ConectionDB con = new ConectionDB();
-       
-        Alumnos =  con.GetListaAlumnos(grado, materia, seccion,idLog );
+        
        
         cargartabla();
     }//GEN-LAST:event_btn_mostrarActionPerformed
 
     private void btn_mostrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar1ActionPerformed
         // TODO add your handling code here:
-        
+        for (int i = 0; i < modM.getRowCount(); i++) {
+            String id=tabla_alumnos.getValueAt(i, 0).toString();
+            Boolean estado=(Boolean) tabla_alumnos.getValueAt(i, 3);
+            
+            ConectionDB con = new ConectionDB();
+            con.ActulizarEstadoAlumno(id,estado);
+            
+        }
+        cargartabla();
     }//GEN-LAST:event_btn_mostrar1ActionPerformed
+    DefaultTableModel modM;
     private void cargartabla(){
-    DefaultTableModel modM = (DefaultTableModel) tabla_alumnos.getModel(); 
+    String grado=cmb_grado.getSelectedItem().toString();
+    String materia=cmb_materia.getSelectedItem().toString();
+    String seccion=cmb_seccion.getSelectedItem().toString();
+
+    ConectionDB con = new ConectionDB();
+       
+    Alumnos =  con.GetListaAlumnos(grado, materia, seccion,idLog );
+    modM = (DefaultTableModel) tabla_alumnos.getModel(); 
     modM.setRowCount(0);
     for(int i=0; i<Alumnos.size(); i++)
         {

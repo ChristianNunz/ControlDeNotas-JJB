@@ -157,7 +157,7 @@ public class ConectionDB {
         try {
             List<EditarNota> editarNotas = new ArrayList<EditarNota>();
             Statement st = conn();
-            ResultSet resultSet = st.executeQuery("SELECT p.id_periodo,a.alumno_nombre,a.alumno_apelidos,a.ALUMNO_ESTADO FROM alumno A"
+            ResultSet resultSet = st.executeQuery("SELECT a.ID_ALUMNO,a.alumno_nombre,a.alumno_apelidos,a.ALUMNO_ESTADO FROM alumno A"
                     + " INNER JOIN NOTA N ON a.id_alumno = n.id_alumno "
                     + "INNER JOIN periodo P ON n.id_nota = p.id_nota "
                     + "INNER JOIN materia_grado MG ON n.id_materia_grado=mg.id_materia_grado "
@@ -236,6 +236,27 @@ public class ConectionDB {
             return Rol+","+Id;
         } catch (Exception e) {
              return "null";
+        }
+    }
+
+    public void ActulizarEstadoAlumno(String id, Boolean estado) {
+        try {
+             Statement st = conn();
+            if (estado) {               
+                String query="UPDATE ALUMNO SET ALUMNO_ESTADO=1 WHERE ID_ALUMNO="+id+"";
+                int count=st.executeUpdate(query);
+                
+                //st.executeUpdate();
+                
+               
+            }else{
+                 String query="UPDATE ALUMNO SET ALUMNO_ESTADO=0 WHERE ID_ALUMNO="+id+"";
+                int count=st.executeUpdate(query);
+                
+
+            }
+        } catch (Exception e) {
+            String err=e+"";
         }
     }
 }
