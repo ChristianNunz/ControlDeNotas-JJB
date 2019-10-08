@@ -15,6 +15,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Logica_Negocios.Rol;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -169,6 +171,22 @@ public class LoginJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    public String Login(String user, String contra) {
+        try {
+            ConectionDB con = new ConectionDB();
+            Statement st = con.conn();
+            ResultSet resultSet = st.executeQuery("SELECT l.ID_LOGIN,R.ROL_NOMBRE FROM LOGIN L INNER JOIN ROL R ON L.id_rol=R.id_rol WHERE L.LOGIN_USUARIO='"+user+"' AND L.LOGIN_CLAVE='"+contra+"'");
+            resultSet.next();
+            String Id = resultSet.getString(1);
+            String Rol=resultSet.getString(2);
+            
+//            IdLog=Id;
+            st.close();
+            return Rol+","+Id;
+        } catch (Exception e) {
+             return "null";
         }
     }
     

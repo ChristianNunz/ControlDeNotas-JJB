@@ -19,6 +19,8 @@ import Logica_Negocios.MateriaGrado;
 import Logica_Negocios.Seccion;
 import Logica_Negocios.Turno;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -285,6 +287,19 @@ public class MateriaGradoJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    public int GetIdValidar(BigDecimal idm, BigDecimal ids, BigDecimal idg,BigDecimal idt, BigDecimal idd){
+        try {
+            ConectionDB con = new ConectionDB();
+            Statement st = con.conn();
+             ResultSet resultSet = st.executeQuery("SELECT  ID_MATERIA_GRADO FROM MATERIA_GRADO WHERE ID_MATERIA = '"+(idm)+"' AND ID_GRADO =  '"+(ids)+"' AND ID_SECCION = '"+(idg)+"'  AND ID_TURNO = '"+(idt)+"'");
+             resultSet.next();
+              int iddd = Integer.parseInt(resultSet.getString(1));
+              st.close();
+              return iddd;
+        } catch (Exception e) {
+             return 0;
         }
     }
     

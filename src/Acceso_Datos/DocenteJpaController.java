@@ -10,6 +10,8 @@ import Acceso_Datos.exceptions.PreexistingEntityException;
 import Logica_Negocios.Docente;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -140,6 +142,20 @@ public class DocenteJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    public BigDecimal GetIdDocnete(String NombreD){
+        try {
+            ConectionDB con = new ConectionDB();
+            Statement st = con.conn();
+             ResultSet resultSet = st.executeQuery("SELECT  ID_DOCENTE FROM DOCENTE WHERE DOCENTE_NOMBRE = '"+(NombreD)+"'");
+             resultSet.next();
+              int iddd = Integer.parseInt(resultSet.getString(1));
+              BigDecimal id = new BigDecimal(iddd);
+              st.close();
+              return id;
+        } catch (Exception e) {
+             return null;
         }
     }
     

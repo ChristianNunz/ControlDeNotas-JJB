@@ -7,6 +7,7 @@ package Acceso_Datos;
 
 import Acceso_Datos.exceptions.NonexistentEntityException;
 import Acceso_Datos.exceptions.PreexistingEntityException;
+import Logica_Negocios.EditarNota;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -15,6 +16,9 @@ import javax.persistence.criteria.Root;
 import Logica_Negocios.Nota;
 import Logica_Negocios.Periodo;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -169,6 +173,44 @@ public class PeriodoJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+     public List<EditarNota> GetListaNotas(String periodo, String grado, String materia,String Seccion, String docenteid){
+        try {
+            ConectionDB con = new ConectionDB();
+            List<EditarNota> editarNotas = new ArrayList<EditarNota>();
+            Statement st = con.conn();
+            ResultSet resultSet = st.executeQuery("SELECT p.id_periodo,a.alumno_nombre,a.alumno_apelidos,p.nota1,p.nota2,p.nota3 FROM alumno A"
+                    + " INNER JOIN NOTA N ON a.id_alumno = n.id_alumno "
+                    + "INNER JOIN periodo P ON n.id_nota = p.id_nota "
+                    + "INNER JOIN materia_grado MG ON n.id_materia_grado=mg.id_materia_grado "
+                    + "INNER JOIN SECCION S ON mg.id_seccion = s.id_seccion "
+                    + "INNER JOIN turno T ON mg.id_turno = t.id_turno "
+                    + "INNER JOIN materia M ON mg.id_materia = m.id_materia "
+                    + "INNER JOIN docente D ON mg.id_docente=d.id_docente "
+                    + "INNER JOIN grado G ON mg.id_grado = g.id_grado "
+                    + "WHERE p.periodo="+periodo+" AND g.grado='"+grado+"' AND m.materia_nombre='"+materia+"' AND s.nombre_seccion='"+Seccion+"' AND d.id_docente='"+docenteid+"'");
+            while(resultSet.next()){
+                
+                
+                 EditarNota editarNota = new EditarNota(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Double.parseDouble(resultSet.getString(4)), Double.parseDouble(resultSet.getString(5)), Double.parseDouble(resultSet.getString(6)));
+                 editarNotas.add(editarNota);                
+           }
+            st.close();
+            return editarNotas;
+        } catch (Exception e) {
+             return null;
+        }
+    }
+    
+     public void UpdateNota(String id_periodo, String nota1, String nota2, String nota3){
+         try {
+             ConectionDB con = new ConectionDB();
+            Statement st = con.conn();
+            st.executeQuery("UPDATE PERIODO SET nota1="+nota1+", nota2="+nota2+", nota3="+nota3+" WHERE id_periodo="+id_periodo+"");                   
+            st.close();
+        } catch (Exception e) {
+            
         }
     }
     

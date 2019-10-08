@@ -10,6 +10,9 @@ import Acceso_Datos.exceptions.PreexistingEntityException;
 import Logica_Negocios.Grado;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -141,5 +144,24 @@ public class GradoJpaController implements Serializable {
             em.close();
         }
     }
+    public List<String> GetGrados(String IdLog){
+         try {
+             ConectionDB con = new ConectionDB();
+             List<String> grados = new ArrayList<>();
+             Statement st = con.conn();
+             ResultSet resultSet = st.executeQuery("SELECT GRADO FROM MATERIA_GRADO M " +
+                                                    "INNER JOIN GRADO G ON M.ID_GRADO = G.ID_GRADO " +
+                                                    "WHERE ID_DOCENTE ="+IdLog+"" +
+                                                    "GROUP BY GRADO");
+              while(resultSet.next()){
+              String grad = resultSet.getString(1);
+              grados.add(grad);
+              }
+              st.close();
+               return grados;
+         } catch (Exception e) {
+         }
+         return null;
+     }
     
 }
