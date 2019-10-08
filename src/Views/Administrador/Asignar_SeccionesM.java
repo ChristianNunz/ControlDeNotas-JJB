@@ -170,8 +170,8 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
          BigDecimal idt = IdTurno(turno);
          
         try {
-          BigDecimal idd = con.GetIdDocnete(docente);
-           int idv = con.GetIdValidar(id,idg,ids,idt,idd);
+          BigDecimal idd = djc.GetIdDocnete(docente);
+           int idv = materiaGradoJpaController.GetIdValidar(id,idg,ids,idt,idd);
            if (idv ==0) {
            MateriaGrado materiaGrado = new MateriaGrado(con.GetIdToInsert("MATERIA_GRADO", "ID_MATERIA_GRADO"));
            materiaGrado.setAnho(new BigInteger(txt_anho.getText()));

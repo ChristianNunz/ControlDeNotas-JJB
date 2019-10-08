@@ -231,7 +231,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
          BigDecimal idt = IdTurno(turno);
          
        try {
-           BigDecimal idd = con.GetIdDocnete(docente);
+           BigDecimal idd = djc.GetIdDocnete(docente);
            MateriaGrado materiaGrado = new MateriaGrado(new BigDecimal(txt_id.getText()));
            materiaGrado.setAnho(new BigInteger(anho));
            materiaGrado.setIdMateria(new Materia(idm, NombreM));

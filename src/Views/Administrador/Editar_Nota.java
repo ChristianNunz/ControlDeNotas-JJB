@@ -281,7 +281,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
                  String NotaTres=txtnotaTres.getText().replace(",", ".");
                 
                  ConectionDB con = new ConectionDB();
-                 con.UpdateNota(id, NotaUno, NotaDos, NotaTres);
+                 ConPeriodo.UpdateNota(id, NotaUno, NotaDos, NotaTres);
                 cargartabla();
                 
                 JOptionPane.showMessageDialog(rootPane, "Notas Editadas Correctamente");
@@ -347,7 +347,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         String[] docent =cmb_docente.getSelectedItem().toString().split(",");
         String docente =docent[0];
         ConectionDB con = new ConectionDB();
-        editarNotas =  con.GetListaNotas(periodo, grado, materia, seccion, docente);
+        editarNotas =  ConPeriodo.GetListaNotas(periodo, grado, materia, seccion, docente);
     
     modM = (DefaultTableModel) Tabla_Edit_Notas.getModel(); 
     modM.setRowCount(0);
