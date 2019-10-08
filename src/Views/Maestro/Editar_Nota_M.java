@@ -6,7 +6,9 @@
 package Views.Maestro;
 
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.GradoJpaController;
 import Acceso_Datos.MateriaJpaController;
+import Acceso_Datos.PeriodoJpaController;
 import Acceso_Datos.SeccionJpaController;
 import Acceso_Datos.entityMain;
 import Logica_Negocios.EditarNota;
@@ -29,6 +31,8 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
        String id="null";
        MateriaJpaController mjc = new MateriaJpaController(entityMain.getInstance());
        SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
+       GradoJpaController gjc = new GradoJpaController(entityMain.getInstance());
+       PeriodoJpaController ConPeriodo = new PeriodoJpaController(entityMain.getInstance());
     public Editar_Nota_M() {
         
         initComponents();
@@ -262,7 +266,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
                  String NotaTres=txtnota3.getText().replace(",", ".");
                 
                  ConectionDB con = new ConectionDB();
-                 con.UpdateNota(id, NotaUno, NotaDos, NotaTres);
+                 ConPeriodo.UpdateNota(id, NotaUno, NotaDos, NotaTres);
                 cargartabla();
                 
                 JOptionPane.showMessageDialog(rootPane, "Notas Editadas Correctamente");
@@ -315,7 +319,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
        // String[] docent =cmb_docente.getSelectedItem().toString().split(",");
        //String docente =docent[0];
         ConectionDB con = new ConectionDB();
-        editarNotas =  con.GetListaNotas(periodo, grado, materia, seccion, idLog);
+        editarNotas =  ConPeriodo.GetListaNotas(periodo, grado, materia, seccion, idLog);
     
     modM = (DefaultTableModel) Tabla_Edit_Notas.getModel(); 
     modM.setRowCount(0);
@@ -351,7 +355,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
     }
      private void LlenarGrados(){
         ConectionDB con = new ConectionDB();
-        List<String> grados = con.GetGrados(idLog);
+        List<String> grados = gjc.GetGrados(idLog);
          for (String grado : grados) {
             cmb_grado.addItem(grado);
         }

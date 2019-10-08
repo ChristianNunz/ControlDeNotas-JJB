@@ -5,7 +5,9 @@
  */
 package Views.Maestro;
 
+import Acceso_Datos.AlumnoJpaController;
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.GradoJpaController;
 import Acceso_Datos.MateriaJpaController;
 import Acceso_Datos.SeccionJpaController;
 import Acceso_Datos.entityMain;
@@ -26,6 +28,8 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     public String idLog;
     MateriaJpaController mjc = new MateriaJpaController(entityMain.getInstance());
     SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
+    AlumnoJpaController ajc = new AlumnoJpaController(entityMain.getInstance());
+    GradoJpaController gjc = new GradoJpaController(entityMain.getInstance());
     public Ver_Materias() {
         
         initComponents();
@@ -165,7 +169,7 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
             Boolean estado=(Boolean) tabla_alumnos.getValueAt(i, 3);
             
             ConectionDB con = new ConectionDB();
-            con.ActulizarEstadoAlumno(id,estado);
+            ajc.ActulizarEstadoAlumno(id,estado);
             
         }
         cargartabla();
@@ -182,7 +186,7 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
 
     ConectionDB con = new ConectionDB();
        
-    Alumnos =  con.GetListaAlumnos(grado, materia, seccion,idLog );
+    Alumnos =  ajc.GetListaAlumnos(grado, materia, seccion,idLog );
     modM = (DefaultTableModel) tabla_alumnos.getModel(); 
     modM.setRowCount(0);
     for(int i=0; i<Alumnos.size(); i++)
@@ -218,7 +222,7 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     }
      private void LlenarGrados(){
         ConectionDB con = new ConectionDB();
-        List<String> grados = con.GetGrados(idLog);
+        List<String> grados = gjc.GetGrados(idLog);
          for (String grado : grados) {
             cmb_grado.addItem(grado);
         }
