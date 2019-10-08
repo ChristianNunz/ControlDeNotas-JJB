@@ -6,6 +6,8 @@
 package Views;
 
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.LoginJpaController;
+import Acceso_Datos.entityMain;
 import Excel.Excel;
 import java.beans.Statement;
 import java.sql.Connection;
@@ -21,7 +23,7 @@ import javax.swing.JOptionPane;
  * @author Jorge Villanueva
  */
 public class Login extends javax.swing.JFrame {
-
+    LoginJpaController login = new LoginJpaController(entityMain.getInstance());
     /**
      * Creates new form Login
      */
@@ -164,7 +166,7 @@ public class Login extends javax.swing.JFrame {
        
         String user=txt_usuario.getText();
         String contra=txt_pass.getText();
-        String[] Rol=con.Login(user,contra).split(",");
+        String[] Rol=login.Login(user,contra).split(",");
         if (Rol[0].equals("Administrador")) {
             
              Menu_A menu = new Menu_A();   
