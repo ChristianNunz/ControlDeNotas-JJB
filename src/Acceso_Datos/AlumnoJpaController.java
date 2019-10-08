@@ -8,8 +8,12 @@ package Acceso_Datos;
 import Acceso_Datos.exceptions.NonexistentEntityException;
 import Acceso_Datos.exceptions.PreexistingEntityException;
 import Logica_Negocios.Alumno;
+import Logica_Negocios.EditarNota;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -141,6 +145,55 @@ public class AlumnoJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    public List<EditarNota> GetListaAlumnos( String grado, String materia,String Seccion, String docenteid)    {
+        try {
+            ConectionDB con = new ConectionDB();
+            List<EditarNota> editarNotas = new ArrayList<EditarNota>();
+            Statement st = con.conn();
+            ResultSet resultSet = st.executeQuery("SELECT a.ID_ALUMNO,a.alumno_nombre,a.alumno_apelidos,a.ALUMNO_ESTADO FROM alumno A"
+                    + " INNER JOIN NOTA N ON a.id_alumno = n.id_alumno "
+                    + "INNER JOIN periodo P ON n.id_nota = p.id_nota "
+                    + "INNER JOIN materia_grado MG ON n.id_materia_grado=mg.id_materia_grado "
+                    + "INNER JOIN SECCION S ON mg.id_seccion = s.id_seccion "
+                    + "INNER JOIN turno T ON mg.id_turno = t.id_turno "
+                    + "INNER JOIN materia M ON mg.id_materia = m.id_materia "
+                    + "INNER JOIN docente D ON mg.id_docente=d.id_docente "
+                    + "INNER JOIN grado G ON mg.id_grado = g.id_grado "
+                    + "WHERE  g.grado='"+grado+"' AND m.materia_nombre='"+materia+"' AND s.nombre_seccion='"+Seccion+"' AND d.id_docente='"+docenteid+"'"
+                    + " GROUP BY a.ID_ALUMNO,A.ALUMNO_NOMBRE,a.alumno_apelidos,a.ALUMNO_ESTADO");
+            while(resultSet.next()){
+                
+                
+                 EditarNota editarNota = new EditarNota(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),resultSet.getString(4));
+                 editarNotas.add(editarNota);                
+           }
+            st.close();
+            return editarNotas;
+        } catch (Exception e) {
+             return null;
+        }
+    }
+    public void ActulizarEstadoAlumno(String id, Boolean estado) {
+        try {
+            ConectionDB con = new ConectionDB();
+             Statement st = con.conn();
+            if (estado) {               
+                String query="UPDATE ALUMNO SET ALUMNO_ESTADO=1 WHERE ID_ALUMNO="+id+"";
+                int count=st.executeUpdate(query);
+                st.close();
+                //st.executeUpdate();
+                
+               
+            }else{
+                 String query="UPDATE ALUMNO SET ALUMNO_ESTADO=0 WHERE ID_ALUMNO="+id+"";
+                int count=st.executeUpdate(query);
+                st.close();
+
+            }
+        } catch (Exception e) {
+            String err=e+"";
         }
     }
     
