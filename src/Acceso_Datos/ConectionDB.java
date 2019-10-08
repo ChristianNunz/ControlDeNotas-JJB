@@ -7,63 +7,84 @@ package Acceso_Datos;
 
 
 import Logica_Negocios.EditarNota;
-import Logica_Negocios.Grado;
 import Logica_Negocios.Materia;
-import Logica_Negocios.Seccion;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jorge Villanueva
  */
 public class ConectionDB {
-    private String url="jdbc:oracle:thin:@localhost:1521:XE";
-    private String user="director";
-    private String pass="jjb";
+    private static String url="jdbc:oracle:thin:@localhost:1521:XE";
+    private static String user="director";
+    private static String pass="jjb";
+   
+    private static Connection conn=null;
     
-    
+      public static Connection getconnection(){
+          try {
+              DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+              conn=DriverManager.getConnection(url,user,pass);
+              conn.setAutoCommit(false);
+              if (conn != null) {
+                  System.out.println("Conexion exitosa");
+              }else{
+                  System.out.println("Conexion erronea");
+              }
+          } catch (SQLException e) {
+              JOptionPane.showMessageDialog(null, "conexion erronea"+e.getMessage());
+          }
+          return conn;
+      }
       
-    
+    public void desconexion(){
+        try {
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("error al desconectar"+e.getMessage());
+        }
+    }
     public Statement conn(){
         try{  
-        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-        System.out.println("Conectando con la base de datos...");
-        Connection connection = DriverManager.getConnection(url,user,pass);
-        Statement statement = connection.createStatement();
-        return statement;
+            
+            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+            System.out.println("Conectando con la base de datos...");
+            Connection connection = DriverManager.getConnection(url,user,pass);
+           
+            Statement statement = connection.createStatement();
+            
+            return statement;
         }catch(Exception e){
-        System.out.println("The exception raised is:" + e);
+            System.out.println("The exception raised is:" + e);
         return null;  
         } 
     }
     
-    public LinkedList<String> query (String from){
-            try{
-            Statement st = conn();
-            ResultSet resultSet = st.executeQuery("SELECT MAX(ID_DOCENTE) FROM DOCENTE");
-            // CON ESTE METODO OBTENEMOS EL DOCENTE CON MAXIMO ID QUE EN ESTE CASO SERIA EL ULTIMO
-            LinkedList<String> result = new LinkedList();
-            while(resultSet.next()){
-            for(int i=1;i<= resultSet.getMetaData().getColumnCount(); i++){
-            result.add(resultSet.getString(i));
-            }
-            }
-            return result;
-            }catch (Exception e){
-            return null;
-            }
+    public static void main(String[] args) {
+        ConectionDB cdb = new ConectionDB();
+        
+        PreparedStatement pst=null;
+        String sql="";
+        try {
+            pst=cdb.getconnection().prepareStatement(sql);
+            pst.setInt(1, 2);
+            pst.execute();
+            pst.close();
+        } catch (SQLException e) {
+        }
     }
+    
     //OBTENEMOS EL ULTIMO ID DE LA TABLA 
     public BigInteger GetLastId(String tabla, String Id){
         try {
@@ -71,6 +92,7 @@ public class ConectionDB {
             ResultSet resultSet = st.executeQuery("SELECT MAX("+Id+") FROM "+tabla);  
             resultSet.next();
             BigInteger id= new BigInteger(resultSet.getString(1));
+            st.close();
             return id;
         } catch (Exception e) {
              return null;
@@ -96,45 +118,14 @@ public class ConectionDB {
                  EditarNota editarNota = new EditarNota(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Double.parseDouble(resultSet.getString(4)), Double.parseDouble(resultSet.getString(5)), Double.parseDouble(resultSet.getString(6)));
                  editarNotas.add(editarNota);                
            }
+            st.close();
             return editarNotas;
         } catch (Exception e) {
              return null;
         }
     }
-     public List<Materia> GetMaterias(String IdLog){
-        try {
-            List<Materia> materias = new ArrayList<Materia>();
-            Statement st = conn();
-            ResultSet resultSet = st.executeQuery("Select M.ID_MATERIA, MATERIA_NOMBRE from MATERIA_GRADO A " +
-                                                    "INNER JOIN MATERIA M ON A.ID_MATERIA = M.ID_MATERIA " +
-                                                  "WHERE ID_DOCENTE ="+IdLog);
-            while(resultSet.next()){
-                Materia materiass = new Materia(new BigDecimal(resultSet.getString(1)), resultSet.getString(2));
-                materias.add(materiass);
-            }
-            return materias;
-        } catch (Exception e) {
-            
-        }
-        return null;
-     }
-     public List<String> GetSecciones(String IdLog){
-         try { 
-             List<String> secciones = new ArrayList<>();
-              Statement st = conn();
-            ResultSet resultSet = st.executeQuery("SELECT S.NOMBRE_SECCION FROM MATERIA_GRADO M " +
-                                                    "INNER JOIN SECCION S ON M.ID_SECCION= S.ID_SECCION " +
-                                                    "WHERE ID_DOCENTE ="+IdLog+" " +
-                                                    "GROUP BY NOMBRE_SECCION");
-            while(resultSet.next()){
-            String sec = resultSet.getString(1);
-            secciones.add(sec);
-            }
-            return secciones;
-         } catch (Exception e) {
-         }
-         return null;
-     }
+    
+     
      public List<String> GetGrados(String IdLog){
          try {
              List<String> grados = new ArrayList<>();
@@ -147,6 +138,7 @@ public class ConectionDB {
               String grad = resultSet.getString(1);
               grados.add(grad);
               }
+              st.close();
                return grados;
          } catch (Exception e) {
          }
@@ -166,13 +158,15 @@ public class ConectionDB {
                     + "INNER JOIN materia M ON mg.id_materia = m.id_materia "
                     + "INNER JOIN docente D ON mg.id_docente=d.id_docente "
                     + "INNER JOIN grado G ON mg.id_grado = g.id_grado "
-                    + "WHERE  g.grado='"+grado+"' AND m.materia_nombre='"+materia+"' AND s.nombre_seccion='"+Seccion+"' AND d.id_docente='"+docenteid+"'");
+                    + "WHERE  g.grado='"+grado+"' AND m.materia_nombre='"+materia+"' AND s.nombre_seccion='"+Seccion+"' AND d.id_docente='"+docenteid+"'"
+                    + " GROUP BY a.ID_ALUMNO,A.ALUMNO_NOMBRE,a.alumno_apelidos,a.ALUMNO_ESTADO");
             while(resultSet.next()){
                 
                 
                  EditarNota editarNota = new EditarNota(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),resultSet.getString(4));
                  editarNotas.add(editarNota);                
            }
+            st.close();
             return editarNotas;
         } catch (Exception e) {
              return null;
@@ -186,6 +180,7 @@ public class ConectionDB {
             int idd = Integer.parseInt(resultSet.getString(1));
             idd=idd+1;
             BigDecimal id= new BigDecimal(idd);
+            st.close();
             return id;
         } catch (Exception e) {
             return  new BigDecimal("1"); 
@@ -197,6 +192,7 @@ public class ConectionDB {
              ResultSet resultSet = st.executeQuery("SELECT  ID_MATERIA_GRADO FROM MATERIA_GRADO WHERE ID_MATERIA = '"+(idm)+"' AND ID_GRADO =  '"+(ids)+"' AND ID_SECCION = '"+(idg)+"'  AND ID_TURNO = '"+(idt)+"'");
              resultSet.next();
               int iddd = Integer.parseInt(resultSet.getString(1));
+              st.close();
               return iddd;
         } catch (Exception e) {
              return 0;
@@ -209,6 +205,7 @@ public class ConectionDB {
              resultSet.next();
               int iddd = Integer.parseInt(resultSet.getString(1));
               BigDecimal id = new BigDecimal(iddd);
+              st.close();
               return id;
         } catch (Exception e) {
              return null;
@@ -218,7 +215,7 @@ public class ConectionDB {
          try {
             Statement st = conn();
             st.executeQuery("UPDATE PERIODO SET nota1="+nota1+", nota2="+nota2+", nota3="+nota3+" WHERE id_periodo="+id_periodo+"");                   
-            
+            st.close();
         } catch (Exception e) {
             
         }
@@ -233,6 +230,7 @@ public class ConectionDB {
             String Rol=resultSet.getString(2);
             
 //            IdLog=Id;
+            st.close();
             return Rol+","+Id;
         } catch (Exception e) {
              return "null";
@@ -245,14 +243,14 @@ public class ConectionDB {
             if (estado) {               
                 String query="UPDATE ALUMNO SET ALUMNO_ESTADO=1 WHERE ID_ALUMNO="+id+"";
                 int count=st.executeUpdate(query);
-                
+                st.close();
                 //st.executeUpdate();
                 
                
             }else{
                  String query="UPDATE ALUMNO SET ALUMNO_ESTADO=0 WHERE ID_ALUMNO="+id+"";
                 int count=st.executeUpdate(query);
-                
+                st.close();
 
             }
         } catch (Exception e) {

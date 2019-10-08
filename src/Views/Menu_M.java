@@ -5,22 +5,11 @@
  */
 package Views;
 
-import Views.Administrador.Asignar_Materia;
-import Views.Administrador.Crear_Alumno;
-import Views.Administrador.Crear_Maestro;
-import Views.Administrador.Asignar_SeccionesM;
-import Views.Administrador.Crear_Nota;
-import Views.Administrador.Editar_Alumno;
-import Views.Administrador.Editar_Maestro;
-import Views.Administrador.Editar_Materia;
-import Views.Administrador.Editar_Nota;
+
 import Views.Maestro.Editar_Nota_M;
 import Views.Maestro.Subir_Nota;
 import Views.Maestro.Ver_Materias;
 import java.awt.Dimension;
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -6,6 +6,9 @@
 package Views.Maestro;
 
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.MateriaJpaController;
+import Acceso_Datos.SeccionJpaController;
+import Acceso_Datos.entityMain;
 import Logica_Negocios.EditarNota;
 import Logica_Negocios.Materia;
 import java.util.List;
@@ -21,6 +24,8 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
      * Creates new form Agregar_Alumno
      */
     public String idLog;
+    MateriaJpaController mjc = new MateriaJpaController(entityMain.getInstance());
+    SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
     public Ver_Materias() {
         
         initComponents();
@@ -72,6 +77,11 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cmb_grado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_gradoActionPerformed(evt);
+            }
+        });
         getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
 
         lblcontra5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -160,6 +170,10 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         }
         cargartabla();
     }//GEN-LAST:event_btn_mostrar1ActionPerformed
+
+    private void cmb_gradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_gradoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_gradoActionPerformed
     DefaultTableModel modM;
     private void cargartabla(){
     String grado=cmb_grado.getSelectedItem().toString();
@@ -187,14 +201,16 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     /* FILTRADO DE MATERIAS, SECCIONES Y GRADOS ASIGNADOS AL MAESTRO*/
     private void  LlenarComboM(){
         ConectionDB con = new ConectionDB();
-        List<Materia> materia = con.GetMaterias(idLog);
+        
+        List<Materia> materia = mjc.GetMaterias(idLog);
+               
          for (Materia Materia1 : materia) {
             cmb_materia.addItem(Materia1.getMateriaNombre());
         }
     }
     private void LlenarSecciones(){
-        ConectionDB con = new ConectionDB();
-        List<String> secciones = con.GetSecciones(idLog);
+       
+        List<String> secciones = sjc.GetSecciones(idLog);
          for (String seccion : secciones) {
             cmb_seccion.addItem(seccion);
         }

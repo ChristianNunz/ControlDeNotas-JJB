@@ -6,6 +6,9 @@
 package Views.Maestro;
 
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.MateriaJpaController;
+import Acceso_Datos.SeccionJpaController;
+import Acceso_Datos.entityMain;
 import Logica_Negocios.EditarNota;
 import Logica_Negocios.Materia;
 import java.util.List;
@@ -24,6 +27,8 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
       DefaultTableModel modM;
        public String idLog;
        String id="null";
+       MateriaJpaController mjc = new MateriaJpaController(entityMain.getInstance());
+       SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
     public Editar_Nota_M() {
         
         initComponents();
@@ -330,14 +335,15 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
         }
        private void  LlenarComboM(){
         ConectionDB con = new ConectionDB();
-        List<Materia> materia = con.GetMaterias(idLog);
+        
+        List<Materia> materia =mjc.GetMaterias(idLog);
          for (Materia Materia1 : materia) {
             cmb_materia.addItem(Materia1.getMateriaNombre());
         }
     }
     private void LlenarSecciones(){
-        ConectionDB con = new ConectionDB();
-        List<String> secciones = con.GetSecciones(idLog);
+        
+        List<String> secciones = sjc.GetSecciones(idLog);
          for (String seccion : secciones) {
             cmb_seccion.addItem(seccion);
         }

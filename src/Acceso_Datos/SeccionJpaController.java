@@ -10,6 +10,9 @@ import Acceso_Datos.exceptions.PreexistingEntityException;
 import Logica_Negocios.Seccion;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -141,5 +144,25 @@ public class SeccionJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public List<String> GetSecciones(String IdLog){
+         try { 
+             ConectionDB con = new ConectionDB();
+             List<String> secciones = new ArrayList<>();
+              Statement st = con.conn();
+            ResultSet resultSet = st.executeQuery("SELECT S.NOMBRE_SECCION FROM MATERIA_GRADO M " +
+                                                    "INNER JOIN SECCION S ON M.ID_SECCION= S.ID_SECCION " +
+                                                    "WHERE ID_DOCENTE ="+IdLog+" " +
+                                                    "GROUP BY NOMBRE_SECCION");
+            while(resultSet.next()){
+            String sec = resultSet.getString(1);
+            secciones.add(sec);
+            }
+            st.close();
+            return secciones;
+         } catch (Exception e) {
+         }
+         return null;
+     }
     
 }

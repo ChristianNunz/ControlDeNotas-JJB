@@ -10,6 +10,9 @@ import Acceso_Datos.exceptions.PreexistingEntityException;
 import Logica_Negocios.Materia;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -129,6 +132,28 @@ public class MateriaJpaController implements Serializable {
         }
     }
 
+     public List<Materia> GetMaterias(String IdLog){
+        try {
+            ConectionDB con = new ConectionDB();
+            List<Materia> materias = new ArrayList<Materia>();
+            Statement st = con.conn();
+            ResultSet resultSet = st.executeQuery("Select M.ID_MATERIA, MATERIA_NOMBRE from MATERIA_GRADO A " +
+                                                    "INNER JOIN MATERIA M ON A.ID_MATERIA = M.ID_MATERIA " +
+                                                  "WHERE ID_DOCENTE ="+IdLog);
+            while(resultSet.next()){
+                Materia materiass = new Materia(new BigDecimal(resultSet.getString(1)), resultSet.getString(2));
+                materias.add(materiass);
+            }
+            st.close();
+            return materias;
+        } catch (Exception e) {
+            String a = e+"";
+            return null;
+        }
+       
+     }
+    
+    
     public int getMateriaCount() {
         EntityManager em = getEntityManager();
         try {
