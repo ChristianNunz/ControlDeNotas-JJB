@@ -11,8 +11,7 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 import javax.swing.JOptionPane;
@@ -69,8 +68,8 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
         lblcontra6 = new javax.swing.JLabel();
         lblcontra7 = new javax.swing.JLabel();
         txtfecha = new javax.swing.JFormattedTextField();
-        txtTelefono1 = new javax.swing.JFormattedTextField();
-        txtDui1 = new javax.swing.JFormattedTextField();
+        txtTelefono = new javax.swing.JFormattedTextField();
+        txtDui = new javax.swing.JFormattedTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -176,13 +175,13 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
         txtfecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd-MM-yyyy"))));
 
         try {
-            txtTelefono1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
+            txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
         try {
-            txtDui1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-#")));
+            txtDui.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-#")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -230,9 +229,9 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
                         .addComponent(txtApellido)
                         .addComponent(txtUser)
                         .addComponent(txtClave)
-                        .addComponent(txtTelefono1))
+                        .addComponent(txtTelefono))
                     .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDui1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDui, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -251,7 +250,7 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsuario1)
-                    .addComponent(txtTelefono1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblcontra1)
@@ -259,7 +258,7 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblcontra3)
-                    .addComponent(txtDui1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsuario2)
@@ -313,82 +312,78 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
         // TODO add your handling code here:
-               
         String nombre=txtNombre.getText();
-        String apellido=txtApellido.getText();
-        String tel=txtfecha.getText();
-        String direcc=txtDireccion.getText();
-        String dui=txtfecha.getText();
-        
-        String f=txtfecha.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
-         Date fecha = new Date();
-        try {
-            fecha = sdf.parse(f);
-        } catch (ParseException ex) {
-            
-        }
-        String estado=txt_activ.getText();
-        String genero=txt_sex.getText();        
-        String User=txtUser.getText();
-        String pass=txtClave.getText();
-        String Mensaje;
-        
-                
-        BigInteger estad;        
-        if (estado.equals("Activo")) {
-            estad = new BigInteger("1");
-        }else{
-            estad = new BigInteger("2");
-        }
-        BigInteger gen;
-        if (genero.equals("Masculino")) {
-            gen = new BigInteger("1");
-        }else{
-            gen = new BigInteger("2");
-        }     
-        ConectionDB cdb = new ConectionDB();                                
-        try {
-            StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRARDOCENTE");
-        
-            spq.registerStoredProcedureParameter("dId", Integer.class, ParameterMode.IN);        
-            spq.registerStoredProcedureParameter("dNom", String.class, ParameterMode.IN);
-            spq.registerStoredProcedureParameter("dApe", String.class, ParameterMode.IN);
-            spq.registerStoredProcedureParameter("dTel", String.class, ParameterMode.IN);
-            spq.registerStoredProcedureParameter("dDirec", String.class, ParameterMode.IN);
-            spq.registerStoredProcedureParameter("dDoc", String.class, ParameterMode.IN);        
-            spq.registerStoredProcedureParameter("dFNac", Date.class, ParameterMode.IN);        
-            spq.registerStoredProcedureParameter("dEst", Integer.class, ParameterMode.IN);
-            spq.registerStoredProcedureParameter("dGen", Integer.class, ParameterMode.IN);
-            spq.registerStoredProcedureParameter("lId", Integer.class, ParameterMode.IN);        
-            spq.registerStoredProcedureParameter("dUser", String.class, ParameterMode.IN);
-            spq.registerStoredProcedureParameter("dPass", String.class, ParameterMode.IN);
-            spq.registerStoredProcedureParameter("dRol", String.class, ParameterMode.IN);
-            spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
-            
-            spq.setParameter("dId",cdb.GetIdToInsert("DOCENTE","ID_DOCENTE"));        
-            spq.setParameter("dNom",nombre);
-            spq.setParameter("dApe",apellido);
-            spq.setParameter("dTel",tel);
-            spq.setParameter("dDirec",direcc);
-            spq.setParameter("dDoc",dui);        
-            spq.setParameter("dFNac",fecha);        
-            spq.setParameter("dEst",estad);
-            spq.setParameter("dGen",gen);
-            spq.setParameter("lId",cdb.GetIdToInsert("LOGIN","ID_LOGIN"));        
-            spq.setParameter("dUser",User);
-            spq.setParameter("dPass",pass);
-            spq.setParameter("dRol","Administrador");
-            
-            spq.execute();
-            Mensaje=spq.getOutputParameterValue("msj").toString();
-            JOptionPane.showMessageDialog(rootPane,Mensaje);
-        } catch (Exception e) {
-             JOptionPane.showMessageDialog(rootPane,"Ha ocurrido un error en el sistema");
-        }
-         
-        
-        
+            String apellido=txtApellido.getText();
+            String tel=txtTelefono.getText();
+            String direcc=txtDireccion.getText();
+            String dui=txtDui.getText();
+
+            String f=txtfecha.getText();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); 
+             Date fecha = new Date();
+            try {
+                fecha = sdf.parse(f);
+            } catch (ParseException ex) {
+
+            }
+            String estado=txt_activ.getText();
+            String genero=txt_sex.getText();        
+            String User=txtUser.getText();
+            String pass=txtClave.getText();
+            String Mensaje;
+
+
+            BigInteger estad;        
+            if (estado.equals("Activo")) {
+                estad = new BigInteger("1");
+            }else{
+                estad = new BigInteger("2");
+            }
+            BigInteger gen;
+            if (genero.equals("Masculino")) {
+                gen = new BigInteger("1");
+            }else{
+                gen = new BigInteger("2");
+            }     
+            ConectionDB cdb = new ConectionDB();                                
+            try {
+                StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRARDOCENTE");
+
+                spq.registerStoredProcedureParameter("dId", Integer.class, ParameterMode.IN);        
+                spq.registerStoredProcedureParameter("dNom", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dApe", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dTel", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dDirec", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dDoc", String.class, ParameterMode.IN);        
+                spq.registerStoredProcedureParameter("dFNac", Date.class, ParameterMode.IN);        
+                spq.registerStoredProcedureParameter("dEst", Integer.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dGen", Integer.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("lId", Integer.class, ParameterMode.IN);        
+                spq.registerStoredProcedureParameter("dUser", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dPass", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dRol", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
+
+                spq.setParameter("dId",cdb.GetIdToInsert("DOCENTE","ID_DOCENTE"));        
+                spq.setParameter("dNom",nombre);
+                spq.setParameter("dApe",apellido);
+                spq.setParameter("dTel",tel);
+                spq.setParameter("dDirec",direcc);
+                spq.setParameter("dDoc",dui);        
+                spq.setParameter("dFNac",fecha);        
+                spq.setParameter("dEst",estad);
+                spq.setParameter("dGen",gen);
+                spq.setParameter("lId",cdb.GetIdToInsert("LOGIN","ID_LOGIN"));        
+                spq.setParameter("dUser",User);
+                spq.setParameter("dPass",pass);
+                spq.setParameter("dRol","Docente");
+
+                spq.execute();
+                Mensaje=spq.getOutputParameterValue("msj").toString();
+                JOptionPane.showMessageDialog(rootPane,Mensaje);
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(rootPane,"Algo salio mal.");
+            }
     }//GEN-LAST:event_Btn_GuardarActionPerformed
 
     private void btn_cmb_sexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cmb_sexActionPerformed
@@ -417,9 +412,9 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         txtNombre.setText("");
         txtApellido.setText("");
-        txtTelefono1.setText("");
+        txtTelefono.setText("");
         txtDireccion.setText("");
-        txtDui1.setText("");
+        txtDui.setText("");
         txtfecha.setText("");
         txtUser.setText("");
         txtClave.setText("");
@@ -446,9 +441,9 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JFormattedTextField txtDui1;
+    private javax.swing.JFormattedTextField txtDui;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JFormattedTextField txtTelefono1;
+    private javax.swing.JFormattedTextField txtTelefono;
     private javax.swing.JTextField txtUser;
     private javax.swing.JTextField txt_activ;
     private javax.swing.JTextField txt_sex;

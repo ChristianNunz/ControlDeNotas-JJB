@@ -238,7 +238,9 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
      private void LLenarComboD() {
         List<Docente> docentes = djc.findDocenteEntities();
         for (Docente docente : docentes) {
-            cmb_docente.addItem(docente.getDocenteNombre());
+            if (docente.getDocenteEstado().equals("Activo")) {
+              cmb_docente.addItem(docente.getDocenteNombre() +" " + docente.getDocenteApellido());   
+            }            
         }
     }
    

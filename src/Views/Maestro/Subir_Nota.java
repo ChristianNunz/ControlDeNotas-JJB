@@ -50,15 +50,20 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
         initComponents();
        
        
-        modM = (DefaultTableModel) jTable1.getModel();
+       
         
 
     }
      public void setIdLog(String id){
-        this.IdLog=id;
+         try {            
          DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
-         Docente docente=djc.findDocente(new BigDecimal(id));
+         String idDocente=djc.GetIdDocneteByLoginId(id);
+         this.IdLog=idDocente;
+         Docente docente=djc.findDocente(new BigDecimal(idDocente));
+          modM = (DefaultTableModel) jTable1.getModel();
          txtDocente.setText(docente.getDocenteNombre()+" "+docente.getDocenteApellido());
+         } catch (Exception e) {
+         }
     }
 
     /**
@@ -528,7 +533,6 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                 spq.registerStoredProcedureParameter("dId",Integer.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dGrado", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dMate", String.class, ParameterMode.IN);
-               // spq.registerStoredProcedureParameter("dMate", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dPeri", Integer.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dSec", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("ANom", String.class, ParameterMode.IN);
@@ -558,7 +562,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
              JOptionPane.showMessageDialog(rootPane,Mensaje);
   
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane,"ERROR: " + e);
+            JOptionPane.showMessageDialog(rootPane,"Algo salio mal.");
         }
     }//GEN-LAST:event_Btn_GuardarActionPerformed
     

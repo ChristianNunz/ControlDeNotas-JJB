@@ -6,6 +6,7 @@
 package Views.Maestro;
 
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.DocenteJpaController;
 import Acceso_Datos.GradoJpaController;
 import Acceso_Datos.MateriaJpaController;
 import Acceso_Datos.PeriodoJpaController;
@@ -32,7 +33,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
        MateriaJpaController mjc = new MateriaJpaController(entityMain.getInstance());
        SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
        GradoJpaController gjc = new GradoJpaController(entityMain.getInstance());
-       PeriodoJpaController ConPeriodo = new PeriodoJpaController(entityMain.getInstance());
+       PeriodoJpaController pjc = new PeriodoJpaController(entityMain.getInstance());
     public Editar_Nota_M() {
         
         initComponents();
@@ -43,10 +44,15 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
 
     }
        public void setIdLog(String id){
-        this.idLog=id;
-        LlenarComboM();
-        LlenarGrados();
-        LlenarSecciones();
+        try {            
+            DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
+            String idDocente=djc.GetIdDocneteByLoginId(id);
+            this.idLog=idDocente;
+             LlenarComboM();
+            LlenarSecciones();
+            LlenarGrados();
+         } catch (Exception e) {
+         }
          
     }
 
@@ -266,7 +272,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
                  String NotaTres=txtnota3.getText().replace(",", ".");
                 
                  ConectionDB con = new ConectionDB();
-                 ConPeriodo.UpdateNota(id, NotaUno, NotaDos, NotaTres);
+                 pjc.UpdateNota(id, NotaUno, NotaDos, NotaTres);
                 cargartabla();
                 
                 JOptionPane.showMessageDialog(rootPane, "Notas Editadas Correctamente");
@@ -318,8 +324,8 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
         String seccion=cmb_seccion.getSelectedItem().toString();
        // String[] docent =cmb_docente.getSelectedItem().toString().split(",");
        //String docente =docent[0];
-        ConectionDB con = new ConectionDB();
-        editarNotas =  ConPeriodo.GetListaNotas(periodo, grado, materia, seccion, idLog);
+       
+        editarNotas =  pjc.GetListaNotas(periodo, grado, materia, seccion, idLog);
     
     modM = (DefaultTableModel) Tabla_Edit_Notas.getModel(); 
     modM.setRowCount(0);

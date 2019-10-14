@@ -7,12 +7,15 @@ package Views.Maestro;
 
 import Acceso_Datos.AlumnoJpaController;
 import Acceso_Datos.ConectionDB;
+import Acceso_Datos.DocenteJpaController;
 import Acceso_Datos.GradoJpaController;
 import Acceso_Datos.MateriaJpaController;
 import Acceso_Datos.SeccionJpaController;
 import Acceso_Datos.entityMain;
+import Logica_Negocios.Docente;
 import Logica_Negocios.EditarNota;
 import Logica_Negocios.Materia;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,11 +38,16 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         initComponents();
       
     }
-    public void setIdLog(String id){
-        this.idLog=id;
-         LlenarComboM();
-         LlenarSecciones();
-         LlenarGrados();
+    public void setIdLog(String id){                  
+         try {            
+            DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
+            String idDocente=djc.GetIdDocneteByLoginId(id);
+            this.idLog=idDocente;
+             LlenarComboM();
+            LlenarSecciones();
+            LlenarGrados();
+         } catch (Exception e) {
+         }
     }
 
     /**
@@ -204,7 +212,7 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     
     /* FILTRADO DE MATERIAS, SECCIONES Y GRADOS ASIGNADOS AL MAESTRO*/
     private void  LlenarComboM(){
-        ConectionDB con = new ConectionDB();
+        
         
         List<Materia> materia = mjc.GetMaterias(idLog);
                

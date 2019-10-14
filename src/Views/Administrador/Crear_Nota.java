@@ -12,6 +12,7 @@ import Excel.ModeloAlumnoNota;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -325,28 +326,31 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
             for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
                 StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRAR_NOTA_ADMIN");
             
-                spq.registerStoredProcedureParameter("dNombre", String.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dNombre", String.class, ParameterMode.IN);        
                 spq.registerStoredProcedureParameter("dGrado", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dMate", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dPeri", Integer.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dSec", String.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("ANom", String.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("aApe", String.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("aNotaA", Double.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("aNotaB", Double.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("aNotaC", Double.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("ANom", String.class, ParameterMode.IN);        
+                spq.registerStoredProcedureParameter("aApe", String.class, ParameterMode.IN);        
+                spq.registerStoredProcedureParameter("aNotaA", Integer.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aNotaB", Integer.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aNotaC", Integer.class, ParameterMode.IN);        
                 spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
-            
-                spq.setParameter("dNombre",txtDocente.getText());
-                spq.setParameter("dGrado",txtGrado.getText());
-                spq.setParameter("dMate",txtMateria.getText());
-                spq.setParameter("dPeri",Double.parseDouble(cmbx_Periodo.getSelectedItem().toString()));
-                spq.setParameter("dSec",txtSeccion.getText());
-                spq.setParameter("ANom", alumnoNota.getNombre());
-                spq.setParameter("aApe", alumnoNota.getApellido());
-                spq.setParameter("aNotaA",alumnoNota.getNota1());
+
+                    
+                ;
+                spq.setParameter("dNombre", txtDocente.getText());        
+                spq.setParameter("dGrado", txtGrado.getText());
+                spq.setParameter("dMate", txtMateria.getText());
+                spq.setParameter("dPeri", Double.parseDouble(cmbx_Periodo.getSelectedItem().toString()));
+                spq.setParameter("dSec", txtSeccion.getText());
+                spq.setParameter("ANom", alumnoNota.getNombre());        
+                spq.setParameter("aApe", alumnoNota.getApellido());        
+                spq.setParameter("aNotaA", alumnoNota.getNota1());
                 spq.setParameter("aNotaB", alumnoNota.getNota2());
-                spq.setParameter("aNotaC", alumnoNota.getNota3());
+                spq.setParameter("aNotaC",alumnoNota.getNota3());
+                
                 
                 spq.execute();
                 

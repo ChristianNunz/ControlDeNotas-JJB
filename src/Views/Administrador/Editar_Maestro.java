@@ -345,7 +345,7 @@ public class Editar_Maestro extends javax.swing.JInternalFrame {
                 Docente Docent = new Docente();   
                 Docent.setIdDocente(new BigDecimal(id));
                 Docent.setDocenteNombre(nombre);
-                Docent.setDocenteApellido(apellido);
+                Docent.setDocenteApellido(apellido);  
                 Docent.setDocenteTel(tel);
                 Docent.setDocenteDireccion(direcc);            
                 Docent.setDocenteDoc(dui);

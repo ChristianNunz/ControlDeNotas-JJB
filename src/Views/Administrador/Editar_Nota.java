@@ -411,7 +411,10 @@ private void LLenarComboM() {
      private void LLenarComboD() {
         List<Docente> docentes = djc.findDocenteEntities();
         for (Docente docente : docentes) {
-            cmb_docente.addItem(docente.getIdDocente()+","+ docente.getDocenteNombre()+" " + docente.getDocenteApellido());
+            if (docente.getDocenteEstado().equals("Activo")) {
+              cmb_docente.addItem(docente.getIdDocente()+","+ docente.getDocenteNombre()+" " + docente.getDocenteApellido());
+            }
+            
         }
     }
     private void LLenarComboS() {

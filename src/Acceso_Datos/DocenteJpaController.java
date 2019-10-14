@@ -148,10 +148,23 @@ public class DocenteJpaController implements Serializable {
         try {
             ConectionDB con = new ConectionDB();
             Statement st = con.conn();
-             ResultSet resultSet = st.executeQuery("SELECT  ID_DOCENTE FROM DOCENTE WHERE DOCENTE_NOMBRE = '"+(NombreD)+"'");
+             ResultSet resultSet = st.executeQuery("SELECT  ID_DOCENTE FROM DOCENTE WHERE DOCENTE_NOMBRE || ' ' || DOCENTE_APELLIDO = '"+(NombreD)+"'");
              resultSet.next();
               int iddd = Integer.parseInt(resultSet.getString(1));
               BigDecimal id = new BigDecimal(iddd);
+              st.close();
+              return id;
+        } catch (Exception e) {
+             return null;
+        }
+    }
+    public String GetIdDocneteByLoginId(String LogId){
+        try {
+            ConectionDB con = new ConectionDB();
+            Statement st = con.conn();
+             ResultSet resultSet = st.executeQuery("SELECT L.ID_DOCENTE FROM DOCENTE D INNER JOIN LOGIN L ON D.ID_DOCENTE=L.ID_DOCENTE WHERE L.ID_LOGIN="+LogId+"");
+             resultSet.next();
+              String id = resultSet.getString(1);            
               st.close();
               return id;
         } catch (Exception e) {
