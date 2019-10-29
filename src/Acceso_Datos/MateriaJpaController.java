@@ -152,6 +152,20 @@ public class MateriaJpaController implements Serializable {
         }
        
      }
+      public BigDecimal GetIdMateria(String NombreM){
+        try {
+            ConectionDB con = new ConectionDB();
+            Statement st = con.conn();
+             ResultSet resultSet = st.executeQuery("SELECT  ID_MATERIA FROM MATERIA WHERE MATERIA_NOMBRE= '"+(NombreM)+"'");
+             resultSet.next();
+              int iddd = Integer.parseInt(resultSet.getString(1));
+              BigDecimal id = new BigDecimal(iddd);
+              st.close();
+              return id;
+        } catch (Exception e) {
+             return null;
+        }
+    }
     
     
     public int getMateriaCount() {

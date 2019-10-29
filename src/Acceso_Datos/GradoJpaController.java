@@ -164,4 +164,18 @@ public class GradoJpaController implements Serializable {
          return null;
      }
     
+     public BigDecimal GetIdGrado(String NombreG){
+        try {
+            ConectionDB con = new ConectionDB();
+            Statement st = con.conn();
+             ResultSet resultSet = st.executeQuery("SELECT  ID_GRADO FROM GRADO WHERE GRADO= '"+(NombreG)+"'");
+             resultSet.next();
+              int iddd = Integer.parseInt(resultSet.getString(1));
+              BigDecimal id = new BigDecimal(iddd);
+              st.close();
+              return id;
+        } catch (Exception e) {
+             return null;
+        }
+    }
 }

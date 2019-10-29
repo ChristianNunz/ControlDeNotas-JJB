@@ -10,6 +10,8 @@ import Acceso_Datos.exceptions.PreexistingEntityException;
 import Logica_Negocios.Turno;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -141,5 +143,18 @@ public class TurnoJpaController implements Serializable {
             em.close();
         }
     }
-    
+    public BigDecimal GetIdTurno(String NombreT){
+        try {
+            ConectionDB con = new ConectionDB();
+            Statement st = con.conn();
+             ResultSet resultSet = st.executeQuery("SELECT  ID_TURNO FROM TURNO WHERE TURNO_NOMBRE= '"+(NombreT)+"'");
+             resultSet.next();
+              int iddd = Integer.parseInt(resultSet.getString(1));
+              BigDecimal id = new BigDecimal(iddd);
+              st.close();
+              return id;
+        } catch (Exception e) {
+             return null;
+        }
+    }
 }

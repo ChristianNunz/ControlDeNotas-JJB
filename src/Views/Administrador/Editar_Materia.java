@@ -42,6 +42,7 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
     SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
     TurnoJpaController tjc = new TurnoJpaController(entityMain.getInstance());
     DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
+    MateriaJpaController mjc = new MateriaJpaController(entityMain.getInstance());
     ConectionDB con = new ConectionDB(); 
     public Editar_Materia() {
         
@@ -225,10 +226,11 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
       String anho = txtbho.getText();
     
         
-         BigDecimal idm = IdMateria(NombreM);
-         BigDecimal idg = IdGrado(Grado);
-         BigDecimal ids = IdSeccion(seccion);
-         BigDecimal idt = IdTurno(turno);
+         //obtiene id seleccionado 
+         BigDecimal idm = mjc.GetIdMateria(NombreM);
+         BigDecimal idg = gjc.GetIdGrado(Grado);
+         BigDecimal ids = sjc.GetIdSeccion(seccion);
+         BigDecimal idt = tjc.GetIdTurno(turno);
          
        try {
            BigDecimal idd = djc.GetIdDocnete(docente);
@@ -294,83 +296,6 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
           
         }
     
-    private BigDecimal IdMateria(String materia){
-     BigDecimal id = null;
-      if(materia.equals("Lenguaje")){
-      id = new BigDecimal("1");
-      }
-      else if(materia.equals("Matemáticas")){
-          id = new BigDecimal("2");
-    }
-      else if(materia.equals("Ciencia, Salud y Medio Ambiente")){
-          id = new BigDecimal("3");
-      }
-      else if(materia.equals("Estudios Sociales")){
-          id = new BigDecimal("4");
-      }
-      else if(materia.equals("Educación Fisica")){
-          id = new BigDecimal("5");
-      }
-      else if(materia.equals("Educación Artistica")){
-          id = new BigDecimal("6");
-      }
-      else if(materia.equals("Ingles")){
-          id = new BigDecimal("7");
-      }
-      return id;
-    }
-    
-     private BigDecimal IdGrado(String materia){
-     BigDecimal id = null;
-      if(materia.equals("4")){
-      id = new BigDecimal("1");
-      }
-      else if(materia.equals("5")){
-          id = new BigDecimal("2");
-    }
-      else if(materia.equals("6")){
-          id = new BigDecimal("3");
-      }
-      else if(materia.equals("7")){
-          id = new BigDecimal("4");
-      }
-      else if(materia.equals("8")){
-          id = new BigDecimal("5");
-      }
-      else if(materia.equals("9")){
-          id = new BigDecimal("6");
-      }
-      return id;
-    }
-
-    private BigDecimal IdSeccion(String seccion) {
-         BigDecimal id = null;
-      if(seccion.equals("A")){
-      id = new BigDecimal("1");
-      }
-      else if(seccion.equals("B")){
-          id = new BigDecimal("2");
-    }
-      else if(seccion.equals("C")){
-          id = new BigDecimal("3");
-      }
-      return id;
-    }
-
-    private BigDecimal IdTurno(String turno) {
-           BigDecimal id = null;
-      if(turno.equals("Matutino")){
-      id = new BigDecimal("1");
-      }
-      else if(turno.equals("vespertino")){
-          id = new BigDecimal("2");
-    }
-      else if(turno.equals("C")){
-          id = new BigDecimal("3");
-      }
-      return id;
-    }
-   
      private void LLenarComboM() {
         List<Materia> Materias = materiaJpaController.findMateriaEntities();
         for (Materia Materia1 : Materias) {

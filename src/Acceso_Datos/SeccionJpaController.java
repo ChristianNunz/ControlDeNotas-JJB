@@ -164,5 +164,18 @@ public class SeccionJpaController implements Serializable {
          }
          return null;
      }
-    
+    public BigDecimal GetIdSeccion(String NombreS){
+        try {
+            ConectionDB con = new ConectionDB();
+            Statement st = con.conn();
+             ResultSet resultSet = st.executeQuery("SELECT  ID_SECCION FROM SECCION WHERE NOMBRE_SECCION= '"+(NombreS)+"'");
+             resultSet.next();
+              int iddd = Integer.parseInt(resultSet.getString(1));
+              BigDecimal id = new BigDecimal(iddd);
+              st.close();
+              return id;
+        } catch (Exception e) {
+             return null;
+        }
+    }
 }
