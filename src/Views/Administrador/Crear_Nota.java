@@ -339,12 +339,12 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
                 spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
 
                     
-                ;
+                
                 spq.setParameter("dNombre", txtDocente.getText());        
-                spq.setParameter("dGrado", txtGrado.getText());
+                spq.setParameter("dGrado", Integer.toString(Integer.parseInt(txtGrado.getText())));
                 spq.setParameter("dMate", txtMateria.getText());
                 spq.setParameter("dPeri", Double.parseDouble(cmbx_Periodo.getSelectedItem().toString()));
-                spq.setParameter("dSec", txtSeccion.getText());
+                spq.setParameter("dSec",txtSeccion.getText());
                 spq.setParameter("ANom", alumnoNota.getNombre());        
                 spq.setParameter("aApe", alumnoNota.getApellido());        
                 spq.setParameter("aNotaA", alumnoNota.getNota1());
@@ -359,7 +359,7 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
             }
             JOptionPane.showMessageDialog(rootPane,Mensaje);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane,"Algo salio mal.");
+            JOptionPane.showMessageDialog(rootPane,"Algo salio mal." + e);
         }
     }//GEN-LAST:event_Btn_GuardarActionPerformed
     private void CargarTabla() {        
@@ -403,7 +403,10 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
             String[] Colum = Fila[i].split(",");
             if (i==1) {
                 txtDocente.setText(Colum[1]);
-                txtGrado.setText(Colum[3]);
+                
+                String grade =Colum[3].replace(".","");
+                grade=grade.replace("0", "");
+                txtGrado.setText(grade);
                 txtSeccion.setText(Colum[5]);
                 turno=Colum[7];                    
             }else if (i==2){
