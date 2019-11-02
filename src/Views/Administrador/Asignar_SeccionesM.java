@@ -19,7 +19,6 @@ import Logica_Negocios.Materia;
 import Logica_Negocios.MateriaGrado;
 import Logica_Negocios.Seccion;
 import Logica_Negocios.Turno;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
