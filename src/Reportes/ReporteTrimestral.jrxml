@@ -1,131 +1,229 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="852269f2-68ab-474d-9b78-22e1b6c7a7b6">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT MATERIA_NOMBRE FROM MATERIA
-ORDER BY MATERIA_NOMBRE]]>
+		<![CDATA[SELECT DISTINCT al.alumno_nombre || ' ' || al.alumno_apelidos as "Nombre_Alumno", dc.docente_nombre || dc.docente_apellido as "Docente",mt.materia_nombre,gr.grado,
+sc.nombre_seccion, tr.turno_nombre, pr.nota1,pr.nota2, pr.nota3, (pr.nota1 * 0.35)+(pr.nota2*0.35) + (pr.nota3*0.3) AS "PROMEDIO"
+FROM ALUMNO AL
+INNER JOIN NOTA NT ON al.id_alumno = nt.id_alumno
+INNER JOIN PERIODO PR ON nt.id_nota = pr.id_nota
+INNER JOIN materia_grado MG ON nt.id_materia_grado  = MG.id_materia_grado
+INNER JOIN MATERIA MT ON mg.id_materia = mt.id_materia
+INNER JOIN DOCENTE DC ON mg.id_docente = dc.id_docente
+INNER JOIN GRADO GR ON mg.id_grado = gr.id_grado
+INNER JOIN TURNO TR ON mg.id_turno = tr.id_turno
+INNER JOIN SECCION SC ON mg.id_seccion = sc.id_seccion
+
+WHERE dc.id_docente = 3 and sc.nombre_seccion = 'A'  and al.alumno_nombre = 'Bladimir'
+]]>
 	</queryString>
+	<field name="Nombre_Alumno" class="java.lang.String"/>
+	<field name="Docente" class="java.lang.String"/>
 	<field name="MATERIA_NOMBRE" class="java.lang.String"/>
+	<field name="GRADO" class="java.lang.String"/>
+	<field name="NOMBRE_SECCION" class="java.lang.String"/>
+	<field name="TURNO_NOMBRE" class="java.lang.String"/>
+	<field name="NOTA1" class="java.math.BigDecimal"/>
+	<field name="NOTA2" class="java.math.BigDecimal"/>
+	<field name="NOTA3" class="java.math.BigDecimal"/>
+	<field name="PROMEDIO" class="java.math.BigDecimal"/>
+	<variable name="NOMBRE_SECCION_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{NOMBRE_SECCION}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="123" splitType="Stretch">
-			<image>
-				<reportElement positionType="Float" x="15" y="0" width="136" height="107"/>
-				<imageExpression class="java.lang.String"><![CDATA["C:\\Users\\chris\\Downloads\\el-salvador (3).png"]]></imageExpression>
-			</image>
+		<band height="65" splitType="Stretch">
 			<staticText>
-				<reportElement x="162" y="10" width="377" height="20"/>
+				<reportElement x="224" y="10" width="473" height="23" uuid="1d66cfc8-0f64-4a5e-bc85-159952283657"/>
 				<textElement>
-					<font fontName="Lucida Sans" size="14" isBold="true"/>
+					<font size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[INFORME DE EVALUACIÓN DE  LOS APRENDIZAJES]]></text>
+				<text><![CDATA[INFORME DE EVALUACION DE LOS APRENDIZAJES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="194" y="81" width="298" height="26"/>
-				<textElement textAlignment="Center">
-					<font fontName="Lucida Sans" size="20" isBold="true"/>
+				<reportElement x="265" y="33" width="473" height="23" uuid="3db585b3-f68e-4a0f-bd9a-a39f93cb6107"/>
+				<textElement>
+					<font size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[JUAN JOSÉ BERNAL]]></text>
+				<text><![CDATA[CENTRO ESCOLAR JUAN JOSÉ BERNAL]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="252" y="42" width="207" height="27"/>
-				<textElement textAlignment="Center">
-					<font fontName="Lucida Sans" size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CENTRO ESCOLAR]]></text>
-			</staticText>
+			<image>
+				<reportElement x="69" y="0" width="139" height="60" uuid="7755660b-1733-4b0b-8d66-442bf408c8fe"/>
+				<imageExpression><![CDATA["C:\\Users\\chris\\Documents\\NetBeansProjects\\ControlDeNotas-JJB\\src\\Images\\ESA.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="127" splitType="Stretch">
+		<band height="89" splitType="Stretch">
 			<staticText>
-				<reportElement x="15" y="17" width="136" height="20"/>
+				<reportElement x="15" y="17" width="136" height="20" uuid="d61f6b0d-b5ce-4933-8278-23c9457bdc4c"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre del Alumno/a:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="151" y="37" width="350" height="1"/>
+				<reportElement x="151" y="37" width="350" height="1" uuid="262b4c84-11f2-4345-8838-d36e0b4ac41c"/>
 			</line>
 			<staticText>
-				<reportElement x="14" y="59" width="43" height="20"/>
+				<reportElement x="533" y="17" width="43" height="20" uuid="d4780bd5-cdcb-4e38-ade2-65d67a343ace"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grado:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="57" y="76" width="42" height="1"/>
+				<reportElement x="576" y="34" width="42" height="1" uuid="968fc20e-e70c-4927-8bae-59e3f779933f"/>
 			</line>
 			<staticText>
-				<reportElement x="122" y="56" width="53" height="20"/>
+				<reportElement x="641" y="14" width="53" height="20" uuid="bb93bbfb-be00-4a1a-81e2-e3769d9d5d8f"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sección:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="175" y="74" width="64" height="1"/>
+				<reportElement x="694" y="32" width="64" height="1" uuid="43ab4138-30ee-4777-b954-f1b68e8dab7e"/>
 			</line>
 			<line>
-				<reportElement x="318" y="73" width="64" height="1"/>
+				<reportElement x="69" y="70" width="64" height="1" uuid="e0fb41ca-f456-466c-82ff-339c9e809535"/>
 			</line>
 			<staticText>
-				<reportElement x="265" y="55" width="53" height="20"/>
+				<reportElement x="16" y="52" width="53" height="20" uuid="a04d7bcd-1e03-4efd-8cb9-438c82d0071a"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[No Lista:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="458" y="75" width="96" height="1"/>
+				<reportElement x="209" y="72" width="96" height="1" uuid="cbbca15f-7c61-4fcd-a85a-42c97a1c7828"/>
 			</line>
 			<staticText>
-				<reportElement x="405" y="57" width="53" height="20"/>
+				<reportElement x="156" y="54" width="53" height="20" uuid="8be99ae8-b7eb-4163-a0f3-e996fe6b1ba6"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Turno:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="224" y="116" width="166" height="1"/>
+				<reportElement x="552" y="71" width="166" height="1" uuid="040206be-698a-4073-919d-e7c9c139ca76"/>
 			</line>
 			<staticText>
-				<reportElement x="15" y="97" width="209" height="20"/>
+				<reportElement x="343" y="52" width="209" height="20" uuid="0ab287ef-3ddf-4057-b3b2-4949a9acbf09"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[N° de identificacion del estudiante:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="175" y="17" width="226" height="20" uuid="c6b83c3e-274e-4aac-8b96-0c22b1ff4914"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre_Alumno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="702" y="12" width="36" height="20" uuid="ff9d9574-0cb9-4dce-b51e-8a219e962624"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_SECCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="54" width="80" height="20" uuid="6d3fbc36-b310-4e8b-a1f1-d1ef9246ba3b"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TURNO_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="573" y="13" width="45" height="20" uuid="4b06c6dd-3842-4be3-96f2-4aec103beade"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GRADO}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="33" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<staticText>
-				<reportElement x="51" y="11" width="100" height="20"/>
+				<reportElement x="51" y="21" width="100" height="20" uuid="cb8b7f7b-b3d6-4135-842b-bbc37b9d80bd"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ASIGNATURA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="21" width="61" height="20" uuid="866bb03b-a9fa-4c83-8379-00c55113c921"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA 1 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="21" width="59" height="20" uuid="6dea9b70-f9bd-4af3-ad30-c1057366aff9"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="478" y="21" width="55" height="20" uuid="144213af-33b2-4e19-87e6-9534acd6475d"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA 3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="594" y="21" width="100" height="20" uuid="242bc4c5-5f8e-4d78-b8e8-a8bfc733e4a1"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROMEDIO]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="46" splitType="Stretch">
-			<rectangle>
-				<reportElement x="14" y="8" width="161" height="29"/>
-			</rectangle>
+		<band height="34" splitType="Stretch">
 			<textField>
-				<reportElement x="14" y="11" width="160" height="26"/>
+				<reportElement x="15" y="0" width="193" height="26" uuid="46334df8-c9bc-41c6-a91f-1ed64c39dbfd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{MATERIA_NOMBRE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MATERIA_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="6" width="82" height="20" uuid="49f8c038-4085-42a9-b52b-3afa11c0cdcc"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOTA1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="356" y="6" width="78" height="20" uuid="94aa0717-12b1-4aec-871a-a3197c04aa64"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOTA2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="6" width="78" height="20" uuid="418c3676-2550-4ed1-b839-af39779f5cc6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOTA3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="594" y="6" width="108" height="20" uuid="7a375494-7791-49d1-8ab9-9c694fa2451d"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PROMEDIO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

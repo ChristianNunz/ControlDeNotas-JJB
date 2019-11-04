@@ -118,17 +118,17 @@ public class Excel {
                     CellType tipoCelda = celda.getCellType();
                     if (celda.getCellType().NUMERIC==tipoCelda) {
                         if( HSSFDateUtil.isCellDateFormatted(celda) ){
-                            result += celda.getDateCellValue()+",";
+                            result += celda.getDateCellValue()+"&";
                            
                         }else{
-                            result +=celda.getNumericCellValue()+",";
+                            result +=celda.getNumericCellValue()+"&";
                         }
                     } else if(celda.getCellType().STRING==tipoCelda) {
-                        result +=celda.getStringCellValue()+",";
+                        result +=celda.getStringCellValue()+"&";
                     } else if(celda.getCellType().BOOLEAN==tipoCelda) {
-                       result +=celda.getBooleanCellValue()+",";
+                       result +=celda.getBooleanCellValue()+"&";
                     }else if(celda.getCellType().ERROR==tipoCelda) {
-                       result +=celda.getErrorCellValue()+",";
+                       result +=celda.getErrorCellValue()+"&";
                     }
                 }
                 result +="\n";

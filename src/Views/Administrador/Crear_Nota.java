@@ -324,7 +324,7 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
         String Mensaje="Algo salio mal.";
         try {
             for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
-                StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRAR_NOTA_ADMIN");
+                StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("registrar_nota_Admin");
             
                 spq.registerStoredProcedureParameter("dNombre", String.class, ParameterMode.IN);        
                 spq.registerStoredProcedureParameter("dGrado", String.class, ParameterMode.IN);
@@ -340,7 +340,7 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
 
                     
                 
-                spq.setParameter("dNombre", txtDocente.getText());        
+                spq.setParameter("dNombre", txtDocente.getText());      
                 spq.setParameter("dGrado", Integer.toString(Integer.parseInt(txtGrado.getText())));
                 spq.setParameter("dMate", txtMateria.getText());
                 spq.setParameter("dPeri", Double.parseDouble(cmbx_Periodo.getSelectedItem().toString()));
@@ -400,7 +400,7 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
         String turno="";        
         try {
             for (int i = 0; i < Fila.length; i++) {
-            String[] Colum = Fila[i].split(",");
+            String[] Colum = Fila[i].split("&");
             if (i==1) {
                 txtDocente.setText(Colum[1]);
                 
@@ -417,7 +417,7 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
             }           
         }
         } catch (Exception e) {
-            
+            String a=e+"";
         }
     }
 }

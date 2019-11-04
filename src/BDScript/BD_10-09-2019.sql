@@ -124,7 +124,7 @@ CREATE TABLE rol (
 -- Table: seccion
 CREATE TABLE seccion (
     id_seccion integer  NOT NULL,
-    nombre_seccion char(3)  NOT NULL,
+    nombre_seccion Varchar2(10)  NOT NULL,
     estado integer  NOT NULL,
     CONSTRAINT seccion_pk PRIMARY KEY (id_seccion)
 ) ;
@@ -236,13 +236,14 @@ CREATE SEQUENCE tbAlumno
  --Fin de secuencias
  
  ---INSERT INTO MATERIA
- INSERT INTO MATERIA VALUES(1,'Lenguaje');
- INSERT INTO MATERIA VALUES(2,'Matemáticas');
- INSERT INTO MATERIA VALUES(3,'Ciencia, Salud y Medio Ambiente');
- INSERT INTO MATERIA VALUES(4,'Estudios Sociales');
- INSERT INTO MATERIA VALUES(5,'Educación Fisica');
- INSERT INTO MATERIA VALUES(6,'Educación Artistica');
+ INSERT INTO MATERIA VALUES(1,'Lenguaje y Literatura');
+ INSERT INTO MATERIA VALUES(2,'Matemática');
+ INSERT INTO MATERIA VALUES(3,'Ciencia Salud y Medio Ambiente');
+ INSERT INTO MATERIA VALUES(4,'Estudios Sociales y Cívica');
+ INSERT INTO MATERIA VALUES(5,'Educación Física');
+ INSERT INTO MATERIA VALUES(6,'Educación Artística');
  INSERT INTO MATERIA VALUES(7,'Ingles');
+ INSERT INTO MATERIA VALUES(8,'Moral, Urbanidad y Cívica');
  --INSERT INTO GRADO
  INSERT INTO GRADO VALUES(1,'4');
  INSERT INTO GRADO VALUES(2,'5');
@@ -314,9 +315,12 @@ IS
  idNota number;
 BEGIN
     BEGIN
-        SELECT mg.id_grado,mg.id_materia, mg.id_seccion INTO idGrad,idMate,idSec FROM docente D                 
-                INNER JOIN materia_grado MG ON d.id_docente = mg.id_docente
-            WHERE d.id_docente==dId;
+        SELECT mg.id_grado,mg.id_materia,mg.id_seccion INTO idGrad, idMate,idSec FROM docente D                 
+            INNER JOIN materia_grado MG ON d.id_docente = mg.id_docente
+            INNER JOIN materia mat on mg.id_materia = mat.id_materia
+            INNER JOIN grado gra on mg.id_grado= gra.id_grado
+            INNER JOIN seccion SEC ON mg.id_seccion = sec.id_seccion
+            WHERE d.id_docente = dId and mat.materia_nombre = dMate and gra.grado = dGrado and sec.nombre_seccion = dSec;
     EXCEPTION
         when others then
         idGrad:=0;
@@ -327,7 +331,7 @@ BEGIN
             BEGIN
                 SELECT alu.id_alumno INTO idAlum 
                 FROM alumno ALU
-                WHERE alu.alumno_nombre=anom AND alu.alumno_apelidos=aape;                            
+                WHERE alu.alumno_nombre=Anom AND alu.alumno_apelidos=aApe;                            
             EXCEPTION
             when others then
                 idAlum:=0;
@@ -404,7 +408,7 @@ BEGIN
     msj:=mensaje;
 END;
 --Procedimiento: Registro de nota por Admin
-create or replace PROCEDURE registrar_nota_Admin
+create or replace PROCEDURE          registrar_nota_Admin
 (dNombre IN VARCHAR2, dGrado IN VARCHAR2, dMate IN VARCHAR2, dPeri IN NUMBER, dSec IN VARCHAR2,
  ANom IN VARCHAR2, aApe IN VARCHAR2, aNotaA IN NUMBER, aNotaB IN NUMBER, aNotaC IN NUMBER
 ,msj out VARCHAR)
@@ -425,34 +429,44 @@ BEGIN
         idDoce:=0;
     END;
     IF (idDoce>0) THEN
-        BEGIN
-            SELECT mg.id_grado,mg.id_materia, mg.id_seccion INTO idGrad,idMate,idSec FROM docente D                 
-                INNER JOIN materia_grado MG ON d.id_docente = mg.id_docente
-            WHERE d.id_docente=idDoce;       
+        BEGIN        
+            SELECT mg.id_grado,mg.id_materia,mg.id_seccion INTO idGrad, idMate,idSec FROM docente D                 
+            INNER JOIN materia_grado MG ON d.id_docente = mg.id_docente
+            INNER JOIN materia mat on mg.id_materia = mat.id_materia
+            INNER JOIN grado gra on mg.id_grado= gra.id_grado
+            INNER JOIN seccion SEC ON mg.id_seccion = sec.id_seccion
+            WHERE d.id_docente = idDoce and mat.materia_nombre = dmate and gra.grado = dgrado and sec.nombre_seccion = dsec;
+
         EXCEPTION
             when others then
             idGrad:=0;
             idMate:=0;
             idSec:=0;
-            msj:='Los datos de cabezera no son correctos,\n verifique que esten escritos correctamente.';
+            msj:= 'El encabezado del archivo no se encuentra registrado';
+
         END;
-        IF (idGrad!=0 AND idMate!=0 AND idSec!=0) THEN
+        IF (idGrad>0 AND idMate>0 AND idSec>0) THEN
+
             BEGIN
                 SELECT alu.id_alumno INTO idAlum 
                 FROM alumno ALU
-                WHERE alu.alumno_nombre=anom AND alu.alumno_apelidos=aape;                            
+                WHERE alu.alumno_nombre=anom AND alu.alumno_apelidos=aApe;                            
             EXCEPTION
             when others then
-                msj:='No se ha encontrado el alumno.';
+                msj:='No se ha encontrado el alumno';
                 idAlum:=0;
             END;
+            BEGIN
+                IF (idAlum>0) THEN
+                    INSERT INTO nota N values(tbNota.NEXTVAL,idAlum,idMate)RETURNING n.id_nota INTO idNota;
 
-            IF (idAlum!=0) THEN
-               INSERT INTO nota N values(tbNota.NEXTVAL,idAlum,idMate)RETURNING n.id_nota INTO idNota;
-
-               INSERT INTO periodo VALUES(tbPeriodo.NEXTVAL,aNotaA,aNotaB,aNotaC, idNota, idDoce, dPeri) ;
-               msj:='Notas insertas con exito';
-            END IF;
+                    INSERT INTO periodo VALUES(tbPeriodo.NEXTVAL,aNotaA,aNotaB,aNotaC, idNota, idDoce, dPeri) ;
+                    msj:='Notas insertas con exito';
+                END IF;
+            EXCEPTION
+            when others then
+                msj:='Error Al insertar el alumno';
+            END;
 
         END IF;        
     ELSE

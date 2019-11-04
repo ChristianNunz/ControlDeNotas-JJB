@@ -544,7 +544,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                 
                 spq.setParameter("dId", Integer.parseInt(IdLog));
                 //spq.setParameter("dNombre",txtDocente.getText());
-                spq.setParameter("dGrado",txtgrado.getText());
+                spq.setParameter("dGrado",Integer.toString(Integer.parseInt(txtgrado.getText())));
                 spq.setParameter("dMate",txtmateria.getText());
                 spq.setParameter("dPeri",Double.parseDouble(cmbperiodo.getSelectedItem().toString()));
                 spq.setParameter("dSec",txtseccion.getText());
@@ -562,7 +562,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
              JOptionPane.showMessageDialog(rootPane,Mensaje);
   
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane,"Algo salio mal.");
+            JOptionPane.showMessageDialog(rootPane,"Algo salio mal."+e);
         }
     }//GEN-LAST:event_Btn_GuardarActionPerformed
     
@@ -583,10 +583,12 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
         String turno="";        
         try {
             for (int i = 0; i < Fila.length; i++) {
-            String[] Colum = Fila[i].split(",");
+            String[] Colum = Fila[i].split("&");
             if (i==1) {
                 //txtDocente.setText(Colum[1]);
-                txtgrado.setText(Colum[3]);
+                String grade =Colum[3].replace(".","");
+                grade=grade.replace("0", "");
+                txtgrado.setText(grade);
                 txtseccion.setText(Colum[5]);
                 turno=Colum[7];                    
             }else if (i==2){
