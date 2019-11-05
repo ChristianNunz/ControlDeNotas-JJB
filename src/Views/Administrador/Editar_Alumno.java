@@ -8,6 +8,7 @@ package Views.Administrador;
 import Acceso_Datos.AlumnoJpaController;
 import Acceso_Datos.entityMain;
 import Logica_Negocios.Alumno;
+import Reportes.GenerarReportes;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
@@ -73,6 +74,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         txtNie = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JFormattedTextField();
         txtfecha = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -234,6 +236,14 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         txtfecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd-MM-yyyy"))));
         getContentPane().add(txtfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 200, -1));
 
+        jButton1.setText("Generar Reporte");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 520, 240, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -319,6 +329,10 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         txtDireccion.setText("");
         txtTelefono.setText("");
         txtNie.setText("");
+        
+        GenerarReportes gr = new GenerarReportes();
+        String seccion = "a";
+        gr.ReporteTrimestralAdmin("A", "Bladimir");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
     
     private void tabla_alumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_alumnosMouseClicked
@@ -358,6 +372,11 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_tabla_alumnosMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
      private void CargarTabla() {        
         List<Alumno> lm = CAlumno.findAlumnoEntities();         
         DefaultTableModel modM = (DefaultTableModel) tabla_alumnos.getModel(); 
@@ -382,6 +401,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
     private javax.swing.JButton Btn_Limpiar;
     private javax.swing.JButton btn_cmb_estado;
     private javax.swing.JButton btn_cmb_sex;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblUsuario;

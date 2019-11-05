@@ -394,7 +394,10 @@ public class Menu_A extends javax.swing.JFrame {
 
     private void Btn_rpt_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_notasActionPerformed
         // TODO add your handling code here:
-  
+        CerrarHijos();
+        Editar_Materia materia = new Editar_Materia();     
+         materia.setSize(sisze());
+        DesktopPanel.add(materia);
     }//GEN-LAST:event_Btn_rpt_notasActionPerformed
 
     private void Btn_rpt_alumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_alumnosActionPerformed

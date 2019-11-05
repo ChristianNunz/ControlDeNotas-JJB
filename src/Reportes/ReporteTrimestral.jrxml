@@ -3,6 +3,12 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="dSec" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nAlum" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT DISTINCT al.alumno_nombre || ' ' || al.alumno_apelidos as "Nombre_Alumno", dc.docente_nombre || dc.docente_apellido as "Docente",mt.materia_nombre,gr.grado,
 sc.nombre_seccion, tr.turno_nombre, pr.nota1,pr.nota2, pr.nota3, (pr.nota1 * 0.35)+(pr.nota2*0.35) + (pr.nota3*0.3) AS "PROMEDIO"
@@ -16,8 +22,7 @@ INNER JOIN GRADO GR ON mg.id_grado = gr.id_grado
 INNER JOIN TURNO TR ON mg.id_turno = tr.id_turno
 INNER JOIN SECCION SC ON mg.id_seccion = sc.id_seccion
 
-WHERE dc.id_docente = 3 and sc.nombre_seccion = 'A'  and al.alumno_nombre = 'Bladimir'
-]]>
+WHERE dc.docente_nombre ='Jose Mauricio' and sc.nombre_seccion = $P{dSec} and al.alumno_nombre = $P{nAlum}]]>
 	</queryString>
 	<field name="Nombre_Alumno" class="java.lang.String"/>
 	<field name="Docente" class="java.lang.String"/>
