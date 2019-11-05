@@ -40,6 +40,7 @@ public class GenerarReportes {
             parametros.put("dSec", dSec);
             parametros.put("nAlum", nAlum);
                JasperPrint rpt = JasperFillManager.fillReport(reporte,parametros,ConectionDB.getconnection());
+               
                JasperViewer jv = new JasperViewer(rpt,false);
                jv.setTitle("Reporte de Notas Trimestral");
                jv.setVisible(true);          
