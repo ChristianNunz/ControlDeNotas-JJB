@@ -10,11 +10,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -101,8 +104,8 @@ public class Excel {
     public String ReadFileExcel(File src){
         String result="";
         try {                    
-        FileInputStream fin = new FileInputStream(src);        
-        XSSFWorkbook workbook = new XSSFWorkbook(fin);
+        FileInputStream file = new FileInputStream(src);        
+        XSSFWorkbook workbook = new XSSFWorkbook(file);
         XSSFSheet sheet = workbook.getSheetAt(0);
         
         Iterator<Row> Rowiterator = sheet.iterator();
@@ -139,5 +142,57 @@ public class Excel {
             e.printStackTrace();
         }     
         return result;
+    }
+    
+    public ArrayList<String> ReadAllFileExcel(File src){
+        ArrayList<String> Paginas =  new ArrayList<>();
+      
+        try {                    
+        FileInputStream file = new FileInputStream(src);        
+        XSSFWorkbook workbook = new XSSFWorkbook(file);
+        Sheet sheet;
+        Iterator<Sheet> SheetIterator = workbook.iterator();
+        while (SheetIterator.hasNext()) {                
+            sheet=SheetIterator.next();
+            Iterator<Row> Rowiterator = sheet.iterator();
+            int rowcount = sheet.getLastRowNum(); 
+              String result="";
+            Row row;
+            while (Rowiterator.hasNext()) {
+                row = Rowiterator.next();
+                Iterator<Cell> Celliterator = row.cellIterator();
+                Cell celda;                
+                while (Celliterator.hasNext()) {
+                    celda= Celliterator.next();
+                    CellType tipoCelda = celda.getCellType();
+                    if (celda.getCellType().NUMERIC==tipoCelda) {
+                        if( HSSFDateUtil.isCellDateFormatted(celda) ){
+                            result += celda.getDateCellValue()+"&";
+                           
+                        }else{
+                            result +=celda.getNumericCellValue()+"&";
+                        }
+                    } else if(celda.getCellType().STRING==tipoCelda) {
+                        result +=celda.getStringCellValue()+"&";
+                    } else if(celda.getCellType().BOOLEAN==tipoCelda) {
+                       result +=celda.getBooleanCellValue()+"&";
+                    }else if(celda.getCellType().ERROR==tipoCelda) {
+                       result +=celda.getErrorCellValue()+"&";
+                    }
+                }
+                result +="\n";
+               
+            }
+            Paginas.add(result);
+        }
+
+        //XSSFSheet sheet = workbook.getSheetAt(0);
+        
+        
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }     
+        return Paginas;
     }
 }
