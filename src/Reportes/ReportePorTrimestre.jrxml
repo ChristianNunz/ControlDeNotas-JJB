@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="0.9090909090909096"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT * FROM alumnonota ORDER BY alumno]]>
+	</queryString>
+	<field name="ID" class="java.math.BigDecimal"/>
+	<field name="ALUMNO" class="java.lang.String"/>
+	<field name="Docente" class="java.lang.String"/>
+	<field name="MATERIA_NOMBRE" class="java.lang.String"/>
+	<field name="GRADO" class="java.lang.String"/>
+	<field name="NOMBRE_SECCION" class="java.lang.String"/>
+	<field name="TURNO_NOMBRE" class="java.lang.String"/>
+	<field name="NOTA1" class="java.math.BigDecimal"/>
+	<field name="NOTA2" class="java.math.BigDecimal"/>
+	<field name="NOTA3" class="java.math.BigDecimal"/>
+	<field name="PROMEDIO" class="java.math.BigDecimal"/>
+	<field name="Periodo" class="java.math.BigDecimal"/>
+	<variable name="NOMBRE_SECCION_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{NOMBRE_SECCION}]]></variableExpression>
+	</variable>
+	<group name="Grupo1">
+		<groupExpression><![CDATA[$F{ALUMNO}]]></groupExpression>
+	</group>
+	<group name="GRUPO">
+		<groupExpression><![CDATA[$F{ID}]]></groupExpression>
+		<groupHeader>
+			<band height="268">
+				<staticText>
+					<reportElement x="9" y="106" width="612" height="23"/>
+					<textElement textAlignment="Center">
+						<font size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CENTRO ESCOLAR JUAN JOSÉ BERNAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="40" y="155" width="113" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombre del Alumno/a:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="347" y="156" width="43" height="12"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Grado:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="415" y="155" width="51" height="13"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sección:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="90" y="200" width="39" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="40" y="190" width="53" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No Lista:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="153" y="190" width="39" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Turno:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="448" y="200" width="105" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="272" y="190" width="180" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[N° de identificacion del estudiante:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="153" y="155" width="188" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUMNO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="458" y="155" width="13" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="10" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{NOMBRE_SECCION}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="195" y="191" width="64" height="16"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{TURNO_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="378" y="156" width="22" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="10" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{GRADO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="489" y="155" width="62" height="13"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Trimestre:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="9" y="70" width="612" height="36"/>
+					<textElement textAlignment="Center">
+						<font size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[INFORME DE EVALUACION DE LOS APRENDIZAJES]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="538" y="155" width="15" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="10" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Periodo}.toString()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="40" y="248" width="189" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Asignatura]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="246" y="248" width="37" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nota 1]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="320" y="248" width="39" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nota 2]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="400" y="248" width="38" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nota 3]]></text>
+				</staticText>
+				<image>
+					<reportElement x="212" y="0" width="141" height="70"/>
+				</image>
+				<staticText>
+					<reportElement x="480" y="248" width="73" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Promedio]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="260"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="0" width="189" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MATERIA_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="246" y="0" width="37" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{NOTA1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="39" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{NOTA2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="38" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{NOTA3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="496" y="0" width="38" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PROMEDIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="413" splitType="Stretch"/>
+	</summary>
+</jasperReport>

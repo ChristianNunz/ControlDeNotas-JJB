@@ -18,6 +18,7 @@ import Views.Administrador.Editar_Encargado;
 import Views.Administrador.Editar_Maestro;
 import Views.Administrador.Editar_Materia;
 import Views.Administrador.Editar_Nota;
+import Views.Administrador.ReporteDeNota;
 import java.awt.Dimension;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
@@ -395,9 +396,9 @@ public class Menu_A extends javax.swing.JFrame {
     private void Btn_rpt_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_notasActionPerformed
         // TODO add your handling code here:
         CerrarHijos();
-        Editar_Materia materia = new Editar_Materia();     
-         materia.setSize(sisze());
-        DesktopPanel.add(materia);
+        ReporteDeNota reporte = new ReporteDeNota();     
+         reporte.setSize(sisze());
+        DesktopPanel.add(reporte);
     }//GEN-LAST:event_Btn_rpt_notasActionPerformed
 
     private void Btn_rpt_alumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_alumnosActionPerformed
