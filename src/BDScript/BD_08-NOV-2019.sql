@@ -477,6 +477,36 @@ END;
 --Fin de procedimientos almacenados
 
 
+---Vistas
+--Vista: Reporte de notas trimestrales 
+CREATE VIEW ALUMNONOTA AS
+(SELECT al.id_alumno id, al.alumno_nombre || ' ' || al.alumno_apelidos as Alumno, dc.docente_nombre || dc.docente_apellido as "Docente",mt.materia_nombre,gr.grado,
+sc.nombre_seccion, tr.turno_nombre, pr.nota1,pr.nota2, pr.nota3, (pr.nota1 * 0.35)+(pr.nota2*0.35) + (pr.nota3*0.3) AS "PROMEDIO", pr.periodo AS "Periodo"
+FROM ALUMNO AL
+INNER JOIN NOTA NT ON al.id_alumno = nt.id_alumno
+INNER JOIN PERIODO PR ON nt.id_nota = pr.id_nota
+INNER JOIN materia_grado MG ON nt.id_materia_grado  = MG.id_materia_grado
+INNER JOIN MATERIA MT ON mg.id_materia = mt.id_materia
+INNER JOIN DOCENTE DC ON mg.id_docente = dc.id_docente
+INNER JOIN GRADO GR ON mg.id_grado = gr.id_grado
+INNER JOIN TURNO TR ON mg.id_turno = tr.id_turno
+INNER JOIN SECCION SC ON mg.id_seccion = sc.id_seccion);
+
+--Vista: Reporte de Materias Asignadas a docente
+CREATE VIEW materiasAsig AS  
+SELECT  dc.docente_nombre || ' ' || dc.docente_apellido as Docente,
+mt.materia_nombre, sc.nombre_seccion, gr.grado, tr.turno_nombre
+FROM materia_grado mg
+INNER JOIN materia mt on mt.id_materia = mg.id_materia
+INNER JOIN grado gr on mg.id_grado = gr.id_grado
+INNER JOIN turno tr on tr.id_turno = mg.id_turno
+INNER JOIN seccion sc on sc.id_seccion = mg.id_seccion
+INNER JOIN docente dc on mg.id_docente = dc.id_docente;
+
+
+
+---Fin de Vistas
+
 
 
 
