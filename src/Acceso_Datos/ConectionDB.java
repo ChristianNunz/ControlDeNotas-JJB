@@ -32,7 +32,7 @@ public class ConectionDB {
    
     private static Connection conn=null;
     
-      public static Connection getconnection(){
+      public Connection getconnection(){
           try {
               DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
               conn=DriverManager.getConnection(url,user,pass);

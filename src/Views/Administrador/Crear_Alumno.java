@@ -278,7 +278,7 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
         String turno="";        
         try {
             for (int i = 0; i < Fila.length; i++) {
-            String[] Colum = Fila[i].split(",");
+            String[] Colum = Fila[i].split("&");
             if (i>=4) {     
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
                 String fech[]=Colum[5].split(" ");
