@@ -19,6 +19,7 @@ import Views.Administrador.Editar_Maestro;
 import Views.Administrador.Editar_Materia;
 import Views.Administrador.Editar_Nota;
 import Views.Administrador.ReporteDeNota;
+import Views.Administrador.ReporteReprobados;
 import Views.Administrador.Reporte_MateriasAsignadas;
 import java.awt.Dimension;
 import java.beans.PropertyVetoException;
@@ -275,7 +276,7 @@ public class Menu_A extends javax.swing.JFrame {
         });
         Btn_Reportes.add(Btn_rpt_alumnos);
 
-        Btn_rpt_maestros.setText("Maestros");
+        Btn_rpt_maestros.setText("Reprobados");
         Btn_rpt_maestros.setToolTipText("Generar reporte de maestros");
         Btn_rpt_maestros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -408,6 +409,10 @@ public class Menu_A extends javax.swing.JFrame {
 
     private void Btn_rpt_maestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_maestrosActionPerformed
         // TODO add your handling code here:
+        CerrarHijos();
+        ReporteReprobados reporte = new ReporteReprobados();     
+         reporte.setSize(sisze());
+        DesktopPanel.add(reporte);
     }//GEN-LAST:event_Btn_rpt_maestrosActionPerformed
 
     private void Btn_rpt_materiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_materiasActionPerformed

@@ -252,7 +252,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Btn_rpt_maestros">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Maestros"/>
+                <Property name="text" type="java.lang.String" value="Reprobados"/>
                 <Property name="toolTipText" type="java.lang.String" value="Generar reporte de maestros"/>
               </Properties>
               <Events>
