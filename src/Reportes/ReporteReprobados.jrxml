@@ -1,29 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6208ef2e-e120-4ffd-b8ee-f8ee64d74f4c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Nombresec" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="per" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Nombremat" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Nombred" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Grado" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT Docente,Grado,Año, Materia,Sección,  COUNT(IdA)As Reprobados FROM REPROBADOS  Where Promedio<5  and  nombre_seccion = $P{Nombresec} and periodo = $P{per} and Materia=$P{Nombremat} and 
+Docente = $P{Nombred} and Grado = $P{Grado}
+GROUP BY  Materia, docente,Grado,Año,Sección
+]]>
+	</queryString>
+	<field name="DOCENTE" class="java.lang.String"/>
+	<field name="GRADO" class="java.lang.String"/>
+	<field name="AÑO" class="java.math.BigDecimal"/>
+	<field name="MATERIA" class="java.lang.String"/>
+	<field name="SECCIÓN" class="java.lang.String"/>
+	<field name="REPROBADOS" class="java.math.BigDecimal"/>
+	<group name="Encabezado">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="100">
+				<staticText>
+					<reportElement x="64" y="10" width="411" height="20" uuid="e3060be5-0876-41b0-bcee-e6fde4de618d"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[REPORTE ALUMNOS REPORBADOS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="64" y="30" width="423" height="22" uuid="5a3c968a-5b51-49f3-ba25-7f3bb9a3b2f2"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CENTRO ESCOLAR JUAN JOSÉ BERNAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="11" y="70" width="100" height="20" uuid="3d888b7f-6cd1-47af-825d-0f5180927e98"/>
+					<text><![CDATA[DOCENTE]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="111" y="70" width="148" height="20" uuid="73c7f964-68b7-4043-a8c6-7a51a0ddd151"/>
+					<textFieldExpression><![CDATA[$F{DOCENTE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="259" y="70" width="43" height="20" uuid="b356371e-a4b2-4030-8ebd-a64a769f7f99"/>
+					<text><![CDATA[GRADO]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="314" y="70" width="57" height="20" uuid="394298e7-1da1-4ae0-9033-f3b98f609680"/>
+					<textFieldExpression><![CDATA[$F{GRADO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="377" y="70" width="47" height="20" uuid="9ed6eaeb-def5-422c-a2bb-edf4467dfd0f"/>
+					<text><![CDATA[SECCIÓN]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="437" y="70" width="70" height="20" uuid="6fff0612-2a29-4dfe-8f9a-c70c7b887567"/>
+					<textFieldExpression><![CDATA[$F{SECCIÓN}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="510" y="70" width="45" height="20" uuid="145c26cc-cca5-439f-94fc-8854d08ec660"/>
+					<textFieldExpression><![CDATA[$F{AÑO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="283" splitType="Stretch">
+			<textField>
+				<reportElement x="11" y="20" width="118" height="20" uuid="6573e274-8b91-4edd-bc57-c386a3bcba37"/>
+				<textFieldExpression><![CDATA[$F{MATERIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="20" width="100" height="20" uuid="5fb8c82a-3456-43b6-8af3-1e62a41b7ce2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{REPROBADOS}]]></textFieldExpression>
+			</textField>
+			<pieChart>
+				<chart isShowLegend="true">
+					<reportElement x="111" y="50" width="301" height="220" uuid="571872c4-1a1d-466d-a097-8bb5b925f654"/>
+					<chartTitle color="#FF3333"/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{MATERIA}]]></keyExpression>
+					<valueExpression><![CDATA[$F{REPROBADOS}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<staticText>
+				<reportElement x="11" y="0" width="118" height="20" uuid="21a1b7ed-15d2-45db-a7f8-29197851c910"/>
+				<text><![CDATA[MATERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="0" width="100" height="20" uuid="f8a46685-7e53-4e8d-90c5-715899dff185"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[REPROBADOS]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
 </jasperReport>
