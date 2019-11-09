@@ -21,8 +21,7 @@
 	<queryString>
 		<![CDATA[SELECT Docente,Grado,Año, Materia,Sección,  COUNT(IdA)As Reprobados FROM REPROBADOS  Where Promedio<5  and  nombre_seccion = $P{Nombresec} and periodo = $P{per} and Materia=$P{Nombremat} and 
 Docente = $P{Nombred} and Grado = $P{Grado}
-GROUP BY  Materia, docente,Grado,Año,Sección
-]]>
+GROUP BY  Materia, docente,Grado,Año,Sección]]>
 	</queryString>
 	<field name="DOCENTE" class="java.lang.String"/>
 	<field name="GRADO" class="java.lang.String"/>
@@ -93,22 +92,6 @@ GROUP BY  Materia, docente,Grado,Año,Sección
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{REPROBADOS}]]></textFieldExpression>
 			</textField>
-			<pieChart>
-				<chart isShowLegend="true">
-					<reportElement x="111" y="50" width="301" height="220" uuid="571872c4-1a1d-466d-a097-8bb5b925f654"/>
-					<chartTitle color="#FF3333"/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<pieDataset>
-					<keyExpression><![CDATA[$F{MATERIA}]]></keyExpression>
-					<valueExpression><![CDATA[$F{REPROBADOS}]]></valueExpression>
-				</pieDataset>
-				<piePlot>
-					<plot/>
-					<itemLabel/>
-				</piePlot>
-			</pieChart>
 			<staticText>
 				<reportElement x="11" y="0" width="118" height="20" uuid="21a1b7ed-15d2-45db-a7f8-29197851c910"/>
 				<text><![CDATA[MATERIA]]></text>
