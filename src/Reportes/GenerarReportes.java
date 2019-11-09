@@ -90,12 +90,16 @@ public class GenerarReportes {
             String Ruta =miDir.getCanonicalPath();
             JasperReport repor = (JasperReport) JRLoader.loadObject(Ruta+"\\src\\Reportes\\ReporteReprobados.jasper");
             ConectionDB con = new ConectionDB();
+            
+            
+         
                         
             Map parametros = new HashMap<>();
             parametros.put("Nombresec", Nombresec);
             parametros.put("per", per);
             parametros.put("Nombremat", Nombremat);
             parametros.put("Nombred", Nombred);
+            parametros.put("Grado", Grado);
             JasperPrint print = JasperFillManager.fillReport(repor, parametros,con.getconnection());
             
             JasperViewer view = new JasperViewer(print,false);
