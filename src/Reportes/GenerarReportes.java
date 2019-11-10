@@ -83,21 +83,17 @@ public class GenerarReportes {
             JOptionPane.showMessageDialog(null,"Error: "+e);
         }
     }
-    
-    public void ReporteRepobados(String Nombresec, String per, String Nombremat, String Nombred,String Grado){
+    public void ReporteReprobados(String Nombresec, String per, String Nombremat, String Nombred,String Grado){
         try {
             File miDir = new File(".");
             String Ruta =miDir.getCanonicalPath();
             JasperReport repor = (JasperReport) JRLoader.loadObject(Ruta+"\\src\\Reportes\\ReporteReprobados.jasper");
             ConectionDB con = new ConectionDB();
             
-            
-         
-                        
             Map parametros = new HashMap<>();
             parametros.put("Nombresec", Nombresec);
-            parametros.put("per", per);
             parametros.put("Nombremat", Nombremat);
+            parametros.put("per", per);
             parametros.put("Nombred", Nombred);
             parametros.put("Grado", Grado);
             JasperPrint print = JasperFillManager.fillReport(repor, parametros,con.getconnection());
@@ -109,7 +105,28 @@ public class GenerarReportes {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error: "+e);
         }
+    }
     
-    
+    public void ReporteReprobadosM(String Nombresec, String per, String Nombred,String Grado){
+        try {
+            File miDir = new File(".");
+            String Ruta =miDir.getCanonicalPath();
+            JasperReport repor = (JasperReport) JRLoader.loadObject(Ruta+"\\src\\Reportes\\ReporteReprobados.jasper");
+            ConectionDB con = new ConectionDB();
+            
+            Map parametros = new HashMap<>();
+            parametros.put("Nombresec", Nombresec);
+            parametros.put("per", per);
+            parametros.put("Nombred", Nombred);
+            parametros.put("Grado", Grado);
+            JasperPrint print = JasperFillManager.fillReport(repor, parametros,con.getconnection());
+            
+            JasperViewer view = new JasperViewer(print,false);
+            view.setTitle("Reprobados");
+            view.setVisible(true);
+         
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error: "+e);
+        }
     }
 }

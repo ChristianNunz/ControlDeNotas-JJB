@@ -6,7 +6,9 @@
 package Views;
 
 
+import Views.Administrador.ReporteReprobados;
 import Views.Maestro.Editar_Nota_M;
+import Views.Maestro.ReporteReprobadosM;
 import Views.Maestro.Subir_Nota;
 import Views.Maestro.Ver_Materias;
 import java.awt.Dimension;
@@ -51,6 +53,7 @@ public class Menu_M extends javax.swing.JFrame {
         Btn_Reportes = new javax.swing.JMenu();
         Btn_rpt_notas = new javax.swing.JMenuItem();
         Btn_rpt_alumnos = new javax.swing.JMenuItem();
+        btn_Reprobados = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
         jMenu11 = new javax.swing.JMenu();
@@ -155,6 +158,15 @@ public class Menu_M extends javax.swing.JFrame {
             }
         });
         Btn_Reportes.add(Btn_rpt_alumnos);
+
+        btn_Reprobados.setText("Reprobados");
+        btn_Reprobados.setToolTipText("Generar reporte de notas");
+        btn_Reprobados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ReprobadosActionPerformed(evt);
+            }
+        });
+        Btn_Reportes.add(btn_Reprobados);
 
         jMenuBar1.add(Btn_Reportes);
 
@@ -307,6 +319,14 @@ public class Menu_M extends javax.swing.JFrame {
         
     }//GEN-LAST:event_Btn_Registrar_NotasActionPerformed
 
+    private void btn_ReprobadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReprobadosActionPerformed
+        // TODO add your handling code here:
+        CerrarHijos(); 
+          ReporteReprobadosM reprobados = new ReporteReprobadosM();
+        reprobados.setSize(sisze());
+        DesktopPanel.add(reprobados);
+    }//GEN-LAST:event_btn_ReprobadosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -361,6 +381,7 @@ public class Menu_M extends javax.swing.JFrame {
     private javax.swing.JMenuItem Btn_rpt_alumnos;
     private javax.swing.JMenuItem Btn_rpt_notas;
     private javax.swing.JDesktopPane DesktopPanel;
+    private javax.swing.JMenuItem btn_Reprobados;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;

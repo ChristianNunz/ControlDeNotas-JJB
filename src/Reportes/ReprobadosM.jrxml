@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="per" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Grado" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Nombred" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT Docente,Grado,Año, Materia,Sección,  COUNT(IdA)As Reprobados FROM REPROBADOS  Where Promedio<5  and periodo = $P{per} and 
+Docente = $P{Nombred} and Grado = $P{Grado}
+GROUP BY  Materia, docente,Grado,Año,Sección]]>
+	</queryString>
+	<field name="DOCENTE" class="java.lang.String"/>
+	<field name="GRADO" class="java.lang.String"/>
+	<field name="AÑO" class="java.math.BigDecimal"/>
+	<field name="MATERIA" class="java.lang.String"/>
+	<field name="SECCIÓN" class="java.lang.String"/>
+	<field name="REPROBADOS" class="java.math.BigDecimal"/>
+	<group name="Encabezado">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="81">
+				<staticText>
+					<reportElement x="174" y="10" width="189" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[REPROBADOS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="18" y="38" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[DOCENTE]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="118" y="38" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCENTE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="218" y="58" width="37" height="20"/>
+					<textElement/>
+					<text><![CDATA[GRADO]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="263" y="58" width="57" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{GRADO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="331" y="58" width="52" height="20"/>
+					<textElement/>
+					<text><![CDATA[SECCIÓN]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="398" y="58" width="77" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{SECCIÓN}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="489" y="58" width="54" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{AÑO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="18" y="61" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[MATERIA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="118" y="61" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[REPROBADOS]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="211">
+				<barChart>
+					<chart isShowLegend="false" renderType="image" theme="default.spring">
+						<reportElement x="0" y="11" width="543" height="179" printWhenGroupChanges="Encabezado"/>
+						<chartTitle/>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<categoryDataset>
+						<categorySeries>
+							<seriesExpression><![CDATA["Reprobados por Asignatura"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{MATERIA}+$F{GRADO}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{REPROBADOS}]]></valueExpression>
+						</categorySeries>
+					</categoryDataset>
+					<barPlot>
+						<plot orientation="Horizontal">
+							<seriesColor seriesOrder="0" color="#FF0033"/>
+							<seriesColor seriesOrder="1" color="#3300FF"/>
+						</plot>
+						<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+						<categoryAxisFormat>
+							<axisFormat>
+								<labelFont/>
+								<tickLabelFont/>
+							</axisFormat>
+						</categoryAxisFormat>
+						<valueAxisFormat>
+							<axisFormat>
+								<labelFont/>
+								<tickLabelFont/>
+							</axisFormat>
+						</valueAxisFormat>
+					</barPlot>
+				</barChart>
+			</band>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="18" y="5" width="135" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MATERIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="174" y="5" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{REPROBADOS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
