@@ -83,7 +83,7 @@ public class GenerarReportes {
             JOptionPane.showMessageDialog(null,"Error: "+e);
         }
     }
-    public void ReporteReprobados(String Nombresec, String per, String Nombremat, String Nombred,String Grado){
+    public void ReporteReprobados(String Nombresec, String per, String Nombred,String Grado){
         try {
             File miDir = new File(".");
             String Ruta =miDir.getCanonicalPath();
@@ -92,7 +92,6 @@ public class GenerarReportes {
             
             Map parametros = new HashMap<>();
             parametros.put("Nombresec", Nombresec);
-            parametros.put("Nombremat", Nombremat);
             parametros.put("per", per);
             parametros.put("Nombred", Nombred);
             parametros.put("Grado", Grado);

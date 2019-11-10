@@ -46,11 +46,7 @@ public class ReporteReprobados extends javax.swing.JInternalFrame {
  
     
     public ReporteReprobados() {
-        
-        
         initComponents();
-        
-        LLenarComboM(); 
         LLenarComboS(); 
         LLenarComboG(); 
         LLenarComboD();
@@ -74,8 +70,6 @@ public class ReporteReprobados extends javax.swing.JInternalFrame {
         cmb_docente = new javax.swing.JComboBox();
         lblUsuario6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        cmb_mat1 = new javax.swing.JComboBox();
-        lblUsuario7 = new javax.swing.JLabel();
         cmb_periodo = new javax.swing.JComboBox();
         lblUsuario8 = new javax.swing.JLabel();
 
@@ -105,35 +99,29 @@ public class ReporteReprobados extends javax.swing.JInternalFrame {
                 GenerarReporteActionPerformed(evt);
             }
         });
-        getContentPane().add(GenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 180, -1));
+        getContentPane().add(GenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 180, -1));
 
-        getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 180, -1));
+        getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 180, -1));
 
         lblUsuario2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario2.setText("Grado:");
-        getContentPane().add(lblUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, 20));
+        getContentPane().add(lblUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, 20));
 
-        getContentPane().add(cmb_secc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 180, -1));
+        getContentPane().add(cmb_secc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 180, -1));
 
         lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario3.setText("Seccion:");
-        getContentPane().add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 20));
+        getContentPane().add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, 20));
 
-        getContentPane().add(cmb_docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 180, -1));
+        getContentPane().add(cmb_docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 180, -1));
 
         lblUsuario6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario6.setText("Docente:");
-        getContentPane().add(lblUsuario6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, 20));
+        getContentPane().add(lblUsuario6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 20));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("REPORTE DE REPROBADOS  ");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 270, 30));
-
-        getContentPane().add(cmb_mat1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 180, -1));
-
-        lblUsuario7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario7.setText("Materia:");
-        getContentPane().add(lblUsuario7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, 20));
 
         cmb_periodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
         getContentPane().add(cmb_periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 180, -1));
@@ -149,12 +137,13 @@ public class ReporteReprobados extends javax.swing.JInternalFrame {
 
     private void GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarReporteActionPerformed
         GenerarReportes gr = new GenerarReportes();
-        String Nombremat = cmb_mat1.getSelectedItem().toString();
+       // String Nombremat = cmb_mat1.getSelectedItem().toString();
         String Nombred = cmb_docente.getSelectedItem().toString();
         String per = cmb_periodo.getSelectedItem().toString();
         String Nobresec= cmb_secc.getSelectedItem().toString();
         String Grado = cmb_grado.getSelectedItem().toString();
-        gr.ReporteReprobados(Nobresec, per, Nombremat, Nombred, Grado);
+        
+        gr.ReporteReprobadosM(Nobresec, per, Nombred, Grado);
     }//GEN-LAST:event_GenerarReporteActionPerformed
 
 
@@ -162,24 +151,16 @@ public class ReporteReprobados extends javax.swing.JInternalFrame {
     private javax.swing.JButton GenerarReporte;
     private javax.swing.JComboBox cmb_docente;
     private javax.swing.JComboBox cmb_grado;
-    private javax.swing.JComboBox cmb_mat1;
     private javax.swing.JComboBox cmb_periodo;
     private javax.swing.JComboBox cmb_secc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblUsuario2;
     private javax.swing.JLabel lblUsuario3;
     private javax.swing.JLabel lblUsuario6;
-    private javax.swing.JLabel lblUsuario7;
     private javax.swing.JLabel lblUsuario8;
     // End of variables declaration//GEN-END:variables
 
-    private void LLenarComboM() {
-        List<Materia> Materias = materiaJpaController.findMateriaEntities();
-        for (Materia Materia1 : Materias) {
-            cmb_mat1.addItem(Materia1.getMateriaNombre());
-        }
-    }
-    private void LLenarComboS() {
+       private void LLenarComboS() {
         List<Seccion> seccions = sjc.findSeccionEntities();
       
         for (Seccion seccion : seccions) {

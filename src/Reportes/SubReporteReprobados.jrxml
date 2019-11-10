@@ -23,7 +23,7 @@ and  nombre_seccion = $P{Nombresec}
 and periodo = $P{per}
 and Grado = $P{Grado}
 and  Docente =$P{Nombred}
-group by Materia,Docente,Grado,Año,Sección ]]>
+group by Materia,Docente,Grado,Año,Sección]]>
 	</queryString>
 	<field name="DOCENTE" class="java.lang.String"/>
 	<field name="GRADO" class="java.lang.String"/>
