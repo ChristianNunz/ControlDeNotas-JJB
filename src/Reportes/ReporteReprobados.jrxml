@@ -114,23 +114,6 @@ GROUP BY  Materia, docente,Grado,Año,Sección]]>
 		<groupFooter>
 			<band height="316">
 				<subreport>
-					<reportElement x="398" y="0" width="402" height="310"/>
-					<subreportParameter name="Nombred">
-						<subreportParameterExpression><![CDATA[$F{DOCENTE}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter name="per">
-						<subreportParameterExpression><![CDATA[$P{per}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter name="Grado">
-						<subreportParameterExpression><![CDATA[$P{Grado}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter name="Nombresec">
-						<subreportParameterExpression><![CDATA[$P{Nombresec}]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "SubReporteAprobados.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport>
 					<reportElement x="0" y="0" width="398" height="310"/>
 					<subreportParameter name="Nombresec">
 						<subreportParameterExpression><![CDATA[$P{Nombresec}]]></subreportParameterExpression>
@@ -146,6 +129,23 @@ GROUP BY  Materia, docente,Grado,Año,Sección]]>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "SubReporteReprobados.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement x="398" y="0" width="404" height="310"/>
+					<subreportParameter name="Nombred">
+						<subreportParameterExpression><![CDATA[$P{Nombred}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="per">
+						<subreportParameterExpression><![CDATA[$P{per}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="Grado">
+						<subreportParameterExpression><![CDATA[$P{Grado}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="Nombresec">
+						<subreportParameterExpression><![CDATA[$P{Nombresec}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "SubReporteAprobados.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupFooter>
