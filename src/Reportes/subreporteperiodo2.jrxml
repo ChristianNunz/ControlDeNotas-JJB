@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT pe.periodo,al.id_alumno,al.alumno_nombre,mat.materia_nombre,(pe.nota1*0.35+pe.nota2*0.35+pe.nota3*0.30) as Promedio FROM alumno AL
+INNER JOIN nota NT ON al.id_alumno=nt.id_alumno
+INNER JOIN periodo PE ON nt.id_nota=pe.id_nota
+INNER JOIN materia_grado MG ON nt.id_materia_grado=mg.id_materia_grado
+INNER JOIN materia MAT ON mg.id_materia=mat.id_materia
+INNER JOIN grado GRA ON mg.id_grado=gra.id_grado
+INNER JOIN seccion SEC ON mg.id_seccion=sec.id_seccion
+WHERE gra.grado='4' AND sec.nombre_seccion='A' AND pe.periodo='2'
+order by pe.periodo,al.alumno_nombre,mat.materia_nombre]]>
+	</queryString>
+	<field name="PERIODO" class="java.math.BigDecimal"/>
+	<field name="ID_ALUMNO" class="java.math.BigDecimal"/>
+	<field name="ALUMNO_NOMBRE" class="java.lang.String"/>
+	<field name="MATERIA_NOMBRE" class="java.lang.String"/>
+	<field name="PROMEDIO" class="java.math.BigDecimal"/>
+	<group name="grupo">
+		<groupExpression><![CDATA[$F{ALUMNO_NOMBRE}]]></groupExpression>
+		<groupHeader>
+			<band height="57">
+				<staticText>
+					<reportElement x="0" y="37" width="100" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Periodo 2]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PROMEDIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

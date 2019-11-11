@@ -330,8 +330,7 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
-        // TODO add your handling code here:
-        ConectionDB cdb = new ConectionDB();
+        // TODO add your handling code here:       
         String Mensaje="Algo salio mal.";
         try {
             for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
