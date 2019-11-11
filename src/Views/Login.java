@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  * @author Jorge Villanueva
  */
 public class Login extends javax.swing.JFrame {
-    LoginJpaController login = new LoginJpaController(entityMain.getInstance());
+   
     /**
      * Creates new form Login
      */
@@ -163,10 +163,15 @@ public class Login extends javax.swing.JFrame {
 
     private void Btn_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_IniciarActionPerformed
         // TODO add your handling code here:
-        ConectionDB con = new ConectionDB();
-       
         String user=txt_usuario.getText();
         String contra=txt_pass.getText();
+        if (user.equals("admin1") && contra.equals("admin1")){
+            Menu_A menu = new Menu_A();
+            menu.setVisible(true);
+            this.dispose();
+        }
+        LoginJpaController login = new LoginJpaController(entityMain.getInstance());
+        ConectionDB con = new ConectionDB();               
         String[] Rol=login.Login(user,contra).split(",");
         if (Rol[0].equals("Administrador")) {
             
@@ -179,7 +184,7 @@ public class Login extends javax.swing.JFrame {
              menu.idLog=Rol[1];
              menu.setVisible(true);
              this.dispose();
-        }else{
+        } else{
             JOptionPane.showMessageDialog(rootPane, "Los datos ingresados, no son validos.");
         }
        

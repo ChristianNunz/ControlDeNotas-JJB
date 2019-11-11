@@ -559,11 +559,13 @@ public class Menu_A extends javax.swing.JFrame {
         chooser.showOpenDialog(rootPane);
         File src = chooser.getSelectedFile();
         String nomb=src.getName();
-        String [] nombre = nomb.split(".");
+        nomb=nomb.replace(".", "&");
+        String[] nombre = nomb.split("&");
         String parametro=nombre[0];              
         try {  
              String cmd = "impdp system/2015VC601 schemas=director directory=DIRECTORIO dumpfile="+parametro+".dmp logfile="+parametro+"_txt.log"; //Comando 
             Process exec = Runtime.getRuntime().exec(cmd);
+            JOptionPane.showMessageDialog(rootPane,"Ejecutando restauracion de base de datos \n intente dentro de unos minutos.");
         } catch (IOException ex) {
             Logger.getLogger(Menu_A.class.getName()).log(Level.SEVERE, null, ex);
         }
