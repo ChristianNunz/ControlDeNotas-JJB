@@ -3,6 +3,12 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="Grado" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sec" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT pe.periodo,al.id_alumno,al.alumno_nombre,mat.materia_nombre,(pe.nota1*0.35+pe.nota2*0.35+pe.nota3*0.30) as Promedio FROM alumno AL
 INNER JOIN nota NT ON al.id_alumno=nt.id_alumno
@@ -11,7 +17,7 @@ INNER JOIN materia_grado MG ON nt.id_materia_grado=mg.id_materia_grado
 INNER JOIN materia MAT ON mg.id_materia=mat.id_materia
 INNER JOIN grado GRA ON mg.id_grado=gra.id_grado
 INNER JOIN seccion SEC ON mg.id_seccion=sec.id_seccion
-WHERE gra.grado='4' AND sec.nombre_seccion='A' AND pe.periodo='1'
+WHERE gra.grado=$P{Grado} AND sec.nombre_seccion=$P{sec} AND pe.periodo='1'
 order by pe.periodo,al.alumno_nombre,mat.materia_nombre]]>
 	</queryString>
 	<field name="PERIODO" class="java.math.BigDecimal"/>

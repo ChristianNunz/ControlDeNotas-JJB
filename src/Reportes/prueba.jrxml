@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Jorge Villanueva\\Desktop\\TPS 2019\\Proyecto TPS\\ControlDeNotas-JJB\\src\\Reportes\\"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="Grado" class="java.lang.String"/>
+	<parameter name="grado" class="java.lang.String"/>
 	<parameter name="sec" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\chris\\Documents\\NetBeansProjects\\ControlDeNotas-JJB\\src\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select * from dual]]>
 	</queryString>
@@ -16,11 +16,11 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="294" splitType="Stretch">
+		<band height="157" splitType="Stretch">
 			<subreport>
-				<reportElement x="14" y="0" width="50" height="100"/>
+				<reportElement x="130" y="14" width="53" height="100"/>
 				<subreportParameter name="Grado">
-					<subreportParameterExpression><![CDATA[$P{Grado}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{grado}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="sec">
 					<subreportParameterExpression><![CDATA[$P{sec}]]></subreportParameterExpression>
@@ -29,9 +29,9 @@
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreporteperiodo1.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="226" y="0" width="49" height="100"/>
+				<reportElement x="344" y="14" width="53" height="100"/>
 				<subreportParameter name="Grado">
-					<subreportParameterExpression><![CDATA[$P{Grado}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{grado}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="sec">
 					<subreportParameterExpression><![CDATA[$P{sec}]]></subreportParameterExpression>
@@ -40,9 +40,9 @@
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreporteperiodo2.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="323" y="0" width="49" height="100"/>
+				<reportElement x="441" y="14" width="53" height="100"/>
 				<subreportParameter name="Grado">
-					<subreportParameterExpression><![CDATA[$P{Grado}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{grado}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="sec">
 					<subreportParameterExpression><![CDATA[$P{sec}]]></subreportParameterExpression>
@@ -51,7 +51,7 @@
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreporteperiodo3.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="425" y="0" width="49" height="100"/>
+				<reportElement x="537" y="14" width="53" height="100"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreportepromedio.jasper"]]></subreportExpression>
 			</subreport>

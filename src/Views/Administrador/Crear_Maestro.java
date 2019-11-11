@@ -344,7 +344,8 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
             }else{
                 gen = new BigInteger("2");
             }     
-            ConectionDB cdb = new ConectionDB();                                
+            ConectionDB cdb = new ConectionDB();   
+        
             try {
                 StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRARDOCENTE");
 
@@ -383,6 +384,7 @@ public class Crear_Maestro extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                  JOptionPane.showMessageDialog(rootPane,"Algo salio mal.");
             }
+            
     }//GEN-LAST:event_Btn_GuardarActionPerformed
 
     private void btn_cmb_sexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cmb_sexActionPerformed

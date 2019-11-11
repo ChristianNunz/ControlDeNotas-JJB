@@ -16,8 +16,8 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT Docente,Grado,Año, Materia,Sección,   COUNT(IdA) As Reprobados
-FROM reprobados  
+		<![CDATA[SELECT Docente,Grado,Año, Materia,Sección,   COUNT(APO) As Reprobados
+FROM Aprobados  
 WHERE promedio >=5
 and  nombre_seccion = $P{Nombresec}
 and periodo = $P{per}
@@ -74,7 +74,7 @@ group by Materia,Docente,Grado,Año,Sección]]>
 		<band height="227" splitType="Stretch">
 			<pie3DChart>
 				<chart>
-					<reportElement x="0" y="0" width="411" height="227"/>
+					<reportElement x="0" y="0" width="379" height="227"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
