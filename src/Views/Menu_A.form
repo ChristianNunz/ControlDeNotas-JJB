@@ -297,6 +297,9 @@
                 <Property name="text" type="java.lang.String" value="Importar"/>
                 <Property name="toolTipText" type="java.lang.String" value="Restaurar datos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_importar_bkupActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Btn_exportar_bkup">
               <Properties>

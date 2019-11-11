@@ -22,10 +22,18 @@ import Views.Administrador.ReporteDeNota;
 import Views.Administrador.ReporteReprobados;
 import Views.Administrador.Reporte_MateriasAsignadas;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.DesktopPaneUI;
 import javax.swing.plaf.basic.BasicDesktopPaneUI;
 
@@ -309,6 +317,11 @@ public class Menu_A extends javax.swing.JFrame {
         Btn_importar_bkup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         Btn_importar_bkup.setText("Importar");
         Btn_importar_bkup.setToolTipText("Restaurar datos");
+        Btn_importar_bkup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_importar_bkupActionPerformed(evt);
+            }
+        });
         Btn_Backup.add(Btn_importar_bkup);
 
         Btn_exportar_bkup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
@@ -393,6 +406,19 @@ public class Menu_A extends javax.swing.JFrame {
     }
     private void Btn_exportar_bkupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_exportar_bkupActionPerformed
         // TODO add your handling code here:
+        try {
+            SimpleDateFormat d = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+            Date date = new Date();            
+            String respaldo= "Respaldo_"+d.format(date);      
+            respaldo=respaldo.toUpperCase();
+            
+            
+            String cmd = "expdp system/2015VC601 schemas=director directory=DIRECTORIO dumpfile="+respaldo+".dmp logfile="+respaldo+"_txt.log"; //Comando 
+            Process exec = Runtime.getRuntime().exec(cmd);                      
+            JOptionPane.showMessageDialog(rootPane, "Generando respaldo, espere unos minutos.");
+        } catch (IOException | HeadlessException ioe) {
+                System.out.println (ioe);
+        }
     }//GEN-LAST:event_Btn_exportar_bkupActionPerformed
 
     private void Btn_rpt_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_notasActionPerformed
@@ -524,6 +550,25 @@ public class Menu_A extends javax.swing.JFrame {
          encargado.setSize(sisze());
          DesktopPanel.add(encargado);
     }//GEN-LAST:event_Btn_Editar_EncargadoActionPerformed
+
+    private void Btn_importar_bkupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_importar_bkupActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter( new FileNameExtensionFilter("Respaldos", "dmp"));
+        chooser.setCurrentDirectory(new File(chooser.getCurrentDirectory().getPath().replace(chooser.getCurrentDirectory().getName(),"Desktop")));
+        chooser.showOpenDialog(rootPane);
+        File src = chooser.getSelectedFile();
+        String nomb=src.getName();
+        String [] nombre = nomb.split(".");
+        String parametro=nombre[0];              
+        try {  
+             String cmd = "impdp system/2015VC601 schemas=director directory=DIRECTORIO dumpfile="+parametro+".dmp logfile="+parametro+"_txt.log"; //Comando 
+            Process exec = Runtime.getRuntime().exec(cmd);
+        } catch (IOException ex) {
+            Logger.getLogger(Menu_A.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_Btn_importar_bkupActionPerformed
 
     /**
      * @param args the command line arguments
