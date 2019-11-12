@@ -129,7 +129,7 @@ public class GenerarReportes {
         }
     }
     
-    public void ReporteAlumnos(){
+    public void ReporteAlumnos(String sec, String grado, String nombred, String nombremat){
         try {
             File miDir = new File(".");
             String Ruta =miDir.getCanonicalPath();
@@ -137,10 +137,10 @@ public class GenerarReportes {
             ConectionDB con = new ConectionDB();
             
             Map parametros = new HashMap<>();
-            parametros.put("sec", "A");
-             parametros.put("grado", "4");
-            parametros.put("nombred", "jose");
-            parametros.put("nombremat", "Lenguaje");
+            parametros.put("sec", sec);
+             parametros.put("grado",grado );
+            parametros.put("nombred", nombred);
+            parametros.put("nombremat", nombremat);
             JasperPrint print = JasperFillManager.fillReport(repor, parametros,con.getconnection());
             
             JasperViewer view = new JasperViewer(print,false);

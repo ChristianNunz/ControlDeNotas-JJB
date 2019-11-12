@@ -127,17 +127,13 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
 
     private void GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarReporteActionPerformed
         GenerarReportes gr = new GenerarReportes();
-//       String nombremat = cmb_mat.getSelectedItem().toString();
-//        String nombred = cmb_docente.getSelectedItem().toString();
-//        //String per = cmb_periodo.getSelectedItem().toString();
-//        String sec= cmb_secc.getSelectedItem().toString();
-//        String grado = cmb_grado.getSelectedItem().toString();
-//        String sec = "A";
-//        String nombred = "Jose Mauricio Gonzales Renderos";
-//        String grado = "4";
-//        String nombremat="Matemática";
-//        
-        gr.ReporteAlumnos();
+       String nombremat = cmb_mat.getSelectedItem().toString();
+        String nombred = cmb_docente.getSelectedItem().toString();
+        //String per = cmb_periodo.getSelectedItem().toString();
+        String sec= cmb_secc.getSelectedItem().toString();
+        String grado = cmb_grado.getSelectedItem().toString();
+      
+        gr.ReporteAlumnos(sec,grado,nombred,nombremat);
     }//GEN-LAST:event_GenerarReporteActionPerformed
 
 
