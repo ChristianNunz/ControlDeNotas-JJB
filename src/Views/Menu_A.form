@@ -250,13 +250,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_rpt_alumnosActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="Btn_rpt_maestros">
+            <MenuItem class="javax.swing.JMenuItem" name="Btn_rpt_repro">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reprobados"/>
                 <Property name="toolTipText" type="java.lang.String" value="Generar reporte de maestros"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_rpt_maestrosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_rpt_reproActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Btn_rpt_materias">

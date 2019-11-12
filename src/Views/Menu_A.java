@@ -89,7 +89,7 @@ public class Menu_A extends javax.swing.JFrame {
         Btn_Reportes = new javax.swing.JMenu();
         Btn_rpt_notas = new javax.swing.JMenuItem();
         Btn_rpt_alumnos = new javax.swing.JMenuItem();
-        Btn_rpt_maestros = new javax.swing.JMenuItem();
+        Btn_rpt_repro = new javax.swing.JMenuItem();
         Btn_rpt_materias = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         Btn_Backup = new javax.swing.JMenu();
@@ -284,14 +284,14 @@ public class Menu_A extends javax.swing.JFrame {
         });
         Btn_Reportes.add(Btn_rpt_alumnos);
 
-        Btn_rpt_maestros.setText("Reprobados");
-        Btn_rpt_maestros.setToolTipText("Generar reporte de maestros");
-        Btn_rpt_maestros.addActionListener(new java.awt.event.ActionListener() {
+        Btn_rpt_repro.setText("Reprobados");
+        Btn_rpt_repro.setToolTipText("Generar reporte de maestros");
+        Btn_rpt_repro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btn_rpt_maestrosActionPerformed(evt);
+                Btn_rpt_reproActionPerformed(evt);
             }
         });
-        Btn_Reportes.add(Btn_rpt_maestros);
+        Btn_Reportes.add(Btn_rpt_repro);
 
         Btn_rpt_materias.setText("Materias");
         Btn_rpt_materias.setToolTipText("Generar reporte de materias");
@@ -433,13 +433,18 @@ public class Menu_A extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Btn_rpt_alumnosActionPerformed
 
-    private void Btn_rpt_maestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_maestrosActionPerformed
+    private void Btn_rpt_reproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_reproActionPerformed
         // TODO add your handling code here:
         CerrarHijos();
-        ReporteReprobados reporte = new ReporteReprobados();     
-         reporte.setSize(sisze());
-        DesktopPanel.add(reporte);
-    }//GEN-LAST:event_Btn_rpt_maestrosActionPerformed
+        ReporteReprobados repro = new ReporteReprobados();     
+        // repro.setSize(sisze());
+        DesktopPanel.add(repro);
+        
+        Dimension desktopSize = DesktopPanel.getSize();
+        Dimension FrameSize = repro.getSize();
+        repro.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        repro.show();
+    }//GEN-LAST:event_Btn_rpt_reproActionPerformed
 
     private void Btn_rpt_materiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_materiasActionPerformed
         // TODO add your handling code here:
@@ -632,9 +637,9 @@ public class Menu_A extends javax.swing.JFrame {
     private javax.swing.JMenuItem Btn_exportar_bkup;
     private javax.swing.JMenuItem Btn_importar_bkup;
     private javax.swing.JMenuItem Btn_rpt_alumnos;
-    private javax.swing.JMenuItem Btn_rpt_maestros;
     private javax.swing.JMenuItem Btn_rpt_materias;
     private javax.swing.JMenuItem Btn_rpt_notas;
+    private javax.swing.JMenuItem Btn_rpt_repro;
     private javax.swing.JDesktopPane DesktopPanel;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
