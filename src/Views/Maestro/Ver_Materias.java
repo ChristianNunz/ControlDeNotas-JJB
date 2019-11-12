@@ -33,15 +33,16 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
     AlumnoJpaController ajc = new AlumnoJpaController(entityMain.getInstance());
     GradoJpaController gjc = new GradoJpaController(entityMain.getInstance());
+    ConectionDB con;
     public Ver_Materias() {
         
         initComponents();
-      
+       con = new ConectionDB();
     }
     public void setIdLog(String id){                  
          try {            
             DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
-            String idDocente=djc.GetIdDocneteByLoginId(id);
+            String idDocente=djc.GetIdDocneteByLoginId(id,con.conn);
             this.idLog=idDocente;
              LlenarComboM();
             LlenarSecciones();
@@ -68,7 +69,7 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         btn_mostrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_alumnos = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        labeltitle = new javax.swing.JLabel();
         btn_mostrar1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -145,11 +146,12 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tabla_alumnos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 800, 300));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 800, 300));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
-        jLabel1.setText("Materias");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 320, -1));
+        labeltitle.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        labeltitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeltitle.setText("Alumnos de");
+        getContentPane().add(labeltitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 720, -1));
 
         btn_mostrar1.setText("Actualizar");
         btn_mostrar1.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +159,7 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
                 btn_mostrar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_mostrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 140, -1, -1));
+        getContentPane().add(btn_mostrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 170, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -168,17 +170,19 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
         
        
         cargartabla();
+        labeltitle.setText("Alumnos de "  + cmb_materia.getSelectedItem() + " " + cmb_grado.getSelectedItem() + "º " +cmb_seccion.getSelectedItem());
     }//GEN-LAST:event_btn_mostrarActionPerformed
 
     private void btn_mostrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar1ActionPerformed
         // TODO add your handling code here:
+        
         for (int i = 0; i < modM.getRowCount(); i++) {
             String id=tabla_alumnos.getValueAt(i, 0).toString();
             Boolean estado=(Boolean) tabla_alumnos.getValueAt(i, 3);
             
-            ConectionDB con = new ConectionDB();
-            ajc.ActulizarEstadoAlumno(id,estado);
             
+            ajc.ActulizarEstadoAlumno(id,estado,con.conn);
+            con.desconexion();
         }
         cargartabla();
     }//GEN-LAST:event_btn_mostrar1ActionPerformed
@@ -192,9 +196,9 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     String materia=cmb_materia.getSelectedItem().toString();
     String seccion=cmb_seccion.getSelectedItem().toString();
 
-    ConectionDB con = new ConectionDB();
+   
        
-    Alumnos =  ajc.GetListaAlumnos(grado, materia, seccion,idLog );
+    Alumnos =  ajc.GetListaAlumnos(grado, materia, seccion,idLog,con.conn );
     modM = (DefaultTableModel) tabla_alumnos.getModel(); 
     modM.setRowCount(0);
     for(int i=0; i<Alumnos.size(); i++)
@@ -214,7 +218,7 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     private void  LlenarComboM(){
         
         
-        List<Materia> materia = mjc.GetMaterias(idLog);
+        List<Materia> materia = mjc.GetMaterias(idLog,con.conn);
                
          for (Materia Materia1 : materia) {
             cmb_materia.addItem(Materia1.getMateriaNombre());
@@ -222,15 +226,15 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     }
     private void LlenarSecciones(){
        
-        List<String> secciones = sjc.GetSecciones(idLog);
+        List<String> secciones = sjc.GetSecciones(idLog,con.conn);
          for (String seccion : secciones) {
             cmb_seccion.addItem(seccion);
         }
         
     }
      private void LlenarGrados(){
-        ConectionDB con = new ConectionDB();
-        List<String> grados = gjc.GetGrados(idLog);
+        
+        List<String> grados = gjc.GetGrados(idLog,con.conn);
          for (String grado : grados) {
             cmb_grado.addItem(grado);
         }
@@ -241,8 +245,8 @@ public class Ver_Materias extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox cmb_grado;
     private javax.swing.JComboBox cmb_materia;
     private javax.swing.JComboBox cmb_seccion;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labeltitle;
     private javax.swing.JLabel lblcontra5;
     private javax.swing.JLabel lblcontra6;
     private javax.swing.JLabel lblcontra7;

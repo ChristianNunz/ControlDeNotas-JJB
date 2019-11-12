@@ -30,10 +30,10 @@ public class ConectionDB {
     private static String user="director";
     private static String pass="jjb";
    
-    private static Connection conn=null;
-    
-      public Connection getconnection(){
-          try {
+    public Connection conn;
+
+    public ConectionDB() {
+        try {
               DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
               conn=DriverManager.getConnection(url,user,pass);
               conn.setAutoCommit(false);
@@ -45,6 +45,10 @@ public class ConectionDB {
           } catch (SQLException e) {
               JOptionPane.showMessageDialog(null, "conexion erronea"+e.getMessage());
           }
+    }
+    
+      public Connection getconnection(){
+          
           return conn;
       }
       
@@ -55,40 +59,40 @@ public class ConectionDB {
             System.out.println("error al desconectar"+e.getMessage());
         }
     }
-    public Statement conn(){
-        try{  
-            
-            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-            System.out.println("Conectando con la base de datos...");
-            Connection connection = DriverManager.getConnection(url,user,pass);
-           
-            Statement statement = connection.createStatement();
-            
-            return statement;
-        }catch(Exception e){
-            System.out.println("The exception raised is:" + e);
-        return null;  
-        } 
-    }
-    
-    public static void main(String[] args) {
-        ConectionDB cdb = new ConectionDB();
-        
-        PreparedStatement pst=null;
-        String sql="";
-        try {
-            pst=cdb.getconnection().prepareStatement(sql);
-            pst.setInt(1, 2);
-            pst.execute();
-            pst.close();
-        } catch (SQLException e) {
-        }
-    }
+//    public Statement conn(){
+//        try{  
+//            
+//            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+//            System.out.println("Conectando con la base de datos...");
+//            Connection connection = DriverManager.getConnection(url,user,pass);
+//           
+//            Statement statement = connection.createStatement();
+//            
+//            return statement;
+//        }catch(Exception e){
+//            System.out.println("The exception raised is:" + e);
+//        return null;  
+//        } 
+//    }
+//    
+//    public  void main(String[] args) {
+//        ConectionDB cdb = new ConectionDB();
+//        
+//        PreparedStatement pst=null;
+//        String sql="";
+//        try {
+//            pst=cdb.getconnection().prepareStatement(sql);
+//            pst.setInt(1, 2);
+//            pst.execute();
+//            pst.close();
+//        } catch (SQLException e) {
+//        }
+//    }
     
     //OBTENEMOS EL ULTIMO ID DE LA TABLA 
     public BigInteger GetLastId(String tabla, String Id){
         try {
-            Statement st = conn();
+            Statement st = conn.createStatement();
             ResultSet resultSet = st.executeQuery("SELECT MAX("+Id+") FROM "+tabla);  
             resultSet.next();
             BigInteger id= new BigInteger(resultSet.getString(1));
@@ -100,7 +104,7 @@ public class ConectionDB {
     }
     public BigDecimal GetIdToInsert(String tabla, String Id){
         try {
-            Statement st = conn();
+            Statement st = conn.createStatement();
             ResultSet resultSet = st.executeQuery("SELECT MAX("+Id+") FROM "+tabla);  
             resultSet.next();
             int idd = Integer.parseInt(resultSet.getString(1));

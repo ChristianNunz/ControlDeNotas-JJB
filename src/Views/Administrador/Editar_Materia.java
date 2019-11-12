@@ -43,10 +43,11 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
     TurnoJpaController tjc = new TurnoJpaController(entityMain.getInstance());
     DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
     MateriaJpaController mjc = new MateriaJpaController(entityMain.getInstance());
-    ConectionDB con = new ConectionDB(); 
+    ConectionDB con; 
     public Editar_Materia() {
         
         initComponents();
+        con = new ConectionDB(); 
         cargartabla();
         LLenarComboM(); 
         LLenarComboS(); 
@@ -227,13 +228,13 @@ public class Editar_Materia extends javax.swing.JInternalFrame {
     
         
          //obtiene id seleccionado 
-         BigDecimal idm = mjc.GetIdMateria(NombreM);
-         BigDecimal idg = gjc.GetIdGrado(Grado);
-         BigDecimal ids = sjc.GetIdSeccion(seccion);
-         BigDecimal idt = tjc.GetIdTurno(turno);
+         BigDecimal idm = mjc.GetIdMateria(NombreM,con.conn);
+         BigDecimal idg = gjc.GetIdGrado(Grado,con.conn);
+         BigDecimal ids = sjc.GetIdSeccion(seccion,con.conn);
+         BigDecimal idt = tjc.GetIdTurno(turno,con.conn);
          
        try {
-           BigDecimal idd = djc.GetIdDocnete(docente);
+           BigDecimal idd = djc.GetIdDocnete(docente,con.conn);
            MateriaGrado materiaGrado = new MateriaGrado(new BigDecimal(txt_id.getText()));
            materiaGrado.setAnho(new BigInteger(anho));
            materiaGrado.setIdMateria(new Materia(idm, NombreM));

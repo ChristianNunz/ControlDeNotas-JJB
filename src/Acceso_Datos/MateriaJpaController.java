@@ -10,6 +10,7 @@ import Acceso_Datos.exceptions.PreexistingEntityException;
 import Logica_Negocios.Materia;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -132,11 +133,11 @@ public class MateriaJpaController implements Serializable {
         }
     }
 
-     public List<Materia> GetMaterias(String IdLog){
+     public List<Materia> GetMaterias(String IdLog,Connection con){
         try {
-            ConectionDB con = new ConectionDB();
+            //ConectionDB con = new ConectionDB();
             List<Materia> materias = new ArrayList<Materia>();
-            Statement st = con.conn();
+            Statement st = con.createStatement();
             ResultSet resultSet = st.executeQuery("Select M.ID_MATERIA, MATERIA_NOMBRE from MATERIA_GRADO A " +
                                                     "INNER JOIN MATERIA M ON A.ID_MATERIA = M.ID_MATERIA " +
                                                   "WHERE ID_DOCENTE ="+IdLog);
@@ -152,10 +153,10 @@ public class MateriaJpaController implements Serializable {
         }
        
      }
-      public BigDecimal GetIdMateria(String NombreM){
+      public BigDecimal GetIdMateria(String NombreM,Connection con){
         try {
-            ConectionDB con = new ConectionDB();
-            Statement st = con.conn();
+            //ConectionDB con = new ConectionDB();
+            Statement st = con.createStatement();
              ResultSet resultSet = st.executeQuery("SELECT  ID_MATERIA FROM MATERIA WHERE MATERIA_NOMBRE= '"+(NombreM)+"'");
              resultSet.next();
               int iddd = Integer.parseInt(resultSet.getString(1));

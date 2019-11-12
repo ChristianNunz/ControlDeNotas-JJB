@@ -16,6 +16,7 @@ import javax.persistence.criteria.Root;
 import Logica_Negocios.Nota;
 import Logica_Negocios.Periodo;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -175,11 +176,11 @@ public class PeriodoJpaController implements Serializable {
             em.close();
         }
     }
-     public List<EditarNota> GetListaNotas(String periodo, String grado, String materia,String Seccion, String docenteid){
+     public List<EditarNota> GetListaNotas(String periodo, String grado, String materia,String Seccion, String docenteid,Connection con){
         try {
-            ConectionDB con = new ConectionDB();
+            //ConectionDB con = new ConectionDB();
             List<EditarNota> editarNotas = new ArrayList<EditarNota>();
-            Statement st = con.conn();
+            Statement st = con.createStatement();
             ResultSet resultSet = st.executeQuery("SELECT p.id_periodo,a.alumno_nombre,a.alumno_apelidos,p.nota1,p.nota2,p.nota3 FROM alumno A"
                     + " INNER JOIN NOTA N ON a.id_alumno = n.id_alumno "
                     + "INNER JOIN periodo P ON n.id_nota = p.id_nota "
@@ -203,10 +204,10 @@ public class PeriodoJpaController implements Serializable {
         }
     }
     
-     public void UpdateNota(String id_periodo, String nota1, String nota2, String nota3){
+     public void UpdateNota(String id_periodo, String nota1, String nota2, String nota3,Connection con){
          try {
-             ConectionDB con = new ConectionDB();
-            Statement st = con.conn();
+             //ConectionDB con = new ConectionDB();
+            Statement st = con.createStatement();
             st.executeQuery("UPDATE PERIODO SET nota1="+nota1+", nota2="+nota2+", nota3="+nota3+" WHERE id_periodo="+id_periodo+"");                   
             st.close();
         } catch (Exception e) {

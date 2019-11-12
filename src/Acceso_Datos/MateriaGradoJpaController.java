@@ -19,6 +19,7 @@ import Logica_Negocios.MateriaGrado;
 import Logica_Negocios.Seccion;
 import Logica_Negocios.Turno;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
@@ -289,10 +290,10 @@ public class MateriaGradoJpaController implements Serializable {
             em.close();
         }
     }
-    public int GetIdValidar(BigDecimal idm, BigDecimal ids, BigDecimal idg,BigDecimal idt, BigDecimal idd){
+    public int GetIdValidar(BigDecimal idm, BigDecimal ids, BigDecimal idg,BigDecimal idt, BigDecimal idd,Connection con){
         try {
-            ConectionDB con = new ConectionDB();
-            Statement st = con.conn();
+           // ConectionDB con = new ConectionDB();
+            Statement st = con.createStatement();
              ResultSet resultSet = st.executeQuery("SELECT  ID_MATERIA_GRADO FROM MATERIA_GRADO WHERE ID_MATERIA = '"+(idm)+"' AND ID_GRADO =  '"+(ids)+"' AND ID_SECCION = '"+(idg)+"'  AND ID_TURNO = '"+(idt)+"'");
              resultSet.next();
               int iddd = Integer.parseInt(resultSet.getString(1));

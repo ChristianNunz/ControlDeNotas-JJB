@@ -10,6 +10,7 @@ import Acceso_Datos.exceptions.PreexistingEntityException;
 import Logica_Negocios.Turno;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
@@ -143,10 +144,10 @@ public class TurnoJpaController implements Serializable {
             em.close();
         }
     }
-    public BigDecimal GetIdTurno(String NombreT){
+    public BigDecimal GetIdTurno(String NombreT,Connection con){
         try {
-            ConectionDB con = new ConectionDB();
-            Statement st = con.conn();
+//            ConectionDB con = new ConectionDB();
+            Statement st = con.createStatement();
              ResultSet resultSet = st.executeQuery("SELECT  ID_TURNO FROM TURNO WHERE TURNO_NOMBRE= '"+(NombreT)+"'");
              resultSet.next();
               int iddd = Integer.parseInt(resultSet.getString(1));

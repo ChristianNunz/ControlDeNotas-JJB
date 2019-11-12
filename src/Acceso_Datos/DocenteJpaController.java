@@ -10,6 +10,7 @@ import Acceso_Datos.exceptions.PreexistingEntityException;
 import Logica_Negocios.Docente;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
@@ -144,10 +145,10 @@ public class DocenteJpaController implements Serializable {
             em.close();
         }
     }
-    public BigDecimal GetIdDocnete(String NombreD){
+    public BigDecimal GetIdDocnete(String NombreD, Connection con){
         try {
-            ConectionDB con = new ConectionDB();
-            Statement st = con.conn();
+            //ConectionDB con = new ConectionDB();
+            Statement st = con.createStatement();
              ResultSet resultSet = st.executeQuery("SELECT  ID_DOCENTE FROM DOCENTE WHERE DOCENTE_NOMBRE || ' ' || DOCENTE_APELLIDO = '"+(NombreD)+"'");
              resultSet.next();
               int iddd = Integer.parseInt(resultSet.getString(1));
@@ -158,10 +159,10 @@ public class DocenteJpaController implements Serializable {
              return null;
         }
     }
-    public String GetIdDocneteByLoginId(String LogId){
+    public String GetIdDocneteByLoginId(String LogId,Connection con){
         try {
-            ConectionDB con = new ConectionDB();
-            Statement st = con.conn();
+           // ConectionDB con = new ConectionDB();
+            Statement st = con.createStatement();
              ResultSet resultSet = st.executeQuery("SELECT L.ID_DOCENTE FROM DOCENTE D INNER JOIN LOGIN L ON D.ID_DOCENTE=L.ID_DOCENTE WHERE L.ID_LOGIN="+LogId+"");
              resultSet.next();
               String id = resultSet.getString(1);            

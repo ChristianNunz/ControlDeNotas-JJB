@@ -18,6 +18,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
 /**
  *
  * @author Jorge Villanueva
@@ -34,10 +35,11 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
        SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
        GradoJpaController gjc = new GradoJpaController(entityMain.getInstance());
        PeriodoJpaController pjc = new PeriodoJpaController(entityMain.getInstance());
+       ConectionDB con;
     public Editar_Nota_M() {
         
         initComponents();
-       
+       con = new ConectionDB();
         
            // this.setMaximum(true);
         
@@ -46,7 +48,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
        public void setIdLog(String id){
         try {            
             DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
-            String idDocente=djc.GetIdDocneteByLoginId(id);
+            String idDocente=djc.GetIdDocneteByLoginId(id,con.conn);
             this.idLog=idDocente;
              LlenarComboM();
             LlenarSecciones();
@@ -242,6 +244,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
         lblcontra4.setText("Promedio:");
         getContentPane().add(lblcontra4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 440, -1, 20));
 
+        txtpromedio.setEditable(false);
         txtpromedio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtpromedio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,8 +274,8 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
                  String NotaDos=txtnota2.getText().replace(",", ".");
                  String NotaTres=txtnota3.getText().replace(",", ".");
                 
-                 ConectionDB con = new ConectionDB();
-                 pjc.UpdateNota(id, NotaUno, NotaDos, NotaTres);
+                 
+                 pjc.UpdateNota(id, NotaUno, NotaDos, NotaTres,con.conn);
                 cargartabla();
                 
                 JOptionPane.showMessageDialog(rootPane, "Notas Editadas Correctamente");
@@ -325,7 +328,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
        // String[] docent =cmb_docente.getSelectedItem().toString().split(",");
        //String docente =docent[0];
        
-        editarNotas =  pjc.GetListaNotas(periodo, grado, materia, seccion, idLog);
+        editarNotas =  pjc.GetListaNotas(periodo, grado, materia, seccion, idLog,con.conn);
     
     modM = (DefaultTableModel) Tabla_Edit_Notas.getModel(); 
     modM.setRowCount(0);
@@ -344,24 +347,24 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
           
         }
        private void  LlenarComboM(){
-        ConectionDB con = new ConectionDB();
         
-        List<Materia> materia =mjc.GetMaterias(idLog);
+        
+        List<Materia> materia =mjc.GetMaterias(idLog,con.conn);
          for (Materia Materia1 : materia) {
             cmb_materia.addItem(Materia1.getMateriaNombre());
         }
     }
     private void LlenarSecciones(){
         
-        List<String> secciones = sjc.GetSecciones(idLog);
+        List<String> secciones = sjc.GetSecciones(idLog,con.conn);
          for (String seccion : secciones) {
             cmb_seccion.addItem(seccion);
         }
         
     }
      private void LlenarGrados(){
-        ConectionDB con = new ConectionDB();
-        List<String> grados = gjc.GetGrados(idLog);
+        
+        List<String> grados = gjc.GetGrados(idLog,con.conn);
          for (String grado : grados) {
             cmb_grado.addItem(grado);
         }

@@ -11,6 +11,7 @@ import Logica_Negocios.Alumno;
 import Logica_Negocios.EditarNota;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -147,11 +148,11 @@ public class AlumnoJpaController implements Serializable {
             em.close();
         }
     }
-    public List<EditarNota> GetListaAlumnos( String grado, String materia,String Seccion, String docenteid)    {
+    public List<EditarNota> GetListaAlumnos( String grado, String materia,String Seccion, String docenteid, Connection con)    {
         try {
-            ConectionDB con = new ConectionDB();
+           // ConectionDB con = new ConectionDB();
             List<EditarNota> editarNotas = new ArrayList<EditarNota>();
-            Statement st = con.conn();
+            Statement st = con.createStatement();
             ResultSet resultSet = st.executeQuery("SELECT a.ID_ALUMNO,a.alumno_nombre,a.alumno_apelidos,a.ALUMNO_ESTADO FROM alumno A"
                     + " INNER JOIN NOTA N ON a.id_alumno = n.id_alumno "
                     + "INNER JOIN periodo P ON n.id_nota = p.id_nota "
@@ -175,21 +176,23 @@ public class AlumnoJpaController implements Serializable {
              return null;
         }
     }
-    public void ActulizarEstadoAlumno(String id, Boolean estado) {
+    public void ActulizarEstadoAlumno(String id, Boolean estado, Connection con) {
         try {
-            ConectionDB con = new ConectionDB();
-             Statement st = con.conn();
+            //ConectionDB con = new ConectionDB();
+             Statement st = con.createStatement();
+             
             if (estado) {               
                 String query="UPDATE ALUMNO SET ALUMNO_ESTADO=1 WHERE ID_ALUMNO="+id+"";
                 int count=st.executeUpdate(query);
                 st.close();
                 //st.executeUpdate();
-                
+                //con.desconexion();
                
             }else{
                  String query="UPDATE ALUMNO SET ALUMNO_ESTADO=0 WHERE ID_ALUMNO="+id+"";
                 int count=st.executeUpdate(query);
                 st.close();
+               // con.desconexion();
 
             }
         } catch (Exception e) {

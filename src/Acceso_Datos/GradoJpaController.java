@@ -10,6 +10,7 @@ import Acceso_Datos.exceptions.PreexistingEntityException;
 import Logica_Negocios.Grado;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -144,11 +145,11 @@ public class GradoJpaController implements Serializable {
             em.close();
         }
     }
-    public List<String> GetGrados(String IdLog){
+    public List<String> GetGrados(String IdLog,Connection con){
          try {
-             ConectionDB con = new ConectionDB();
+             //ConectionDB con = new ConectionDB();
              List<String> grados = new ArrayList<>();
-             Statement st = con.conn();
+             Statement st = con.createStatement();
              ResultSet resultSet = st.executeQuery("SELECT GRADO FROM MATERIA_GRADO M " +
                                                     "INNER JOIN GRADO G ON M.ID_GRADO = G.ID_GRADO " +
                                                     "WHERE ID_DOCENTE ="+IdLog+"" +
@@ -164,10 +165,10 @@ public class GradoJpaController implements Serializable {
          return null;
      }
     
-     public BigDecimal GetIdGrado(String NombreG){
+     public BigDecimal GetIdGrado(String NombreG,Connection con){
         try {
-            ConectionDB con = new ConectionDB();
-            Statement st = con.conn();
+//            ConectionDB con = new ConectionDB();
+            Statement st = con.createStatement();
              ResultSet resultSet = st.executeQuery("SELECT  ID_GRADO FROM GRADO WHERE GRADO= '"+(NombreG)+"'");
              resultSet.next();
               int iddd = Integer.parseInt(resultSet.getString(1));

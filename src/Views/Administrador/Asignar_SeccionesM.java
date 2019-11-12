@@ -40,15 +40,15 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
     TurnoJpaController tjc = new TurnoJpaController(entityMain.getInstance());
     DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
     MateriaJpaController mjc = new MateriaJpaController(entityMain.getInstance());
-
-     ConectionDB con = new ConectionDB(); 
+    ConectionDB con;
+     
  
     
     public Asignar_SeccionesM() {
         
         
         initComponents();
-        
+        con = new ConectionDB(); 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
         Date fech = new Date();
         
@@ -165,14 +165,14 @@ public class Asignar_SeccionesM extends javax.swing.JInternalFrame {
         String docente = cmb_docente.getSelectedItem().toString();
         
         //obtiene id seleccionado 
-         BigDecimal id = mjc.GetIdMateria(NombreM);
-         BigDecimal idg = gjc.GetIdGrado(Grado);
-         BigDecimal ids = sjc.GetIdSeccion(seccion);
-         BigDecimal idt = tjc.GetIdTurno(turno);
+         BigDecimal id = mjc.GetIdMateria(NombreM,con.conn);
+         BigDecimal idg = gjc.GetIdGrado(Grado,con.conn);
+         BigDecimal ids = sjc.GetIdSeccion(seccion,con.conn);
+         BigDecimal idt = tjc.GetIdTurno(turno,con.conn);
          
         try {
-          BigDecimal idd = djc.GetIdDocnete(docente);
-           int idv = materiaGradoJpaController.GetIdValidar(id,idg,ids,idt,idd);
+          BigDecimal idd = djc.GetIdDocnete(docente,con.conn);
+           int idv = materiaGradoJpaController.GetIdValidar(id,idg,ids,idt,idd,con.conn);
            if (idv ==0) {
            MateriaGrado materiaGrado = new MateriaGrado(con.GetIdToInsert("MATERIA_GRADO", "ID_MATERIA_GRADO"));
            materiaGrado.setAnho(new BigInteger(txt_anho.getText()));

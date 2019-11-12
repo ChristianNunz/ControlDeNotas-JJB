@@ -41,7 +41,8 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     SeccionJpaController sjc = new SeccionJpaController(entityMain.getInstance());
     DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
     PeriodoJpaController ConPeriodo = new PeriodoJpaController(entityMain.getInstance());
-    ConectionDB con = new ConectionDB(); 
+    ConectionDB con;
+    
     /**
      * Creates new form Agregar_Alumno
      */
@@ -49,6 +50,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     public Editar_Nota() {
         
         initComponents();
+        con = new ConectionDB();
         LLenarComboM(); 
         LLenarComboS(); 
         LLenarComboG();
@@ -280,8 +282,8 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
                  String NotaDos=txtnotaDos.getText().replace(",", ".");
                  String NotaTres=txtnotaTres.getText().replace(",", ".");
                 
-                 ConectionDB con = new ConectionDB();
-                 ConPeriodo.UpdateNota(id, NotaUno, NotaDos, NotaTres);
+                 
+                 ConPeriodo.UpdateNota(id, NotaUno, NotaDos, NotaTres,con.conn);
                 cargartabla();
                 
                 JOptionPane.showMessageDialog(rootPane, "Notas Editadas Correctamente");
@@ -346,8 +348,8 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
         String seccion=cmb_secc.getSelectedItem().toString();
         String[] docent =cmb_docente.getSelectedItem().toString().split(",");
         String docente =docent[0];
-        ConectionDB con = new ConectionDB();
-        editarNotas =  ConPeriodo.GetListaNotas(periodo, grado, materia, seccion, docente);
+        
+        editarNotas =  ConPeriodo.GetListaNotas(periodo, grado, materia, seccion, docente,con.conn);
     
     modM = (DefaultTableModel) Tabla_Edit_Notas.getModel(); 
     modM.setRowCount(0);

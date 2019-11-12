@@ -28,11 +28,12 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    ConectionDB con;
     public Login() {
        
         initComponents();
          setLocationRelativeTo(null);
-         
+         con = new ConectionDB();
     }
 
     /**
@@ -171,8 +172,8 @@ public class Login extends javax.swing.JFrame {
             this.dispose();
         }
         LoginJpaController login = new LoginJpaController(entityMain.getInstance());
-        ConectionDB con = new ConectionDB();               
-        String[] Rol=login.Login(user,contra).split(",");
+                       
+        String[] Rol=login.Login(user,contra,con.conn).split(",");
         if (Rol[0].equals("Administrador")) {
             
              Menu_A menu = new Menu_A();   

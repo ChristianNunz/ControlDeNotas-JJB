@@ -45,10 +45,11 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
     DefaultTableModel modM;    
     File src=null;
     String IdLog;
+    ConectionDB con;
     public Subir_Nota() {
         
         initComponents();
-       
+       con = new ConectionDB();
        
        
         
@@ -57,7 +58,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
      public void setIdLog(String id){
          try {            
          DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
-         String idDocente=djc.GetIdDocneteByLoginId(id);
+         String idDocente=djc.GetIdDocneteByLoginId(id,con.conn);
          this.IdLog=idDocente;
          Docente docente=djc.findDocente(new BigDecimal(idDocente));
           modM = (DefaultTableModel) jTable1.getModel();
@@ -526,7 +527,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 }
             } ;
-            ConectionDB con = new ConectionDB();
+            
             for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
                 spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("REGISTRAR_NOTA_DOCENTE");
             
