@@ -3,23 +3,32 @@
 	<property name="ireport.zoom" value="0.9090909090909096"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="sec" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="grad" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="per" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM alumnonota ORDER BY alumno]]>
+		<![CDATA[SELECT * FROM ALUMNONOTA WHERE Periodo=$P{per} AND GRADO=$P{grad} AND SECCION=$P{sec} ORDER BY ALUMNO,MATERIA]]>
 	</queryString>
 	<field name="ID" class="java.math.BigDecimal"/>
 	<field name="ALUMNO" class="java.lang.String"/>
-	<field name="Docente" class="java.lang.String"/>
-	<field name="MATERIA_NOMBRE" class="java.lang.String"/>
+	<field name="DOCENTE" class="java.lang.String"/>
+	<field name="MATERIA" class="java.lang.String"/>
 	<field name="GRADO" class="java.lang.String"/>
-	<field name="NOMBRE_SECCION" class="java.lang.String"/>
-	<field name="TURNO_NOMBRE" class="java.lang.String"/>
+	<field name="SECCION" class="java.lang.String"/>
+	<field name="TURNO" class="java.lang.String"/>
 	<field name="NOTA1" class="java.math.BigDecimal"/>
 	<field name="NOTA2" class="java.math.BigDecimal"/>
 	<field name="NOTA3" class="java.math.BigDecimal"/>
 	<field name="PROMEDIO" class="java.math.BigDecimal"/>
-	<field name="Periodo" class="java.math.BigDecimal"/>
+	<field name="PERIODO" class="java.math.BigDecimal"/>
 	<variable name="NOMBRE_SECCION_1" class="java.lang.Integer" resetType="Page" calculation="Count">
-		<variableExpression><![CDATA[$F{NOMBRE_SECCION}]]></variableExpression>
+		<variableExpression><![CDATA[]]></variableExpression>
 	</variable>
 	<group name="Grupo1">
 		<groupExpression><![CDATA[$F{ALUMNO}]]></groupExpression>
@@ -95,14 +104,14 @@
 					<textElement textAlignment="Center">
 						<font fontName="Arial" size="10" isUnderline="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{NOMBRE_SECCION}]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{SECCION}.toString()]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="195" y="191" width="64" height="16"/>
 					<textElement>
 						<font fontName="Arial" size="10" isBold="true" isUnderline="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{TURNO_NOMBRE}]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{TURNO}.toString()]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="378" y="156" width="22" height="13"/>
@@ -130,7 +139,7 @@
 					<textElement textAlignment="Center">
 						<font fontName="Arial" size="10" isUnderline="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{Periodo}.toString()]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PERIODO}.toString()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="40" y="248" width="189" height="20"/>
@@ -186,7 +195,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{MATERIA_NOMBRE}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MATERIA}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="246" y="0" width="37" height="20"/>

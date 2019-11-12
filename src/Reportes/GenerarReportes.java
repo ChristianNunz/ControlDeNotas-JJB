@@ -43,16 +43,16 @@ public class GenerarReportes {
         
     }
     
-    public void MiPrimeroReporte(String periodo, String grado, String seccion){
+    public void ReporteTrimestral(String periodo, String grado, String seccion){
         try {
             File miDir = new File (".");
             String ruta = miDir.getCanonicalPath();
             JasperReport report = (JasperReport) JRLoader.loadObject(ruta+"\\src\\Reportes\\ReportePorTrimestre.jasper");
-            
+
             ConectionDB con = new ConectionDB();
             Map parametros = new HashMap<>();
             parametros.put("per", periodo);
-            parametros.put("gra", grado);
+            parametros.put("grad", grado);
             parametros.put("sec", seccion);            
             JasperPrint print = JasperFillManager.fillReport(report,parametros,con.getconnection());
             
