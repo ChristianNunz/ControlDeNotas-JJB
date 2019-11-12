@@ -6,11 +6,13 @@
 package Views;
 
 
+import Views.Administrador.ReporteDeNota;
 import Views.Administrador.ReporteReprobados;
 import Views.Maestro.Editar_Nota_M;
 import Views.Maestro.ReporteReprobadosM;
 import Views.Maestro.Subir_Nota;
 import Views.Maestro.Ver_Materias;
+import Views.Maestro.reporteTrimestral;
 import java.awt.Dimension;
 
 /**
@@ -266,6 +268,12 @@ public class Menu_M extends javax.swing.JFrame {
 
     private void Btn_rpt_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_notasActionPerformed
         // TODO add your handling code here:
+         CerrarHijos();
+        reporteTrimestral reporte = new reporteTrimestral();   
+          reporte.setIdLog(idLog);
+        reporte.setSize(sisze());
+         reporte.setSize(sisze());
+        DesktopPanel.add(reporte);
     }//GEN-LAST:event_Btn_rpt_notasActionPerformed
 
     private void Btn_rpt_alumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_alumnosActionPerformed
