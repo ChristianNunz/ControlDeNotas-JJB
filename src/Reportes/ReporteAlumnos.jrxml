@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4040c8bc-c8e0-4881-852a-afa6e8a581ae">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -17,7 +17,8 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT * FROM alumnos
-WHERE docente = 'Jose Mauricio Gonzales Renderos'  and Grado = '4' and Seccion='A' AND Materia ='Matemática']]>
+WHERE docente = $P{nombred}  and Grado =$P{grado}  and Seccion=$P{sec} AND Materia =$P{nombremat}
+order by alumno,materia]]>
 	</queryString>
 	<field name="ALUMNO" class="java.lang.String"/>
 	<field name="GRADO" class="java.lang.String"/>
@@ -29,59 +30,74 @@ WHERE docente = 'Jose Mauricio Gonzales Renderos'  and Grado = '4' and Seccion='
 		<groupHeader>
 			<band height="115">
 				<staticText>
-					<reportElement x="246" y="32" width="352" height="22" uuid="19f8a246-c7bd-45b8-92e9-87a1aaca05b8"/>
+					<reportElement x="246" y="32" width="352" height="22"/>
 					<textElement textAlignment="Center">
 						<font size="16" isBold="true"/>
 					</textElement>
 					<text><![CDATA[CENTRO ESCOLAR JUAN JOSE BERNAL]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="284" y="0" width="297" height="20" uuid="f8572e67-0f1a-48bb-9b7e-30bc9a906c8f"/>
+					<reportElement x="284" y="0" width="297" height="20"/>
 					<textElement textAlignment="Justified">
 						<font size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[ALUMNOS INSCRITOS POR MATERIA]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="14" y="68" width="61" height="20" uuid="f01bbc93-4e58-4037-99b3-bb0c98fe7d8d"/>
+					<reportElement x="14" y="68" width="61" height="20"/>
 					<textElement>
-						<font size="12"/>
+						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[DOCENTE]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="75" y="68" width="158" height="20" uuid="8e893471-9ac5-4e95-8c50-df34ddf87541"/>
+					<reportElement x="75" y="68" width="158" height="20"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{DOCENTE}]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCENTE}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="246" y="68" width="78" height="20" uuid="6a8abcde-cedc-4b1f-be5b-a28872fff717"/>
+					<reportElement x="246" y="68" width="78" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[ASIGNATURA]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="335" y="68" width="180" height="20" uuid="1ff5064a-5609-42be-bb5c-872357ff0a85"/>
-					<textFieldExpression><![CDATA[$F{MATERIA}]]></textFieldExpression>
+					<reportElement x="335" y="68" width="173" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{MATERIA}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="543" y="68" width="39" height="20" uuid="99c2772f-0576-49d3-8c15-3746dc940d6a"/>
+					<reportElement x="227" y="95" width="39" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[GRADO]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="585" y="68" width="55" height="20" uuid="9fba8392-3c00-44a8-a238-962539681235"/>
-					<textFieldExpression><![CDATA[$F{GRADO}]]></textFieldExpression>
+					<reportElement x="269" y="95" width="55" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{GRADO}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="654" y="68" width="51" height="20" uuid="5e49bedc-9a4f-4184-9ee0-722394bd2530"/>
+					<reportElement x="338" y="95" width="51" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[SECCION]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="705" y="68" width="47" height="20" uuid="15c9c8cd-6297-4a40-8877-5c3cf2c69c86"/>
-					<textFieldExpression><![CDATA[$F{SECCION}]]></textFieldExpression>
+					<reportElement x="389" y="95" width="47" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{SECCION}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="14" y="95" width="130" height="20" uuid="bbd07064-819c-4ea1-892a-b2bc950ad9c8"/>
+					<reportElement x="14" y="95" width="130" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[NOMBRE DEL ALUMNO]]></text>
 				</staticText>
 			</band>
@@ -93,8 +109,9 @@ WHERE docente = 'Jose Mauricio Gonzales Renderos'  and Grado = '4' and Seccion='
 	<detail>
 		<band height="22" splitType="Stretch">
 			<textField>
-				<reportElement x="14" y="0" width="295" height="20" uuid="4ce25408-dfda-4e14-b605-4566d823618d"/>
-				<textFieldExpression><![CDATA[$F{ALUMNO}]]></textFieldExpression>
+				<reportElement x="14" y="0" width="494" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUMNO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
