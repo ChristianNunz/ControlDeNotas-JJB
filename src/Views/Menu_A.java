@@ -18,6 +18,7 @@ import Views.Administrador.Editar_Encargado;
 import Views.Administrador.Editar_Maestro;
 import Views.Administrador.Editar_Materia;
 import Views.Administrador.Editar_Nota;
+import Views.Administrador.ReporteAlumnos;
 import Views.Administrador.ReporteDeNota;
 import Views.Administrador.ReporteReprobados;
 import Views.Administrador.Reporte_MateriasAsignadas;
@@ -431,6 +432,15 @@ public class Menu_A extends javax.swing.JFrame {
 
     private void Btn_rpt_alumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_alumnosActionPerformed
         // TODO add your handling code here:
+        CerrarHijos();
+        ReporteAlumnos alumnnos = new ReporteAlumnos();     
+        // repro.setSize(sisze());
+        DesktopPanel.add(alumnnos);
+        
+        Dimension desktopSize = DesktopPanel.getSize();
+        Dimension FrameSize = alumnnos.getSize();
+        alumnnos.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        alumnnos.show();
     }//GEN-LAST:event_Btn_rpt_alumnosActionPerformed
 
     private void Btn_rpt_reproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_reproActionPerformed

@@ -128,4 +128,27 @@ public class GenerarReportes {
             JOptionPane.showMessageDialog(null,"Error: "+e);
         }
     }
+    
+    public void ReporteAlumnos(){
+        try {
+            File miDir = new File(".");
+            String Ruta =miDir.getCanonicalPath();
+            JasperReport repor = (JasperReport) JRLoader.loadObject(Ruta+"\\src\\Reportes\\ReporteAlumnos.jasper");
+            ConectionDB con = new ConectionDB();
+            
+            Map parametros = new HashMap<>();
+            parametros.put("sec", "A");
+             parametros.put("grado", "4");
+            parametros.put("nombred", "jose");
+            parametros.put("nombremat", "Lenguaje");
+            JasperPrint print = JasperFillManager.fillReport(repor, parametros,con.getconnection());
+            
+            JasperViewer view = new JasperViewer(print,false);
+            view.setTitle("Alumnos");
+            view.setVisible(true);
+         
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error: "+e);
+        }
+    }
 }
