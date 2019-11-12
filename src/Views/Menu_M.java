@@ -6,9 +6,11 @@
 package Views;
 
 
+import Views.Administrador.Crear_Maestro;
 import Views.Administrador.ReporteDeNota;
 import Views.Administrador.ReporteReprobados;
 import Views.Maestro.Editar_Nota_M;
+import Views.Maestro.ReporteAlumnos;
 import Views.Maestro.ReporteReprobadosM;
 import Views.Maestro.Subir_Nota;
 import Views.Maestro.Ver_Materias;
@@ -274,10 +276,26 @@ public class Menu_M extends javax.swing.JFrame {
         reporte.setSize(sisze());
          reporte.setSize(sisze());
         DesktopPanel.add(reporte);
+        
+        
+//         CerrarHijos();
+//       Crear_Maestro m = new Crear_Maestro();       
+//       DesktopPanel.add(m);
+//       Dimension desktopSize = DesktopPanel.getSize();
+//        Dimension FrameSize = m.getSize();
+//        m.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+//        m.show();
     }//GEN-LAST:event_Btn_rpt_notasActionPerformed
 
     private void Btn_rpt_alumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_alumnosActionPerformed
         // TODO add your handling code here:
+        
+         CerrarHijos();
+        ReporteAlumnos reporte = new ReporteAlumnos();   
+          reporte.setIdLog(idLog);
+        reporte.setSize(sisze());
+         reporte.setSize(sisze());
+        DesktopPanel.add(reporte);
     }//GEN-LAST:event_Btn_rpt_alumnosActionPerformed
 
     private void Btn_Registrar_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_materiaActionPerformed

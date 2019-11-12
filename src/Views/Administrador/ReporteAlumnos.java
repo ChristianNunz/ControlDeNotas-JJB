@@ -41,7 +41,7 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
         initComponents();
         LLenarComboS(); 
         LLenarComboG(); 
-        LLenarComboD();
+       
         LLenarComboM();
         
     }
@@ -60,8 +60,6 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
         lblUsuario2 = new javax.swing.JLabel();
         cmb_secc = new javax.swing.JComboBox();
         lblUsuario3 = new javax.swing.JLabel();
-        cmb_docente = new javax.swing.JComboBox();
-        lblUsuario6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         cmb_mat = new javax.swing.JComboBox();
         lblUsuario5 = new javax.swing.JLabel();
@@ -92,7 +90,7 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
                 GenerarReporteActionPerformed(evt);
             }
         });
-        getContentPane().add(GenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 180, -1));
+        getContentPane().add(GenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 180, -1));
 
         getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 180, -1));
 
@@ -105,12 +103,6 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
         lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario3.setText("Seccion:");
         getContentPane().add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, 20));
-
-        getContentPane().add(cmb_docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 180, -1));
-
-        lblUsuario6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario6.setText("Docente:");
-        getContentPane().add(lblUsuario6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, 20));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("REPORTE ALUMNOS");
@@ -128,18 +120,17 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
     private void GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarReporteActionPerformed
         GenerarReportes gr = new GenerarReportes();
        String nombremat = cmb_mat.getSelectedItem().toString();
-        String nombred = cmb_docente.getSelectedItem().toString();
+        
         //String per = cmb_periodo.getSelectedItem().toString();
         String sec= cmb_secc.getSelectedItem().toString();
         String grado = cmb_grado.getSelectedItem().toString();
       
-        gr.ReporteAlumnos(sec,grado,nombred,nombremat);
+        gr.ReporteAlumnos(sec,grado,"",nombremat);
     }//GEN-LAST:event_GenerarReporteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GenerarReporte;
-    private javax.swing.JComboBox cmb_docente;
     private javax.swing.JComboBox cmb_grado;
     private javax.swing.JComboBox cmb_mat;
     private javax.swing.JComboBox cmb_secc;
@@ -147,7 +138,6 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuario2;
     private javax.swing.JLabel lblUsuario3;
     private javax.swing.JLabel lblUsuario5;
-    private javax.swing.JLabel lblUsuario6;
     // End of variables declaration//GEN-END:variables
 
        private void LLenarComboS() {
@@ -170,12 +160,5 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
         }
     }
     
-     private void LLenarComboD() {
-        List<Docente> docentes = djc.findDocenteEntities();
-        for (Docente docente : docentes) {
-            if (docente.getDocenteEstado().equals("Activo")) {
-              cmb_docente.addItem(docente.getDocenteNombre() +" " + docente.getDocenteApellido());   
-            }            
-        }
-    }
+     
 }

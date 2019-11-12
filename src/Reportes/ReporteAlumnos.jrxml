@@ -17,7 +17,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT * FROM alumnos
-WHERE docente = $P{nombred}  and Grado =$P{grado}  and Seccion=$P{sec} AND Materia =$P{nombremat}
+WHERE   Grado =$P{grado}  and Seccion=$P{sec} AND Materia =$P{nombremat}
 order by alumno,materia]]>
 	</queryString>
 	<field name="ALUMNO" class="java.lang.String"/>
