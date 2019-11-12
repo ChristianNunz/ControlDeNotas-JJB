@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 import javax.swing.JFileChooser;
@@ -334,7 +335,9 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
         String Mensaje="Algo salio mal.";
         try {
             for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
-                StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("registrar_nota_Admin");
+                EntityManager em = entityMain.GetEntityManager();
+                em.getTransaction().begin();
+                StoredProcedureQuery spq = em.createStoredProcedureQuery("registrar_nota_Admin");
             
                 spq.registerStoredProcedureParameter("dNombre", String.class, ParameterMode.IN);        
                 spq.registerStoredProcedureParameter("dGrado", String.class, ParameterMode.IN);
@@ -347,8 +350,6 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
                 spq.registerStoredProcedureParameter("aNotaB", Integer.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("aNotaC", Integer.class, ParameterMode.IN);        
                 spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
-
-                    
                 
                 spq.setParameter("dNombre", txtDocente.getText());      
                 spq.setParameter("dGrado", Integer.toString(Integer.parseInt(txtGrado.getText())));
@@ -365,11 +366,12 @@ public class Crear_Nota extends javax.swing.JInternalFrame {
                 spq.execute();
                 
                 Mensaje=spq.getOutputParameterValue("msj").toString();
-                
+                em.getTransaction().commit();
+                em.close();
             }
             JOptionPane.showMessageDialog(rootPane,Mensaje);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane,"Algo salio mal." + e);
+            JOptionPane.showMessageDialog(rootPane,"Algo salio mal.");
         }
     }//GEN-LAST:event_Btn_GuardarActionPerformed
 

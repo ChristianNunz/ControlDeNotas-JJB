@@ -21,11 +21,12 @@ public class entityMain {
     public entityMain(){
     }
     public static EntityManagerFactory getInstance(){
+        
         return ent;
     }
     public static EntityManager GetEntityManager(){
         EntityManager em = ent.createEntityManager();
         
         return em;
-    }
+        }
 }

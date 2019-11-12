@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 import javax.swing.JFileChooser;
@@ -179,7 +180,9 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
         try {
 
             for (ModeloAlumnoResponsable alumnoRes : alumnoRespon) {
-                StoredProcedureQuery spq = entityMain.getInstance().createEntityManager().createStoredProcedureQuery("registrar_alumno_representante");
+                EntityManager em = entityMain.GetEntityManager();
+                em.getTransaction().begin();
+                StoredProcedureQuery spq = em.createStoredProcedureQuery("registrar_alumno_representante");
 
                 spq.registerStoredProcedureParameter("aNom", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("aApe", String.class, ParameterMode.IN);
@@ -219,9 +222,10 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
 
 
                 spq.execute();
-
+                    
                 
-               
+               em.getTransaction().commit();
+                em.close();
             }
              JOptionPane.showMessageDialog(rootPane,"Registrado");
         } catch (Exception e) {
