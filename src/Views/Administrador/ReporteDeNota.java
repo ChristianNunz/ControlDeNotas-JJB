@@ -138,7 +138,7 @@ public class ReporteDeNota extends javax.swing.JInternalFrame {
         String seccion= (String) cmb_secc.getSelectedItem();
        
         GenerarReportes reporte = new GenerarReportes();
-        reporte.ReporteTrimestral(periodo, grado, seccion);
+        reporte.RF( grado, seccion);
         
         //JOptionPane.showMessageDialog(rootPane,"G "+grado+" M "+materia+" S "+seccion);
     }//GEN-LAST:event_btn_buscarActionPerformed

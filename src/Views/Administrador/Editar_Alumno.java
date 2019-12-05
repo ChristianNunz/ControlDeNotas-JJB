@@ -332,7 +332,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         
         GenerarReportes gr = new GenerarReportes();
         String seccion = "a";
-        gr.ReporteTrimestralAdmin("A", "Bladimir");
+        //gr.ReporteTrimestralAdmin("A", "Bladimir");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
     
     private void tabla_alumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_alumnosMouseClicked

@@ -125,7 +125,7 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
         String sec= cmb_secc.getSelectedItem().toString();
         String grado = cmb_grado.getSelectedItem().toString();
       
-        gr.ReporteAlumnos(sec,grado,"",nombremat);
+        //gr.ReporteAlumnos(sec,grado,"",nombremat);
     }//GEN-LAST:event_GenerarReporteActionPerformed
 
 

@@ -143,7 +143,7 @@ public class ReporteReprobados extends javax.swing.JInternalFrame {
         String Nobresec= cmb_secc.getSelectedItem().toString();
         String Grado = cmb_grado.getSelectedItem().toString();
         
-        gr.ReporteReprobadosM(Nobresec, per, Nombred, Grado);
+//        gr.ReporteReprobadosM(Nobresec, per, Nombred, Grado);
     }//GEN-LAST:event_GenerarReporteActionPerformed
 
 

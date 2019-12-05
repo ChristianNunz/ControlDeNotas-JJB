@@ -128,7 +128,7 @@ public class reporteTrimestral extends javax.swing.JInternalFrame {
         String seccion= (String) cmb_seccion.getSelectedItem();
        
         GenerarReportes reporte = new GenerarReportes();
-        reporte.ReporteTrimestral(periodo, grado, seccion);
+//        reporte.ReporteTrimestral(periodo, grado, seccion);
         
        
        

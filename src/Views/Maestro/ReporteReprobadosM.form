@@ -28,7 +28,6 @@
   </Properties>
   <AccessibilityProperties>
     <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Reprobados"/>
-    <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Reporte Reprobados"/>
   </AccessibilityProperties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

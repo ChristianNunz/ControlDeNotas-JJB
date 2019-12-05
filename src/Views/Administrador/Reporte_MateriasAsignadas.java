@@ -145,7 +145,7 @@ public class Reporte_MateriasAsignadas extends javax.swing.JInternalFrame {
 
      String docente = cmb_docente.getSelectedItem().toString();
      GenerarReportes gr = new GenerarReportes();
-     gr.ReporteMateria(docente);
+//     gr.ReporteMateria(docente);
     }//GEN-LAST:event_Btn_GenerarReporteActionPerformed
 
      
