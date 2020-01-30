@@ -8,7 +8,6 @@ package Views.Administrador;
 import Acceso_Datos.AlumnoJpaController;
 import Acceso_Datos.entityMain;
 import Logica_Negocios.Alumno;
-import Reportes.GenerarReportes;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
@@ -330,7 +329,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         txtTelefono.setText("");
         txtNie.setText("");
         
-        GenerarReportes gr = new GenerarReportes();
+//        GenerarReportes gr = new GenerarReportes();
         String seccion = "a";
         //gr.ReporteTrimestralAdmin("A", "Bladimir");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed

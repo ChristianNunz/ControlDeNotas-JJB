@@ -17,7 +17,6 @@ import Logica_Negocios.Docente;
 import Logica_Negocios.Grado;
 import Logica_Negocios.Materia;
 import Logica_Negocios.Seccion;
-import Reportes.GenerarReportes;
 import java.util.List;
 
 /**
@@ -118,7 +117,7 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarReporteActionPerformed
-        GenerarReportes gr = new GenerarReportes();
+//        GenerarReportes gr = new GenerarReportes();
        String nombremat = cmb_mat.getSelectedItem().toString();
         
         //String per = cmb_periodo.getSelectedItem().toString();

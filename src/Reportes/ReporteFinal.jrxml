@@ -1,60 +1,199 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Jorge Villanueva\\Desktop\\TPS 2019\\Proyecto TPS\\ControlDeNotas-JJB\\src\\Reportes\\"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="Grado" class="java.lang.String"/>
-	<parameter name="sec" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from dual]]>
+		<![CDATA[select alu.id_alumno,alu.alumno_nombre || ' ' || alu.alumno_apelidos as Alumno, gra.grado, sec.nombre_seccion, mg.anho,mt.materia_nombre,per.periodo,SUM(0.35*per.nota1+0.35*per.nota2+0.30*per.nota3) as Promedio from alumno alu
+inner join nota nt on alu.id_alumno = nt.id_alumno
+inner join periodo per on nt.id_nota = per.id_nota
+inner join materia_grado mg on nt.id_materia_grado = mg.id_materia_grado
+inner join materia mt  on mg.id_materia = mg.id_materia
+inner join grado gra on mg.id_grado = gra.id_grado
+inner join seccion sec on mg.id_seccion = sec.id_seccion
+where per.periodo=1
+Group by alu.id_alumno,alu.alumno_nombre, alu.alumno_apelidos, gra.grado, sec.nombre_seccion, mg.anho,mt.materia_nombre,per.periodo
+order by alu.id_alumno, mt.materia_nombre,per.periodo]]>
 	</queryString>
-	<field name="DUMMY" class="java.lang.String"/>
+	<field name="ID_ALUMNO" class="java.math.BigDecimal"/>
+	<field name="ALUMNO" class="java.lang.String"/>
+	<field name="GRADO" class="java.lang.String"/>
+	<field name="NOMBRE_SECCION" class="java.lang.String"/>
+	<field name="ANHO" class="java.math.BigDecimal"/>
+	<field name="MATERIA_NOMBRE" class="java.lang.String"/>
+	<field name="PERIODO" class="java.math.BigDecimal"/>
+	<field name="PROMEDIO" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="294" splitType="Stretch">
-			<subreport>
-				<reportElement x="14" y="0" width="50" height="100"/>
-				<subreportParameter name="Grado">
-					<subreportParameterExpression><![CDATA[$P{Grado}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="sec">
-					<subreportParameterExpression><![CDATA[$P{sec}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreporteperiodo1.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="226" y="0" width="49" height="100"/>
-				<subreportParameter name="Grado">
-					<subreportParameterExpression><![CDATA[$P{Grado}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="sec">
-					<subreportParameterExpression><![CDATA[$P{sec}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreporteperiodo2.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="323" y="0" width="49" height="100"/>
-				<subreportParameter name="Grado">
-					<subreportParameterExpression><![CDATA[$P{Grado}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="sec">
-					<subreportParameterExpression><![CDATA[$P{sec}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreporteperiodo3.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="425" y="0" width="49" height="100"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreportepromedio.jasper"]]></subreportExpression>
-			</subreport>
+		<band height="439" splitType="Stretch">
+			<image>
+				<reportElement x="13" y="11" width="52" height="52"/>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Eras Bold ITC" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CENTRO ESCOLAR JUAN JOSE BERNAL]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="83" width="802" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="63" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME DE NOTAS DEL CICLO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="95" width="65" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALUMNO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="126" width="65" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRADO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="156" width="65" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SECCION:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="188" width="802" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="13" y="199" width="280" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Materia:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="228" width="802" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="293" y="199" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Periodo 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="199" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Periodo 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="469" y="199" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Periodo 3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="555" y="199" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Promedio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="242" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[7.5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="469" y="242" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[9.2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="555" y="242" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[8.2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="639" y="199" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resultado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="639" y="242" width="65" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aprobada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="126" width="34" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AÑO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="78" y="95" width="724" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ALUMNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="126" width="100" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GRADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="126" width="100" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ANHO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="156" width="724" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_SECCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="242" width="280" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MATERIA_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="242" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PROMEDIO}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 </jasperReport>

@@ -20,7 +20,7 @@ import Logica_Negocios.Grado;
 import Logica_Negocios.Materia;
 import Logica_Negocios.Periodo;
 import Logica_Negocios.Seccion;
-import Reportes.GenerarReportes;
+//import Reportes.GenerarReportes;
 import java.beans.PropertyVetoException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -137,8 +137,8 @@ public class ReporteDeNota extends javax.swing.JInternalFrame {
         String grado= (String) cmb_grado.getSelectedItem();
         String seccion= (String) cmb_secc.getSelectedItem();
        
-        GenerarReportes reporte = new GenerarReportes();
-        reporte.RF( grado, seccion);
+//        GenerarReportes reporte = new GenerarReportes();
+  //      reporte.RF( grado, seccion);
         
         //JOptionPane.showMessageDialog(rootPane,"G "+grado+" M "+materia+" S "+seccion);
     }//GEN-LAST:event_btn_buscarActionPerformed

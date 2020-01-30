@@ -6,6 +6,7 @@
 package Acceso_Datos;
 
 
+
 import Logica_Negocios.EditarNota;
 import Logica_Negocios.Materia;
 import java.math.BigDecimal;
@@ -27,7 +28,7 @@ import javax.swing.JOptionPane;
  */
 public class ConectionDB {
     private static String url="jdbc:oracle:thin:@localhost:1521:XE";
-    private static String user="director";
+    private static String user="directora";
     private static String pass="jjb";
    
     public Connection conn;

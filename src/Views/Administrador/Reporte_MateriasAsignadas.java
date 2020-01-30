@@ -21,7 +21,7 @@ import Logica_Negocios.Materia;
 import Logica_Negocios.MateriaGrado;
 import Logica_Negocios.Seccion;
 import Logica_Negocios.Turno;
-import Reportes.GenerarReportes;
+//import Reportes.GenerarReportes;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -144,7 +144,7 @@ public class Reporte_MateriasAsignadas extends javax.swing.JInternalFrame {
     private void Btn_GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GenerarReporteActionPerformed
 
      String docente = cmb_docente.getSelectedItem().toString();
-     GenerarReportes gr = new GenerarReportes();
+//     GenerarReportes gr = new GenerarReportes();
 //     gr.ReporteMateria(docente);
     }//GEN-LAST:event_Btn_GenerarReporteActionPerformed
 

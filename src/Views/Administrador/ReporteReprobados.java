@@ -19,7 +19,7 @@ import Logica_Negocios.Materia;
 import Logica_Negocios.MateriaGrado;
 import Logica_Negocios.Seccion;
 import Logica_Negocios.Turno;
-import Reportes.GenerarReportes;
+//import Reportes.GenerarReportes;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -136,7 +136,7 @@ public class ReporteReprobados extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarReporteActionPerformed
-        GenerarReportes gr = new GenerarReportes();
+//        GenerarReportes gr = new GenerarReportes();
        // String Nombremat = cmb_mat1.getSelectedItem().toString();
         String Nombred = cmb_docente.getSelectedItem().toString();
         String per = cmb_periodo.getSelectedItem().toString();

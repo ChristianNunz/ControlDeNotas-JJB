@@ -15,7 +15,7 @@ import Acceso_Datos.entityMain;
 import Logica_Negocios.Docente;
 import Logica_Negocios.EditarNota;
 import Logica_Negocios.Materia;
-import Reportes.GenerarReportes;
+//import Reportes.GenerarReportes;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -127,7 +127,7 @@ public class reporteTrimestral extends javax.swing.JInternalFrame {
         String grado= (String) cmb_grado.getSelectedItem();
         String seccion= (String) cmb_seccion.getSelectedItem();
        
-        GenerarReportes reporte = new GenerarReportes();
+//        GenerarReportes reporte = new GenerarReportes();
 //        reporte.ReporteTrimestral(periodo, grado, seccion);
         
        

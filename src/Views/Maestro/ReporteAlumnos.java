@@ -15,7 +15,7 @@ import Acceso_Datos.entityMain;
 import Logica_Negocios.Docente;
 import Logica_Negocios.EditarNota;
 import Logica_Negocios.Materia;
-import Reportes.GenerarReportes;
+//import Reportes.GenerarReportes;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -127,7 +127,7 @@ public class ReporteAlumnos extends javax.swing.JInternalFrame {
 
     private void btn_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrarActionPerformed
         // TODO add your handling code here:
-        GenerarReportes gr = new GenerarReportes();
+//        GenerarReportes gr = new GenerarReportes();
        String nombremat = cmb_materia.getSelectedItem().toString();
 //        String nombred = cmb.getSelectedItem().toString();        
         String sec= cmb_seccion.getSelectedItem().toString();
