@@ -16,11 +16,14 @@
     <class>Logica_Negocios.Responsable</class>
     <class>Logica_Negocios.AlumnoResponsable</class>
     <class>Logica_Negocios.MateriaGrado</class>
+    <class>LogicaNegocios.Periodo1</class>
+    <class>LogicaNegocios.Periodo3</class>
+    <class>LogicaNegocios.Periodo2</class>
     <class>Logica_Negocios.Alumno</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
       <!--- cadena de conexion -->
-      <property name="javax.persistence.jdbc.user" value="DIRECTOR"/>
+      <property name="javax.persistence.jdbc.user" value="directora"/>
       <!--- Usuario -->
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
       <!--- Nombre de Driver de Oracle y ruta de paquete-->

@@ -281,7 +281,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
                 Alumno alumno = new Alumno();   
                 alumno.setIdAlumno(new BigDecimal(id));
                 alumno.setAlumnoNombre(nombre);
-                alumno.setAlumnoApelidos(apellido);
+                alumno.setAlumnoApellidos(apellido);
                 alumno.setAlumnoDireccion(direcc);
                 alumno.setAlumnoTel(tel);            
                 alumno.setAlumnoNie(nie);
@@ -384,13 +384,13 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
         {
             String[] registroC = {lm.get(i).getIdAlumno().toString(), 
                                   lm.get(i).getAlumnoNombre(),
-                                  lm.get(i).getAlumnoApelidos(),
+                                  lm.get(i).getAlumnoApellidos(),
             lm.get(i).getAlumnoTel(),
             lm.get(i).getAlumnoNie(),
             lm.get(i).getAlumnoDireccion(),
-            lm.get(i).getAlumnoFechaNac(),
-            lm.get(i).getAlumnoGenero(),
-            lm.get(i).getAlumnoEstado()};
+            lm.get(i).getAlumnoFechaNac().toString(),
+            lm.get(i).getAlumnoGenero().toString(),
+            lm.get(i).getAlumnoEstado().toString()};
             modM.addRow(registroC);
         }          
     }

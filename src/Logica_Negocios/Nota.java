@@ -5,6 +5,9 @@
  */
 package Logica_Negocios;
 
+import LogicaNegocios.Periodo1;
+import LogicaNegocios.Periodo2;
+import LogicaNegocios.Periodo3;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,6 +22,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,6 +33,12 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Nota.findAll", query = "SELECT n FROM Nota n")})
 public class Nota implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNota")
+    private List<Periodo1> periodo1List;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNota")
+    private List<Periodo3> periodo3List;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNota")
+    private List<Periodo2> periodo2List;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -107,6 +117,33 @@ public class Nota implements Serializable {
     @Override
     public String toString() {
         return "Logica_Negocios.Nota[ idNota=" + idNota + " ]";
+    }
+
+    @XmlTransient
+    public List<Periodo1> getPeriodo1List() {
+        return periodo1List;
+    }
+
+    public void setPeriodo1List(List<Periodo1> periodo1List) {
+        this.periodo1List = periodo1List;
+    }
+
+    @XmlTransient
+    public List<Periodo3> getPeriodo3List() {
+        return periodo3List;
+    }
+
+    public void setPeriodo3List(List<Periodo3> periodo3List) {
+        this.periodo3List = periodo3List;
+    }
+
+    @XmlTransient
+    public List<Periodo2> getPeriodo2List() {
+        return periodo2List;
+    }
+
+    public void setPeriodo2List(List<Periodo2> periodo2List) {
+        this.periodo2List = periodo2List;
     }
     
 }

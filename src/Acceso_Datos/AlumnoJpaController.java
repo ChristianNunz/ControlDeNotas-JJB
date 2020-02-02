@@ -153,7 +153,7 @@ public class AlumnoJpaController implements Serializable {
            // ConectionDB con = new ConectionDB();
             List<EditarNota> editarNotas = new ArrayList<EditarNota>();
             Statement st = con.createStatement();
-            ResultSet resultSet = st.executeQuery("SELECT a.ID_ALUMNO,a.alumno_nombre,a.alumno_apelidos,a.ALUMNO_ESTADO FROM alumno A"
+            ResultSet resultSet = st.executeQuery("SELECT a.ID_ALUMNO,a.alumno_nombre,a.alumno_apellidos,a.ALUMNO_ESTADO FROM alumno A"
                     + " INNER JOIN NOTA N ON a.id_alumno = n.id_alumno "
                     + "INNER JOIN periodo P ON n.id_nota = p.id_nota "
                     + "INNER JOIN materia_grado MG ON n.id_materia_grado=mg.id_materia_grado "

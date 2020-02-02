@@ -8,34 +8,37 @@ package Logica_Negocios;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author diego
+ * @author Jorge Villanueva
  */
 @Entity
 @Table(name = "ALUMNO")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Alumno.findAll", query = "SELECT a FROM Alumno a")})
+    @NamedQuery(name = "Alumno.findAll", query = "SELECT a FROM Alumno a"),
+    @NamedQuery(name = "Alumno.findByIdAlumno", query = "SELECT a FROM Alumno a WHERE a.idAlumno = :idAlumno"),
+    @NamedQuery(name = "Alumno.findByAlumnoNombre", query = "SELECT a FROM Alumno a WHERE a.alumnoNombre = :alumnoNombre"),
+    @NamedQuery(name = "Alumno.findByAlumnoApellidos", query = "SELECT a FROM Alumno a WHERE a.alumnoApellidos = :alumnoApellidos"),
+    @NamedQuery(name = "Alumno.findByAlumnoDireccion", query = "SELECT a FROM Alumno a WHERE a.alumnoDireccion = :alumnoDireccion"),
+    @NamedQuery(name = "Alumno.findByAlumnoTel", query = "SELECT a FROM Alumno a WHERE a.alumnoTel = :alumnoTel"),
+    @NamedQuery(name = "Alumno.findByAlumnoNie", query = "SELECT a FROM Alumno a WHERE a.alumnoNie = :alumnoNie"),
+    @NamedQuery(name = "Alumno.findByAlumnoFechaNac", query = "SELECT a FROM Alumno a WHERE a.alumnoFechaNac = :alumnoFechaNac"),
+    @NamedQuery(name = "Alumno.findByAlumnoGenero", query = "SELECT a FROM Alumno a WHERE a.alumnoGenero = :alumnoGenero"),
+    @NamedQuery(name = "Alumno.findByAlumnoEstado", query = "SELECT a FROM Alumno a WHERE a.alumnoEstado = :alumnoEstado")})
 public class Alumno implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAlumno")
-    private List<Nota> notaList;
-
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -46,8 +49,8 @@ public class Alumno implements Serializable {
     @Column(name = "ALUMNO_NOMBRE")
     private String alumnoNombre;
     @Basic(optional = false)
-    @Column(name = "ALUMNO_APELIDOS")
-    private String alumnoApelidos;
+    @Column(name = "ALUMNO_APELLIDOS")
+    private String alumnoApellidos;
     @Basic(optional = false)
     @Column(name = "ALUMNO_DIRECCION")
     private String alumnoDireccion;
@@ -75,10 +78,10 @@ public class Alumno implements Serializable {
         this.idAlumno = idAlumno;
     }
 
-    public Alumno(BigDecimal idAlumno, String alumnoNombre, String alumnoApelidos, String alumnoDireccion, String alumnoTel, String alumnoNie, Date alumnoFechaNac, BigInteger alumnoGenero, BigInteger alumnoEstado) {
+    public Alumno(BigDecimal idAlumno, String alumnoNombre, String alumnoApellidos, String alumnoDireccion, String alumnoTel, String alumnoNie, Date alumnoFechaNac, BigInteger alumnoGenero, BigInteger alumnoEstado) {
         this.idAlumno = idAlumno;
         this.alumnoNombre = alumnoNombre;
-        this.alumnoApelidos = alumnoApelidos;
+        this.alumnoApellidos = alumnoApellidos;
         this.alumnoDireccion = alumnoDireccion;
         this.alumnoTel = alumnoTel;
         this.alumnoNie = alumnoNie;
@@ -103,12 +106,12 @@ public class Alumno implements Serializable {
         this.alumnoNombre = alumnoNombre;
     }
 
-    public String getAlumnoApelidos() {
-        return alumnoApelidos;
+    public String getAlumnoApellidos() {
+        return alumnoApellidos;
     }
 
-    public void setAlumnoApelidos(String alumnoApelidos) {
-        this.alumnoApelidos = alumnoApelidos;
+    public void setAlumnoApellidos(String alumnoApellidos) {
+        this.alumnoApellidos = alumnoApellidos;
     }
 
     public String getAlumnoDireccion() {
@@ -135,38 +138,24 @@ public class Alumno implements Serializable {
         this.alumnoNie = alumnoNie;
     }
 
-    public String getAlumnoFechaNac() {
-       SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        String fecha=sdf.format(alumnoFechaNac);
-        return fecha;
+    public Date getAlumnoFechaNac() {
+        return alumnoFechaNac;
     }
 
     public void setAlumnoFechaNac(Date alumnoFechaNac) {
         this.alumnoFechaNac = alumnoFechaNac;
     }
 
-    public String getAlumnoGenero() {
-        BigInteger dos = new BigInteger("2");
-        int result=dos.compareTo(alumnoGenero);
-        if (result==0) {
-            return "F";
-        }else{
-            return "M";
-        }
+    public BigInteger getAlumnoGenero() {
+        return alumnoGenero;
     }
 
     public void setAlumnoGenero(BigInteger alumnoGenero) {
         this.alumnoGenero = alumnoGenero;
     }
 
-    public String getAlumnoEstado() {
-        BigInteger dos = new BigInteger("2");
-        int result=dos.compareTo(alumnoEstado);
-        if (result==0) {
-            return "Inactivo";
-        }else{
-            return "Activo";
-        }
+    public BigInteger getAlumnoEstado() {
+        return alumnoEstado;
     }
 
     public void setAlumnoEstado(BigInteger alumnoEstado) {
@@ -196,14 +185,6 @@ public class Alumno implements Serializable {
     @Override
     public String toString() {
         return "Logica_Negocios.Alumno[ idAlumno=" + idAlumno + " ]";
-    }
-
-    public List<Nota> getNotaList() {
-        return notaList;
-    }
-
-    public void setNotaList(List<Nota> notaList) {
-        this.notaList = notaList;
     }
     
 }
