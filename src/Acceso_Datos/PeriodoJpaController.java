@@ -207,7 +207,7 @@ public class PeriodoJpaController implements Serializable {
          try {
              //ConectionDB con = new ConectionDB();
             Statement st = con.createStatement();                              
-            st.executeUpdate("UPDATE PERIODO1 SET nota1="+nota1+", nota2="+nota2+", nota3="+nota3+" WHERE id_periodo1="+id_periodo+"");
+            st.executeUpdate("UPDATE PERIODO"+tbperiodo+" SET nota1="+nota1+", nota2="+nota2+", nota3="+nota3+" WHERE id_periodo"+tbperiodo+"="+id_periodo+"");
             con.commit();
             st.close();
         } catch (Exception e) {
