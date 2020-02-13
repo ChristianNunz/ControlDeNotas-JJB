@@ -275,7 +275,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
                  String NotaTres=txtnota3.getText().replace(",", ".");
                 
                  
-                 pjc.UpdateNota(id, NotaUno, NotaDos, NotaTres,con.conn);
+                 pjc.UpdateNota("pasar aqui el periodo ",id, NotaUno, NotaDos, NotaTres,con.conn);
                 cargartabla();
                 
                 JOptionPane.showMessageDialog(rootPane, "Notas Editadas Correctamente");

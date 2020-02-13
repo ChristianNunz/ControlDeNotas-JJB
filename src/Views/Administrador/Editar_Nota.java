@@ -283,7 +283,7 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
                  String NotaTres=txtnotaTres.getText().replace(",", ".");
                 
                  
-                 ConPeriodo.UpdateNota(id, NotaUno, NotaDos, NotaTres,con.conn);
+                 ConPeriodo.UpdateNota(periodo,id, NotaUno, NotaDos, NotaTres,con.conn);
                 cargartabla();
                 
                 JOptionPane.showMessageDialog(rootPane, "Notas Editadas Correctamente");
@@ -339,10 +339,10 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     private void cmb_matActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_matActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_matActionPerformed
-
+    String periodo;
      private void cargartabla(){
     
-        String periodo= cmb_periodo.getSelectedItem().toString();
+        periodo= cmb_periodo.getSelectedItem().toString();
         String grado=cmb_grado.getSelectedItem().toString();
         String materia=cmb_mat.getSelectedItem().toString();
         String seccion=cmb_secc.getSelectedItem().toString();

@@ -181,16 +181,15 @@ public class PeriodoJpaController implements Serializable {
             //ConectionDB con = new ConectionDB();
             List<EditarNota> editarNotas = new ArrayList<EditarNota>();
             Statement st = con.createStatement();
-            ResultSet resultSet = st.executeQuery("SELECT p.id_periodo,a.alumno_nombre,a.alumno_apelidos,p.nota1,p.nota2,p.nota3 FROM alumno A"
-                    + " INNER JOIN NOTA N ON a.id_alumno = n.id_alumno "
-                    + "INNER JOIN periodo P ON n.id_nota = p.id_nota "
-                    + "INNER JOIN materia_grado MG ON n.id_materia_grado=mg.id_materia_grado "
-                    + "INNER JOIN SECCION S ON mg.id_seccion = s.id_seccion "
-                    + "INNER JOIN turno T ON mg.id_turno = t.id_turno "
-                    + "INNER JOIN materia M ON mg.id_materia = m.id_materia "
-                    + "INNER JOIN docente D ON mg.id_docente=d.id_docente "
-                    + "INNER JOIN grado G ON mg.id_grado = g.id_grado "
-                    + "WHERE p.periodo="+periodo+" AND g.grado='"+grado+"' AND m.materia_nombre='"+materia+"' AND s.nombre_seccion='"+Seccion+"' AND d.id_docente='"+docenteid+"'");
+            ResultSet resultSet = st.executeQuery("SELECT id_periodo"+periodo+" ,al.alumno_nombre, al.alumno_apellidos, puno.nota1, puno.nota2, puno.nota3 FROM ALUMNO al " +
+                            "INNER JOIN nota nt on al.id_alumno = nt.id_alumno " +
+                            "INNER JOIN materia_grado mt on nt.id_materia_grado = mt.id_materia_grado " +
+                            "INNER JOIN materia mat on mt.id_materia = mat.id_materia " +
+                            "INNER JOIN grado gr on mt.id_grado = gr.id_grado " +
+                            "INNER JOIN seccion sec on mt.id_seccion = sec.id_seccion " +
+                            "INNER JOIN periodo"+periodo+" puno on nt.id_nota = puno.id_nota " +
+                            "INNER JOIN docente doc on mt.id_docente = doc.id_docente " +
+                            "where sec.nombre_seccion ='"+Seccion+"'  and mat.materia_nombre='"+materia+"' and doc.id_docente="+docenteid+" and gr.grado='"+grado+"'");
             while(resultSet.next()){
                 
                 
@@ -204,11 +203,11 @@ public class PeriodoJpaController implements Serializable {
         }
     }
     
-     public void UpdateNota(String id_periodo, String nota1, String nota2, String nota3,Connection con){
+     public void UpdateNota(String tbperiodo,String id_periodo, String nota1, String nota2, String nota3,Connection con){
          try {
              //ConectionDB con = new ConectionDB();
             Statement st = con.createStatement();
-            st.executeQuery("UPDATE PERIODO SET nota1="+nota1+", nota2="+nota2+", nota3="+nota3+" WHERE id_periodo="+id_periodo+"");                   
+            st.executeQuery("UPDATE PERIODO"+tbperiodo+" SET nota1="+nota1+", nota2="+nota2+", nota3="+nota3+" WHERE id_periodo"+tbperiodo+"="+id_periodo+"");                   
             st.close();
         } catch (Exception e) {
             
