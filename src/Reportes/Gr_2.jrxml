@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[Select count(alumno_nombre) Cant,materia  as Reprobados from PruebaReporteGrafico
+		<![CDATA[Select count(alumno_nombre) Cant,materia  as Reprobados from V_REPROBADOS
     where promp2 < 5 and grado = 4 and seccion = 'A'
     GROUP BY materia]]>
 	</queryString>
@@ -14,21 +14,64 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="34" splitType="Stretch">
+		<band height="72" splitType="Stretch">
 			<staticText>
-				<reportElement x="12" y="14" width="339" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
+				<reportElement x="97" y="32" width="339" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Alumnos reprobados por materia periodo #2]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="97" y="0" width="339" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CENTRO ESCOLAR JUAN JOSE BERNAL]]></text>
+			</staticText>
 		</band>
 	</title>
+	<pageHeader>
+		<band height="26">
+			<staticText>
+				<reportElement x="141" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPROBADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MATERIAS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="25">
+			<textField>
+				<reportElement x="141" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REPROBADOS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
 	<summary>
-		<band height="227" splitType="Stretch">
-			<pieChart>
+		<band height="245" splitType="Stretch">
+			<pie3DChart>
 				<chart>
-					<reportElement x="0" y="0" width="374" height="191"/>
+					<reportElement x="58" y="0" width="436" height="245"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -36,13 +79,12 @@
 				<pieDataset>
 					<keyExpression><![CDATA[$F{REPROBADOS}]]></keyExpression>
 					<valueExpression><![CDATA[$F{CANT}]]></valueExpression>
-					<labelExpression><![CDATA[$F{REPROBADOS} + " " + $F{CANT}]]></labelExpression>
 				</pieDataset>
-				<piePlot>
+				<pie3DPlot labelFormat="{2}">
 					<plot/>
-					<itemLabel/>
-				</piePlot>
-			</pieChart>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+				</pie3DPlot>
+			</pie3DChart>
 		</band>
 	</summary>
 </jasperReport>

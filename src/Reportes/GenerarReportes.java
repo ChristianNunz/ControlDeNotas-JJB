@@ -51,4 +51,25 @@ public class GenerarReportes {
             JOptionPane.showMessageDialog(null,"Error: "+e);
         }
     }
+    public void REPROBADOS1(String grado, String seccion){
+        try {
+            File miDir = new File (".");
+            String ruta = miDir.getCanonicalPath();
+            JasperReport report = JasperCompileManager.compileReport(ruta+"\\src\\Reportes\\Gr_1.jrxml");
+            
+            ConectionDB con = new ConectionDB();
+            Map parametros = new HashMap<>();
+            parametros.put("grado", grado);
+            parametros.put("seccion", seccion);
+            JasperPrint jp = JasperFillManager.fillReport(report,parametros,con.getconnection());            
+            JasperViewer.viewReport(jp,false);
+            JasperPrint print = JasperFillManager.fillReport(report,parametros,con.getconnection());
+            
+             JasperViewer view = new JasperViewer(print,false);
+             view.setTitle("Reporte");
+             view.setVisible(true);
+        } catch (IOException | JRException e) {
+             JOptionPane.showMessageDialog(null,"Error: "+e);
+        }
+    }
     }
