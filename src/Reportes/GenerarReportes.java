@@ -51,7 +51,7 @@ public class GenerarReportes {
             JOptionPane.showMessageDialog(null,"Error: "+e);
         }
     }
-    public void REPROBADOS1(String grado, String seccion){
+    public void REPROBADOS1(String grado, String seccion, String nombre){
         try {
             File miDir = new File (".");
             String ruta = miDir.getCanonicalPath();
@@ -61,13 +61,52 @@ public class GenerarReportes {
             Map parametros = new HashMap<>();
             parametros.put("grado", grado);
             parametros.put("seccion", seccion);
+            parametros.put("Nombred", nombre);
+            
             JasperPrint jp = JasperFillManager.fillReport(report,parametros,con.getconnection());            
             JasperViewer.viewReport(jp,false);
             JasperPrint print = JasperFillManager.fillReport(report,parametros,con.getconnection());
             
-             JasperViewer view = new JasperViewer(print,false);
-             view.setTitle("Reporte");
-             view.setVisible(true);
+        } catch (IOException | JRException e) {
+             JOptionPane.showMessageDialog(null,"Error: "+e);
+        }
+    }
+    public void REPROBADOS2(String grado, String seccion, String nombre){
+        try {
+            File miDir = new File (".");
+            String ruta = miDir.getCanonicalPath();
+            JasperReport report = JasperCompileManager.compileReport(ruta+"\\src\\Reportes\\Gr_2.jrxml");
+            
+            ConectionDB con = new ConectionDB();
+            Map parametros = new HashMap<>();
+            parametros.put("grado", grado);
+            parametros.put("seccion", seccion);
+            parametros.put("Nombred", nombre);
+            
+            JasperPrint jp = JasperFillManager.fillReport(report,parametros,con.getconnection());            
+            JasperViewer.viewReport(jp,false);
+            JasperPrint print = JasperFillManager.fillReport(report,parametros,con.getconnection());
+            
+        } catch (IOException | JRException e) {
+             JOptionPane.showMessageDialog(null,"Error: "+e);
+        }
+    }
+    public void REPROBADOS3(String grado, String seccion, String nombre){
+        try {
+            File miDir = new File (".");
+            String ruta = miDir.getCanonicalPath();
+            JasperReport report = JasperCompileManager.compileReport(ruta+"\\src\\Reportes\\Gr_3.jrxml");
+            
+            ConectionDB con = new ConectionDB();
+            Map parametros = new HashMap<>();
+            parametros.put("grado", grado);
+            parametros.put("seccion", seccion);
+            parametros.put("Nombred", nombre);
+            
+            JasperPrint jp = JasperFillManager.fillReport(report,parametros,con.getconnection());            
+            JasperViewer.viewReport(jp,false);
+            JasperPrint print = JasperFillManager.fillReport(report,parametros,con.getconnection());
+            
         } catch (IOException | JRException e) {
              JOptionPane.showMessageDialog(null,"Error: "+e);
         }

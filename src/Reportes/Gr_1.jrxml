@@ -9,13 +9,17 @@
 	<parameter name="seccion" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="Nombred" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[Select count(alumno_nombre) Cant,materia  as Reprobados from V_REPROBADOS
-    where promp1 < 5 and grado = $P{grado} and seccion = $P{seccion}
-    GROUP BY materia]]>
+		<![CDATA[Select count(alumno_nombre) Cant,materia  as Reprobados, Docente from V_REPROBADOS
+    where promp1 < 5 and grado = $P{grado} and seccion = $P{seccion} and Docente = $P{Nombred}
+    GROUP BY materia, Docente]]>
 	</queryString>
 	<field name="CANT" class="java.math.BigDecimal"/>
 	<field name="REPROBADOS" class="java.lang.String"/>
+	<field name="DOCENTE" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -53,6 +57,20 @@
 				</textElement>
 				<text><![CDATA[MATERIAS]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="255" y="0" width="65" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MAESTRO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="330" y="0" width="215" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCENTE}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>

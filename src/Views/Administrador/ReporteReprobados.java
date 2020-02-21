@@ -139,14 +139,22 @@ public class ReporteReprobados extends javax.swing.JInternalFrame {
     private void GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarReporteActionPerformed
            GenerarReportes gr = new GenerarReportes();
        // String Nombremat = cmb_mat1.getSelectedItem().toString();
-       // String Nombred = cmb_docente.getSelectedItem().toString();
+        String Nombred = cmb_docente.getSelectedItem().toString();
         String per = cmb_periodo.getSelectedItem().toString();
         String Nobresec= cmb_secc.getSelectedItem().toString();
         String Grado = cmb_grado.getSelectedItem().toString();
         
         if (per == "1")
         {
-            gr.REPROBADOS1(Grado, Nobresec);
+            gr.REPROBADOS1(Grado, Nobresec,Nombred);
+        }
+        else if(per == "2")
+        {
+          gr.REPROBADOS2(Grado, Nobresec,Nombred);  
+        } 
+        else
+        {
+            gr.REPROBADOS3(Grado, Nobresec,Nombred);
         }
     }//GEN-LAST:event_GenerarReporteActionPerformed
 

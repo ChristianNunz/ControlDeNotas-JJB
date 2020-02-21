@@ -3,13 +3,23 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="grado" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Nombred" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="seccion" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[Select count(alumno_nombre) Cant,materia  as Reprobados from V_REPROBADOS
-    where promp2 < 5 and grado = 4 and seccion = 'A'
-    GROUP BY materia]]>
+		<![CDATA[Select count(alumno_nombre) Cant,materia  as Reprobados, Docente from V_REPROBADOS
+    where promp1 < 5 and grado = $P{grado} and seccion = $P{seccion} and Docente = $P{Nombred}
+    GROUP BY materia, Docente]]>
 	</queryString>
 	<field name="CANT" class="java.math.BigDecimal"/>
 	<field name="REPROBADOS" class="java.lang.String"/>
+	<field name="DOCENTE" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -47,6 +57,20 @@
 				</textElement>
 				<text><![CDATA[MATERIAS]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="67" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MAESTRO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="342" y="0" width="213" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCENTE}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
