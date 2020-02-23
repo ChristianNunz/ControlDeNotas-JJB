@@ -24,7 +24,9 @@ import Reportes.GenerarReportes;
 //import Reportes.GenerarReportes;
 import java.beans.PropertyVetoException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,7 +56,10 @@ public class ReporteDeNota extends javax.swing.JInternalFrame {
 
         LLenarComboS(); 
         LLenarComboG();
-
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        Date fech = new Date();        
+        txtAnho.setText(formatter.format(fech));
         //cargartabla();
         
            // this.setMaximum(true);
@@ -72,12 +77,21 @@ public class ReporteDeNota extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
         cmb_grado = new javax.swing.JComboBox();
         lblcontra5 = new javax.swing.JLabel();
         lblcontra7 = new javax.swing.JLabel();
         cmb_secc = new javax.swing.JComboBox();
         btn_buscar = new javax.swing.JButton();
-        cmb_periodo = new javax.swing.JComboBox();
+        txtAnho = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLayeredPane2 = new javax.swing.JLayeredPane();
+        cmb_grado_p = new javax.swing.JComboBox();
+        lblcontra6 = new javax.swing.JLabel();
+        lblcontra8 = new javax.swing.JLabel();
+        cmb_secc_p = new javax.swing.JComboBox();
+        btn_buscar_p = new javax.swing.JButton();
+        cmb_periodo_p = new javax.swing.JComboBox();
         lblcontra9 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -102,47 +116,136 @@ public class ReporteDeNota extends javax.swing.JInternalFrame {
         jLabel1.setText("Reporte de notas");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 320, -1));
 
-        getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 200, -1));
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reporte Final", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
+        jLayeredPane1.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
+        jLayeredPane1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
-        lblcontra5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cmb_grado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLayeredPane1.add(cmb_grado);
+        cmb_grado.setBounds(100, 30, 200, 30);
+
+        lblcontra5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblcontra5.setText("Grado:");
-        getContentPane().add(lblcontra5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        jLayeredPane1.add(lblcontra5);
+        lblcontra5.setBounds(24, 30, 60, 17);
 
-        lblcontra7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblcontra7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblcontra7.setText("Sección:");
-        getContentPane().add(lblcontra7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        jLayeredPane1.add(lblcontra7);
+        lblcontra7.setBounds(14, 60, 70, 17);
 
-        getContentPane().add(cmb_secc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 200, -1));
+        cmb_secc.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLayeredPane1.add(cmb_secc);
+        cmb_secc.setBounds(100, 60, 200, 30);
 
+        btn_buscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btn_buscar.setText("Generar Reporte");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 200, -1));
+        jLayeredPane1.add(btn_buscar);
+        btn_buscar.setBounds(100, 120, 200, 40);
 
-        cmb_periodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
-        getContentPane().add(cmb_periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 200, -1));
+        txtAnho.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        txtAnho.setEnabled(false);
+        jLayeredPane1.add(txtAnho);
+        txtAnho.setBounds(100, 90, 170, 30);
 
-        lblcontra9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblcontra9.setText("Periodo");
-        getContentPane().add(lblcontra9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        jCheckBox1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jCheckBox1.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jLayeredPane1.add(jCheckBox1);
+        jCheckBox1.setBounds(270, 90, 30, 30);
+
+        getContentPane().add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 330, 180));
+
+        jLayeredPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reporte por periodo", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
+        jLayeredPane2.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
+        jLayeredPane2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
+        cmb_grado_p.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLayeredPane2.add(cmb_grado_p);
+        cmb_grado_p.setBounds(100, 30, 200, 30);
+
+        lblcontra6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblcontra6.setText("Grado:");
+        jLayeredPane2.add(lblcontra6);
+        lblcontra6.setBounds(24, 30, 60, 17);
+
+        lblcontra8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblcontra8.setText("Sección:");
+        jLayeredPane2.add(lblcontra8);
+        lblcontra8.setBounds(14, 60, 70, 17);
+
+        cmb_secc_p.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLayeredPane2.add(cmb_secc_p);
+        cmb_secc_p.setBounds(100, 60, 200, 30);
+
+        btn_buscar_p.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btn_buscar_p.setText("Generar Reporte");
+        btn_buscar_p.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscar_pActionPerformed(evt);
+            }
+        });
+        jLayeredPane2.add(btn_buscar_p);
+        btn_buscar_p.setBounds(100, 120, 200, 40);
+
+        cmb_periodo_p.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        cmb_periodo_p.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
+        jLayeredPane2.add(cmb_periodo_p);
+        cmb_periodo_p.setBounds(100, 90, 200, 30);
+
+        lblcontra9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblcontra9.setText("Periodo:");
+        jLayeredPane2.add(lblcontra9);
+        lblcontra9.setBounds(29, 100, 50, 17);
+
+        getContentPane().add(jLayeredPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 330, 180));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     List<EditarNota> editarNotas;
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-        String periodo= (String) cmb_periodo.getSelectedItem();
+        String anho= txtAnho.getText();
         String grado= (String) cmb_grado.getSelectedItem();
         String seccion= (String) cmb_secc.getSelectedItem();
        
         GenerarReportes reporte = new GenerarReportes();
-        reporte.RF();
+        reporte.RF(grado,seccion,anho);
         
         //JOptionPane.showMessageDialog(rootPane,"G "+grado+" M "+materia+" S "+seccion);
     }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        if (txtAnho.isEnabled()) {
+            txtAnho.setEnabled(false);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+            Date fech = new Date();        
+            txtAnho.setText(formatter.format(fech));
+        }else{
+            txtAnho.setEnabled(true);
+            
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void btn_buscar_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_pActionPerformed
+        // TODO add your handling code here:
+        String periodo= (String)cmb_periodo_p.getSelectedItem();
+        String grado= (String) cmb_grado.getSelectedItem();
+        String seccion= (String) cmb_secc.getSelectedItem();
+       
+        GenerarReportes reporte = new GenerarReportes();
+        reporte.RP1(grado, seccion, periodo);
+    }//GEN-LAST:event_btn_buscar_pActionPerformed
 
    
     
@@ -150,13 +253,22 @@ public class ReporteDeNota extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
+    private javax.swing.JButton btn_buscar_p;
     private javax.swing.JComboBox cmb_grado;
-    private javax.swing.JComboBox cmb_periodo;
+    private javax.swing.JComboBox cmb_grado_p;
+    private javax.swing.JComboBox cmb_periodo_p;
     private javax.swing.JComboBox cmb_secc;
+    private javax.swing.JComboBox cmb_secc_p;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLabel lblcontra5;
+    private javax.swing.JLabel lblcontra6;
     private javax.swing.JLabel lblcontra7;
+    private javax.swing.JLabel lblcontra8;
     private javax.swing.JLabel lblcontra9;
+    private javax.swing.JTextField txtAnho;
     // End of variables declaration//GEN-END:variables
 
 
@@ -166,12 +278,14 @@ public class ReporteDeNota extends javax.swing.JInternalFrame {
       
         for (Seccion seccion : seccions) {
             cmb_secc.addItem(seccion.getNombreSeccion());
+            cmb_secc_p.addItem(seccion.getNombreSeccion());
         }
     }
     private void LLenarComboG() {
         List<Grado> grados = gjc.findGradoEntities();
         for (Grado grado : grados) {
             cmb_grado.addItem(grado.getGrado());
+            cmb_grado_p.addItem(grado.getGrado());
         }
     }
 }

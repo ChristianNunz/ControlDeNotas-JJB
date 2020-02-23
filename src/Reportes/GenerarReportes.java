@@ -28,7 +28,8 @@ public class GenerarReportes {
 
     }
 
-    public void RF(){
+    //RF = Reporte Final
+    public void RF(String grado, String seccion, String anho){
         try {
             File miDir = new File (".");
             String ruta = miDir.getCanonicalPath();
@@ -36,8 +37,9 @@ public class GenerarReportes {
 
             ConectionDB con = new ConectionDB();
             Map parametros = new HashMap<>();
-//            parametros.put("Grado", grado);
-//            parametros.put("Sec", seccion);    
+            parametros.put("grado", grado);
+            parametros.put("seccion", seccion);
+            parametros.put("anho", anho);
             JasperPrint jp = JasperFillManager.fillReport(report,parametros,con.getconnection());            
             JasperViewer.viewReport(jp,false);            
             JasperPrint print = JasperFillManager.fillReport(report,parametros,con.getconnection());
@@ -49,6 +51,31 @@ public class GenerarReportes {
 
         } catch (IOException | JRException e) {
             JOptionPane.showMessageDialog(null,"Error: "+e);
+        }
+    }
+    //RP1= Reporte Periodo 1
+    public void RP1(String grado, String seccion, String periodo){
+        try {
+            File miDir = new File (".");
+            String ruta = miDir.getCanonicalPath();
+            
+            JasperReport report = JasperCompileManager.compileReport(ruta+"\\src\\Reportes\\ReporteNotaPeriodo"+periodo+".jrxml");
+
+            ConectionDB con = new ConectionDB();
+            Map parametros = new HashMap<>();
+            parametros.put("grado", grado);
+            parametros.put("seccion", seccion);
+            JasperPrint jp = JasperFillManager.fillReport(report,parametros,con.getconnection());            
+            JasperViewer.viewReport(jp,false);            
+            JasperPrint print = JasperFillManager.fillReport(report,parametros,con.getconnection());
+            
+            
+//            JasperViewer view = new JasperViewer(print,false);
+//            view.setTitle("Reporte");
+//            view.setVisible(true);
+
+        } catch (IOException | JRException e) {
+            JOptionPane.showMessageDialog(null,"Intentelo nuevamente.");
         }
     }
     public void REPROBADOS1(String grado, String seccion, String nombre){

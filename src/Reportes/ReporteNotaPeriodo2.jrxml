@@ -9,12 +9,11 @@
 	<parameter name="seccion" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="anho" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<queryString>
-		<![CDATA[SELECT Alumno, Grado,Materia,Seccion,Docente,Año,Promp1,Promp2,Promp3,PromF,case when PromF>5 then 'Aprobada' else 'Reprobada' end as Resultado FROM  (SELECT al.alumno_nombre ||' '|| al.alumno_apellidos as Alumno, gra.grado,mat.materia_nombre Materia,sec.nombre_seccion Seccion, doc.docente_nombre Docente, mg.anho AÑO, (p1.nota1*0.35+p1.nota2*0.35+p1.nota3*0.30) AS PROMP1,(p2.nota1*0.35+p2.nota2*0.35+p2.nota3*0.30) AS PROMP2, 
-(p3.nota1*0.35+p3.nota2*0.35+p3.nota3*0.30) AS PROMP3, ( (p1.nota1*0.35+p1.nota2*0.35+p1.nota3*0.30)+(p2.nota1*0.35+p2.nota2*0.35+p2.nota3*0.30)+(p3.nota1*0.35+p3.nota2*0.35+p3.nota3*0.30))/3 AS  PROMF FROM alumno AL
+		<![CDATA[SELECT Año,Alumno, Grado,Seccion,Materia,Nota1 AS "Nota 1 (35%)",Nota2 AS "Nota 2 (35%)",Nota3 AS "Nota 3 (30%)", Promedio FROM  
+(SELECT al.alumno_nombre ||' '|| al.alumno_apellidos as Alumno, 
+    gra.grado,mat.materia_nombre Materia,sec.nombre_seccion Seccion,
+    mg.anho AÑO, p2.nota1 Nota1,p2.nota2 Nota2, p2.nota3 Nota3, (p2.nota1*0.35 + p2.nota2*0.35 + p2.nota3*0.30) Promedio FROM alumno AL
      JOIN nota NT ON al.id_alumno = nt.id_alumno
      JOIN periodo1 P1 ON nt.id_nota = p1.id_nota
      JOIN periodo2 P2 ON nt.id_nota = p2.id_nota
@@ -24,20 +23,18 @@
      JOIN seccion SEC ON mg.id_seccion = sec.id_seccion
      JOIN docente DOC ON mg.id_docente = doc.id_docente
      JOIN grado GRA ON mg.id_grado = gra.id_grado
-    ) WHERE grado=$P{grado} and seccion=$P{seccion} and año=$P{anho}
+    ) WHERE Grado=$P{grado} and Seccion=$P{seccion}
 	ORDER BY ALUMNO,Materia DESC]]>
 	</queryString>
+	<field name="AÑO" class="java.math.BigDecimal"/>
 	<field name="ALUMNO" class="java.lang.String"/>
 	<field name="GRADO" class="java.lang.String"/>
-	<field name="MATERIA" class="java.lang.String"/>
 	<field name="SECCION" class="java.lang.String"/>
-	<field name="DOCENTE" class="java.lang.String"/>
-	<field name="AÑO" class="java.math.BigDecimal"/>
-	<field name="PROMP1" class="java.math.BigDecimal"/>
-	<field name="PROMP2" class="java.math.BigDecimal"/>
-	<field name="PROMP3" class="java.math.BigDecimal"/>
-	<field name="PROMF" class="java.math.BigDecimal"/>
-	<field name="RESULTADO" class="java.lang.String"/>
+	<field name="MATERIA" class="java.lang.String"/>
+	<field name="Nota 1 (35%)" class="java.math.BigDecimal"/>
+	<field name="Nota 2 (35%)" class="java.math.BigDecimal"/>
+	<field name="Nota 3 (30%)" class="java.math.BigDecimal"/>
+	<field name="PROMEDIO" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -95,39 +92,32 @@
 				<reportElement x="0" y="228" width="802" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="293" y="199" width="65" height="20"/>
+				<reportElement x="293" y="199" width="76" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Periodo 1]]></text>
+				<text><![CDATA[Nota 1 (35%)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="382" y="199" width="65" height="20"/>
+				<reportElement x="403" y="199" width="74" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Periodo 2]]></text>
+				<text><![CDATA[Nota 2 (35%)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="469" y="199" width="65" height="20"/>
+				<reportElement x="505" y="199" width="74" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Periodo 3]]></text>
+				<text><![CDATA[Nota 3 (30%)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="555" y="199" width="65" height="20"/>
+				<reportElement x="609" y="199" width="65" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Promedio]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="639" y="199" width="65" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Resultado]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="420" y="126" width="34" height="20"/>
@@ -158,12 +148,26 @@
 				<textFieldExpression><![CDATA[$F{AÑO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="78" y="156" width="724" height="20"/>
+				<reportElement x="78" y="156" width="311" height="20"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Arial" size="14" isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SECCION}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="389" y="156" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERIODO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="156" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
@@ -176,39 +180,32 @@
 				<textFieldExpression><![CDATA[$F{MATERIA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="293" y="0" width="65" height="20"/>
+				<reportElement x="293" y="0" width="76" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PROMP1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Nota 1 (35%)}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="382" y="0" width="65" height="20"/>
+				<reportElement x="402" y="0" width="72" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PROMP2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Nota 2 (35%)}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="469" y="0" width="65" height="20"/>
+				<reportElement x="505" y="0" width="74" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PROMP3}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Nota 3 (30%)}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="557" y="0" width="63" height="20"/>
+				<reportElement x="609" y="0" width="63" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PROMF}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="639" y="0" width="163" height="20"/>
-				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{RESULTADO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{PROMEDIO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
