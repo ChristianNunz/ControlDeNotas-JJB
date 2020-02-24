@@ -246,6 +246,7 @@ public class Crear_Alumno extends javax.swing.JInternalFrame {
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
         // TODO add your handling code here:
         modM.setRowCount(0);
+        alumnoRespon.clear();        
         src=null;
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
