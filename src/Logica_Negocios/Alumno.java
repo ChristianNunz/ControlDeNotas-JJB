@@ -8,6 +8,7 @@ package Logica_Negocios;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -138,8 +139,10 @@ public class Alumno implements Serializable {
         this.alumnoNie = alumnoNie;
     }
 
-    public Date getAlumnoFechaNac() {
-        return alumnoFechaNac;
+    public String getAlumnoFechaNac() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String fecha=sdf.format(alumnoFechaNac);
+        return fecha;
     }
 
     public void setAlumnoFechaNac(Date alumnoFechaNac) {

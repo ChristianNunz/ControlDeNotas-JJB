@@ -388,7 +388,7 @@ public class Editar_Alumno extends javax.swing.JInternalFrame {
             lm.get(i).getAlumnoTel(),
             lm.get(i).getAlumnoNie(),
             lm.get(i).getAlumnoDireccion(),
-            lm.get(i).getAlumnoFechaNac().toString(),
+            lm.get(i).getAlumnoFechaNac(),
             lm.get(i).getAlumnoGenero().toString(),
             lm.get(i).getAlumnoEstado().toString()};
             modM.addRow(registroC);
