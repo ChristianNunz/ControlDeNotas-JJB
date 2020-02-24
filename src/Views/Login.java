@@ -34,6 +34,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
          setLocationRelativeTo(null);
          con = new ConectionDB();
+         txt_usuario.requestFocus(true);
     }
 
     /**
@@ -80,6 +81,17 @@ public class Login extends javax.swing.JFrame {
                 txt_usuarioActionPerformed(evt);
             }
         });
+        txt_usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_usuarioKeyPressed(evt);
+            }
+        });
+
+        txt_pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_passKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Usuario");
@@ -94,13 +106,6 @@ public class Login extends javax.swing.JFrame {
                 Btn_IniciarActionPerformed(evt);
             }
         });
-
-        jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(Btn_Salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(txt_usuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(txt_pass, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(Btn_Iniciar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -136,6 +141,12 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(Btn_Iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
+        jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(Btn_Salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(txt_usuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(txt_pass, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(Btn_Iniciar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,34 +175,49 @@ public class Login extends javax.swing.JFrame {
 
     private void Btn_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_IniciarActionPerformed
         // TODO add your handling code here:
+        loguearse();              
+    }//GEN-LAST:event_Btn_IniciarActionPerformed
+    private void loguearse(){
         String user=txt_usuario.getText();
         String contra=txt_pass.getText();
         if (user.equals("admin1") && contra.equals("admin1")){
             Menu_A menu = new Menu_A();
             menu.setVisible(true);
             this.dispose();
-        }
-        LoginJpaController login = new LoginJpaController(entityMain.getInstance());
-                       
-        String[] Rol=login.Login(user,contra,con.conn).split(",");
-        if (Rol[0].equals("Administrador")) {
-            
-             Menu_A menu = new Menu_A();   
-             menu.idLog=Rol[1];
-             menu.setVisible(true);
-             this.dispose();
-        }else if (Rol[0].equals("Docente")) {
-             Menu_M menu = new Menu_M(); 
-             menu.idLog=Rol[1];
-             menu.setVisible(true);
-             this.dispose();
-        } else{
-            JOptionPane.showMessageDialog(rootPane, "Los datos ingresados, no son validos.");
-        }
-       
-       
+        }else{
+            LoginJpaController login = new LoginJpaController(entityMain.getInstance());                       
+            String[] Rol=login.Login(user,contra,con.conn).split(",");
+            if (Rol[0].equals("Administrador")) {
+
+                 Menu_A menu = new Menu_A();   
+                 menu.idLog=Rol[1];
+                 menu.setVisible(true);
+                 this.dispose();
+            }else if (Rol[0].equals("Docente")) {
+                 Menu_M menu = new Menu_M(); 
+                 menu.idLog=Rol[1];
+                 menu.setVisible(true);
+                 this.dispose();
+            } else{
+                JOptionPane.showMessageDialog(rootPane, "Los datos ingresados, no son validos.");
+            }
+        }        
+    }
+    private void txt_passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passKeyPressed
+        // TODO add your handling code here:
+           if (evt.getKeyChar() == evt.VK_ENTER){
+               loguearse();
+           }
+              
         
-    }//GEN-LAST:event_Btn_IniciarActionPerformed
+    }//GEN-LAST:event_txt_passKeyPressed
+
+    private void txt_usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuarioKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyChar() == evt.VK_ENTER){
+               loguearse();
+        }
+    }//GEN-LAST:event_txt_usuarioKeyPressed
 
     /**
      * @param args the command line arguments
