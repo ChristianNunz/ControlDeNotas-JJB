@@ -13,17 +13,25 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT Alumno, Grado,Materia,Seccion,Docente,Año,Promp1,Promp2,Promp3,PromF,case when PromF>5 then 'Aprobada' else 'Reprobada' end as Resultado FROM  (SELECT al.alumno_nombre ||' '|| al.alumno_apellidos as Alumno, gra.grado,mat.materia_nombre Materia,sec.nombre_seccion Seccion, doc.docente_nombre Docente, mg.anho AÑO, (p1.nota1*0.35+p1.nota2*0.35+p1.nota3*0.30) AS PROMP1,(p2.nota1*0.35+p2.nota2*0.35+p2.nota3*0.30) AS PROMP2, 
-(p3.nota1*0.35+p3.nota2*0.35+p3.nota3*0.30) AS PROMP3, ( (p1.nota1*0.35+p1.nota2*0.35+p1.nota3*0.30)+(p2.nota1*0.35+p2.nota2*0.35+p2.nota3*0.30)+(p3.nota1*0.35+p3.nota2*0.35+p3.nota3*0.30))/3 AS  PROMF FROM alumno AL
-     JOIN nota NT ON al.id_alumno = nt.id_alumno
-     JOIN periodo1 P1 ON nt.id_nota = p1.id_nota
-     JOIN periodo2 P2 ON nt.id_nota = p2.id_nota
-     JOIN periodo3 P3 ON nt.id_nota = p3.id_nota
-     JOIN materia_grado MG ON nt.id_materia_grado = mg.id_materia_grado
-     JOIN materia MAT ON mg.id_materia = mat.id_materia
-     JOIN seccion SEC ON mg.id_seccion = sec.id_seccion
-     JOIN docente DOC ON mg.id_docente = doc.id_docente
-     JOIN grado GRA ON mg.id_grado = gra.id_grado
+		<![CDATA[SELECT 
+    Alumno, Grado,Materia,Seccion,Docente,Año,
+    case when Promp1 is null then '-' else Promp1 ||'' end as Promp1,
+    case when Promp2 is null then '-' else Promp2 ||'' end as Promp2,
+    case when Promp3 is null then '-' else Promp3 ||'' end as Promp3,
+    case when PromF is null then '-' else PromF ||'' end as PromF,
+    case when PromF>5 then 'Aprobada' else 'Reprobada' end as Resultado 
+FROM  (
+        SELECT al.alumno_nombre ||' '|| al.alumno_apellidos as Alumno, gra.grado,mat.materia_nombre Materia,sec.nombre_seccion Seccion, doc.docente_nombre Docente, mg.anho AÑO, (p1.nota1*0.35+p1.nota2*0.35+p1.nota3*0.30) AS PROMP1,(p2.nota1*0.35+p2.nota2*0.35+p2.nota3*0.30) AS PROMP2, 
+        (p3.nota1*0.35+p3.nota2*0.35+p3.nota3*0.30) AS PROMP3, ( (p1.nota1*0.35+p1.nota2*0.35+p1.nota3*0.30)+(p2.nota1*0.35+p2.nota2*0.35+p2.nota3*0.30)+(p3.nota1*0.35+p3.nota2*0.35+p3.nota3*0.30))/3 AS  PROMF FROM alumno AL
+            left JOIN nota NT ON al.id_alumno = nt.id_alumno
+            left JOIN periodo1 P1 ON nt.id_nota = p1.id_nota
+             left JOIN periodo2 P2 ON nt.id_nota = p2.id_nota
+           left  JOIN periodo3 P3 ON nt.id_nota = p3.id_nota
+           left  JOIN materia_grado MG ON nt.id_materia_grado = mg.id_materia_grado
+            left JOIN materia MAT ON mg.id_materia = mat.id_materia
+            left JOIN seccion SEC ON mg.id_seccion = sec.id_seccion
+            left JOIN docente DOC ON mg.id_docente = doc.id_docente
+            left JOIN grado GRA ON mg.id_grado = gra.id_grado
     ) WHERE grado=$P{grado} and seccion=$P{seccion} and año=$P{anho}
 	ORDER BY ALUMNO,Materia DESC]]>
 	</queryString>
@@ -33,10 +41,10 @@
 	<field name="SECCION" class="java.lang.String"/>
 	<field name="DOCENTE" class="java.lang.String"/>
 	<field name="AÑO" class="java.math.BigDecimal"/>
-	<field name="PROMP1" class="java.math.BigDecimal"/>
-	<field name="PROMP2" class="java.math.BigDecimal"/>
-	<field name="PROMP3" class="java.math.BigDecimal"/>
-	<field name="PROMF" class="java.math.BigDecimal"/>
+	<field name="PROMP1" class="java.lang.String"/>
+	<field name="PROMP2" class="java.lang.String"/>
+	<field name="PROMP3" class="java.lang.String"/>
+	<field name="PROMF" class="java.lang.String"/>
 	<field name="RESULTADO" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>

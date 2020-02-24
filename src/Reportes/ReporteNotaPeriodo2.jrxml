@@ -10,19 +10,23 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT Año,Alumno, Grado,Seccion,Materia,Nota1 AS "Nota 1 (35%)",Nota2 AS "Nota 2 (35%)",Nota3 AS "Nota 3 (30%)", Promedio FROM  
+		<![CDATA[
+    SELECT Año,Alumno, Grado,Seccion,Materia,
+    case when Nota1 is null then '-' else Nota1 ||'' end as "Nota 1 (35%)",
+    case when Nota2 is null then '-' else Nota2 ||'' end as "Nota 2 (35%)",
+    case when Nota3 is null then '-' else Nota3 ||'' end as "Nota 3 (30%)",
+    case when Promedio is null then '-' else Promedio ||'' end as "Promedio"
+FROM  
 (SELECT al.alumno_nombre ||' '|| al.alumno_apellidos as Alumno, 
     gra.grado,mat.materia_nombre Materia,sec.nombre_seccion Seccion,
     mg.anho AÑO, p2.nota1 Nota1,p2.nota2 Nota2, p2.nota3 Nota3, (p2.nota1*0.35 + p2.nota2*0.35 + p2.nota3*0.30) Promedio FROM alumno AL
-     JOIN nota NT ON al.id_alumno = nt.id_alumno
-     JOIN periodo1 P1 ON nt.id_nota = p1.id_nota
-     JOIN periodo2 P2 ON nt.id_nota = p2.id_nota
-     JOIN periodo3 P3 ON nt.id_nota = p3.id_nota
-     JOIN materia_grado MG ON nt.id_materia_grado = mg.id_materia_grado
-     JOIN materia MAT ON mg.id_materia = mat.id_materia
-     JOIN seccion SEC ON mg.id_seccion = sec.id_seccion
-     JOIN docente DOC ON mg.id_docente = doc.id_docente
-     JOIN grado GRA ON mg.id_grado = gra.id_grado
+     left JOIN nota NT ON al.id_alumno = nt.id_alumno
+     left JOIN periodo2 p2 ON nt.id_nota = p2.id_nota
+     left JOIN materia_grado MG ON nt.id_materia_grado = mg.id_materia_grado
+     left JOIN materia MAT ON mg.id_materia = mat.id_materia
+     left JOIN seccion SEC ON mg.id_seccion = sec.id_seccion
+     left JOIN docente DOC ON mg.id_docente = doc.id_docente
+     left JOIN grado GRA ON mg.id_grado = gra.id_grado
     ) WHERE Grado=$P{grado} and Seccion=$P{seccion}
 	ORDER BY ALUMNO,Materia DESC]]>
 	</queryString>
@@ -31,10 +35,10 @@
 	<field name="GRADO" class="java.lang.String"/>
 	<field name="SECCION" class="java.lang.String"/>
 	<field name="MATERIA" class="java.lang.String"/>
-	<field name="Nota 1 (35%)" class="java.math.BigDecimal"/>
-	<field name="Nota 2 (35%)" class="java.math.BigDecimal"/>
-	<field name="Nota 3 (30%)" class="java.math.BigDecimal"/>
-	<field name="PROMEDIO" class="java.math.BigDecimal"/>
+	<field name="Nota 1 (35%)" class="java.lang.String"/>
+	<field name="Nota 2 (35%)" class="java.lang.String"/>
+	<field name="Nota 3 (30%)" class="java.lang.String"/>
+	<field name="Promedio" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -205,7 +209,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PROMEDIO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Promedio}.toString()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
