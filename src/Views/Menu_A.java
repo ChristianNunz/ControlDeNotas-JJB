@@ -446,10 +446,8 @@ public class Menu_A extends javax.swing.JFrame {
     private void Btn_rpt_reproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_reproActionPerformed
         // TODO add your handling code here:
         CerrarHijos();
-        ReporteReprobados repro = new ReporteReprobados();     
-        // repro.setSize(sisze());
-        DesktopPanel.add(repro);
-        
+        ReporteReprobados repro = new ReporteReprobados();            
+        DesktopPanel.add(repro);              
         Dimension desktopSize = DesktopPanel.getSize();
         Dimension FrameSize = repro.getSize();
         repro.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
