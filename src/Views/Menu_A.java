@@ -520,7 +520,7 @@ public class Menu_A extends javax.swing.JFrame {
         // TODO add your handling code here:
         Login login = new Login();
         this.dispose();
-        login.show();
+        login.setVisible(true);
     }//GEN-LAST:event_Btn_SalirActionPerformed
 
     private void Btn_Editar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Editar_alumnoActionPerformed
