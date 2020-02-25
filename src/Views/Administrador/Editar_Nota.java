@@ -272,7 +272,6 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
-        // TODO add your handling code here:   
         try {
             if (!id.equals("null")) {
 
@@ -296,8 +295,6 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
-        // TODO add your handling code here:
-         
          txt_Id.setText("");
          txtNombre.setText("");
          txtApellido.setText("");
@@ -354,19 +351,19 @@ public class Editar_Nota extends javax.swing.JInternalFrame {
     modM = (DefaultTableModel) Tabla_Edit_Notas.getModel(); 
     modM.setRowCount(0);
     for(int i=0; i<editarNotas.size(); i++)
-        {
-            String[] registroC = {editarNotas.get(i).getId(),
-                                  editarNotas.get(i).getNombre(),
-                                  editarNotas.get(i).getApellido(),
-                                  Double.toString(editarNotas.get(i).getNota1()).replace(".", ","),
-                                   Double.toString(editarNotas.get(i).getNota2()).replace(".", ","),
-                                   Double.toString(editarNotas.get(i).getNota3()).replace(".", ","),
-                                   Double.toString(Math.round((editarNotas.get(i).getNota1()*0.35+editarNotas.get(i).getNota2()*0.35+editarNotas.get(i).getNota3()*0.30)*100d)/100d).replace(".", ",")
-                                  };
-              modM.addRow(registroC);
-           }
+    {
+        String[] registroC = {editarNotas.get(i).getId(),
+                              editarNotas.get(i).getNombre(),
+                              editarNotas.get(i).getApellido(),
+                              Double.toString(editarNotas.get(i).getNota1()).replace(".", ","),
+                               Double.toString(editarNotas.get(i).getNota2()).replace(".", ","),
+                               Double.toString(editarNotas.get(i).getNota3()).replace(".", ","),
+                               Double.toString(Math.round((editarNotas.get(i).getNota1()*0.35+editarNotas.get(i).getNota2()*0.35+editarNotas.get(i).getNota3()*0.30)*100d)/100d).replace(".", ",")
+                              };
+          modM.addRow(registroC);
+    }
           
-        }
+    }
     
    
 

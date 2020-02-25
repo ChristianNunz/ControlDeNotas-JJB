@@ -151,19 +151,18 @@ public class AlumnoJpaController implements Serializable {
     public List<EditarNota> GetListaAlumnos( String grado, String materia,String Seccion, String docenteid, Connection con)    {
         try {
            // ConectionDB con = new ConectionDB();
-            List<EditarNota> editarNotas = new ArrayList<EditarNota>();
+            List<EditarNota> editarNotas = new ArrayList<>();
             Statement st = con.createStatement();
-            ResultSet resultSet = st.executeQuery("SELECT a.ID_ALUMNO,a.alumno_nombre,a.alumno_apellidos,a.ALUMNO_ESTADO FROM alumno A"
-                    + " INNER JOIN NOTA N ON a.id_alumno = n.id_alumno "
-                    + "INNER JOIN periodo P ON n.id_nota = p.id_nota "
-                    + "INNER JOIN materia_grado MG ON n.id_materia_grado=mg.id_materia_grado "
-                    + "INNER JOIN SECCION S ON mg.id_seccion = s.id_seccion "
-                    + "INNER JOIN turno T ON mg.id_turno = t.id_turno "
-                    + "INNER JOIN materia M ON mg.id_materia = m.id_materia "
-                    + "INNER JOIN docente D ON mg.id_docente=d.id_docente "
-                    + "INNER JOIN grado G ON mg.id_grado = g.id_grado "
-                    + "WHERE  g.grado='"+grado+"' AND m.materia_nombre='"+materia+"' AND s.nombre_seccion='"+Seccion+"' AND d.id_docente='"+docenteid+"'"
-                    + " GROUP BY a.ID_ALUMNO,A.ALUMNO_NOMBRE,a.alumno_apelidos,a.ALUMNO_ESTADO");
+            ResultSet resultSet = st.executeQuery("SELECT a.ID_ALUMNO,a.alumno_nombre,a.alumno_apellidos,a.ALUMNO_ESTADO FROM alumno A " +
+"                       INNER JOIN NOTA N ON a.id_alumno = n.id_alumno " +
+"                      INNER JOIN materia_grado MG ON n.id_materia_grado=mg.id_materia_grado " +
+"                      INNER JOIN SECCION S ON mg.id_seccion = s.id_seccion " +
+"                      INNER JOIN turno T ON mg.id_turno = t.id_turno " +
+"                      INNER JOIN materia M ON mg.id_materia = m.id_materia " +
+"                      INNER JOIN docente D ON mg.id_docente=d.id_docente " +
+"                      INNER JOIN grado G ON mg.id_grado = g.id_grado " +
+"                      WHERE  g.grado='"+grado+"' AND m.materia_nombre='"+materia+"' AND s.nombre_seccion='"+Seccion+"' AND d.id_docente='"+docenteid+"'" +
+"                       GROUP BY a.ID_ALUMNO,A.ALUMNO_NOMBRE,a.alumno_apellidos,a.ALUMNO_ESTADO");
             while(resultSet.next()){
                 
                 

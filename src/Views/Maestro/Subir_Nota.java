@@ -258,7 +258,7 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(jLabel1)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(5, 10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,57 +344,47 @@ public class Subir_Nota extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
-         
-          String Mensaje="Algo salio mal.";
+        String Mensaje="Algo salio mal.";
         try {
-            
-            //StoredProcedureQuery spq = new StoredProcedureQuery();
-          
-            
             for (ModeloAlumnoNota alumnoNota : alumnoNotas) {
-                
                 EntityManager em = entityMain.GetEntityManager();
                 em.getTransaction().begin();
-                StoredProcedureQuery spq = em.createStoredProcedureQuery("REGISTRAR_NOTA_DOCENTE");
-                
-                
-               
+                StoredProcedureQuery spq = em.createStoredProcedureQuery("registrar_nota_Admin");
             
-                spq.registerStoredProcedureParameter("dId",Integer.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("dNombre", String.class, ParameterMode.IN);        
                 spq.registerStoredProcedureParameter("dGrado", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dMate", String.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dPeri", Integer.class, ParameterMode.IN);
                 spq.registerStoredProcedureParameter("dSec", String.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("ANom", String.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("aApe", String.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("aNotaA", Double.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("aNotaB", Double.class, ParameterMode.IN);
-                spq.registerStoredProcedureParameter("aNotaC", Double.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("ANom", String.class, ParameterMode.IN);        
+                spq.registerStoredProcedureParameter("aApe", String.class, ParameterMode.IN);        
+                spq.registerStoredProcedureParameter("aNotaA", Integer.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aNotaB", Integer.class, ParameterMode.IN);
+                spq.registerStoredProcedureParameter("aNotaC", Integer.class, ParameterMode.IN);        
                 spq.registerStoredProcedureParameter("msj", String.class, ParameterMode.OUT);
                 
-                spq.setParameter("dId", Integer.parseInt(IdLog));
-                //spq.setParameter("dNombre",txtDocente.getText());
-                spq.setParameter("dGrado",Integer.toString(Integer.parseInt(txtgrado.getText())));
-                spq.setParameter("dMate",txtmateria.getText());
-                spq.setParameter("dPeri",Double.parseDouble(cmbperiodo.getSelectedItem().toString()));
+                spq.setParameter("dNombre", txtDocente.getText());      
+                spq.setParameter("dGrado", Integer.toString(Integer.parseInt(txtgrado.getText())));
+                spq.setParameter("dMate", txtmateria.getText());
+                spq.setParameter("dPeri", Double.parseDouble(cmbperiodo.getSelectedItem().toString()));
                 spq.setParameter("dSec",txtseccion.getText());
-                spq.setParameter("ANom", alumnoNota.getNombre());
-                spq.setParameter("aApe", alumnoNota.getApellido());
-                spq.setParameter("aNotaA",alumnoNota.getNota1());
+                spq.setParameter("ANom", alumnoNota.getNombre());        
+                spq.setParameter("aApe", alumnoNota.getApellido());        
+                spq.setParameter("aNotaA", alumnoNota.getNota1());
                 spq.setParameter("aNotaB", alumnoNota.getNota2());
-                spq.setParameter("aNotaC", alumnoNota.getNota3());
+                spq.setParameter("aNotaC",alumnoNota.getNota3());
+                
                 
                 spq.execute();
-                 Mensaje=spq.getOutputParameterValue("msj").toString();
-               em.getTransaction().commit();
+                
+                Mensaje=spq.getOutputParameterValue("msj").toString();
+                em.getTransaction().commit();
                 em.close();
             }
-             
-             JOptionPane.showMessageDialog(rootPane,Mensaje);
-  
+            JOptionPane.showMessageDialog(rootPane,Mensaje);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane,"Algo salio mal."+e);
-        }
+            JOptionPane.showMessageDialog(rootPane,"Algo salio mal.");
+        }   
     }//GEN-LAST:event_Btn_GuardarActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed

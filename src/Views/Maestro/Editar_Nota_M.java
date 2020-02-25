@@ -265,7 +265,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
-      try {
+        try {
             if (!id.equals("null")) {
 
               
@@ -275,7 +275,7 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
                  String NotaTres=txtnota3.getText().replace(",", ".");
                 
                  
-                 pjc.UpdateNota("pasar aqui el periodo ",id, NotaUno, NotaDos, NotaTres,con.conn);
+                 pjc.UpdateNota(periodo,id, NotaUno, NotaDos, NotaTres,con.conn);
                 cargartabla();
                 
                 JOptionPane.showMessageDialog(rootPane, "Notas Editadas Correctamente");
@@ -318,10 +318,10 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
         txtpromedio.setText(proM);
     }//GEN-LAST:event_Tabla_Edit_NotasMouseClicked
     List<EditarNota> editarNotas;
+    String periodo;    
+    private void cargartabla(){
     
-       private void cargartabla(){
-    
-        String periodo= cmb_periodo.getSelectedItem().toString();
+        periodo= cmb_periodo.getSelectedItem().toString();
         String grado=cmb_grado.getSelectedItem().toString();
         String materia=cmb_materia.getSelectedItem().toString();
         String seccion=cmb_seccion.getSelectedItem().toString();
@@ -329,23 +329,24 @@ public class Editar_Nota_M extends javax.swing.JInternalFrame {
        //String docente =docent[0];
        
         editarNotas =  pjc.GetListaNotas(periodo, grado, materia, seccion, idLog,con.conn);
+        //editarNotas =  ConPeriodo.GetListaNotas(periodo, grado, materia, seccion, docente,con.conn);
     
     modM = (DefaultTableModel) Tabla_Edit_Notas.getModel(); 
     modM.setRowCount(0);
     for(int i=0; i<editarNotas.size(); i++)
-        {
-            String[] registroC = {editarNotas.get(i).getId(),
-                                  editarNotas.get(i).getNombre(),
-                                  editarNotas.get(i).getApellido(),
-                                  Double.toString(editarNotas.get(i).getNota1()).replace(".", ","),
-                                   Double.toString(editarNotas.get(i).getNota2()).replace(".", ","),
-                                   Double.toString(editarNotas.get(i).getNota3()).replace(".", ","),
-                                   Double.toString(Math.round((editarNotas.get(i).getNota1()*0.35+editarNotas.get(i).getNota2()*0.35+editarNotas.get(i).getNota3()*0.30)*100d)/100d).replace(".", ",")
-                                  };
-              modM.addRow(registroC);
-           }
+    {
+        String[] registroC = {editarNotas.get(i).getId(),
+                              editarNotas.get(i).getNombre(),
+                              editarNotas.get(i).getApellido(),
+                              Double.toString(editarNotas.get(i).getNota1()).replace(".", ","),
+                               Double.toString(editarNotas.get(i).getNota2()).replace(".", ","),
+                               Double.toString(editarNotas.get(i).getNota3()).replace(".", ","),
+                               Double.toString(Math.round((editarNotas.get(i).getNota1()*0.35+editarNotas.get(i).getNota2()*0.35+editarNotas.get(i).getNota3()*0.30)*100d)/100d).replace(".", ",")
+                              };
+          modM.addRow(registroC);
+    }
           
-        }
+}
        private void  LlenarComboM(){
         
         
