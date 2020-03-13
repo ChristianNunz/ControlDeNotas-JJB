@@ -13,13 +13,11 @@ import Acceso_Datos.MateriaJpaController;
 import Acceso_Datos.SeccionJpaController;
 import Acceso_Datos.entityMain;
 import Logica_Negocios.Docente;
-import Logica_Negocios.EditarNota;
 import Logica_Negocios.Materia;
 import Reportes.GenerarReportes;
 //import Reportes.GenerarReportes;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
