@@ -271,31 +271,21 @@ public class Menu_M extends javax.swing.JFrame {
     private void Btn_rpt_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_notasActionPerformed
         // TODO add your handling code here:
          CerrarHijos();
-        reporteTrimestral reporte = new reporteTrimestral();   
-          reporte.setIdLog(idLog);
-        reporte.setSize(sisze());
-         reporte.setSize(sisze());
-        DesktopPanel.add(reporte);
+        reporteTrimestral treporte = new reporteTrimestral();   
+        treporte.setIdLog(idLog);
+        treporte.setSize(sisze());
+        DesktopPanel.add(treporte);
         
-        
-//         CerrarHijos();
-//       Crear_Maestro m = new Crear_Maestro();       
-//       DesktopPanel.add(m);
-//       Dimension desktopSize = DesktopPanel.getSize();
-//        Dimension FrameSize = m.getSize();
-//        m.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-//        m.show();
     }//GEN-LAST:event_Btn_rpt_notasActionPerformed
 
     private void Btn_rpt_alumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_rpt_alumnosActionPerformed
         // TODO add your handling code here:
         
          CerrarHijos();
-        ReporteAlumnos reporte = new ReporteAlumnos();   
-          reporte.setIdLog(idLog);
-        reporte.setSize(sisze());
-         reporte.setSize(sisze());
-        DesktopPanel.add(reporte);
+         ReporteAlumnos reportea = new ReporteAlumnos();   
+         reportea.setIdlog(idLog);
+         reportea.setSize(sisze());
+        DesktopPanel.add(reportea);
     }//GEN-LAST:event_Btn_rpt_alumnosActionPerformed
 
     private void Btn_Registrar_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Registrar_materiaActionPerformed
@@ -349,6 +339,7 @@ public class Menu_M extends javax.swing.JFrame {
         // TODO add your handling code here:
         CerrarHijos(); 
           ReporteReprobadosM reprobados = new ReporteReprobadosM();
+        reprobados.setIdLog(idLog);
         reprobados.setSize(sisze());
         DesktopPanel.add(reprobados);
     }//GEN-LAST:event_btn_ReprobadosActionPerformed

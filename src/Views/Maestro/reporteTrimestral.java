@@ -15,6 +15,7 @@ import Acceso_Datos.entityMain;
 import Logica_Negocios.Docente;
 import Logica_Negocios.EditarNota;
 import Logica_Negocios.Materia;
+import Reportes.GenerarReportes;
 //import Reportes.GenerarReportes;
 import java.math.BigDecimal;
 import java.util.List;
@@ -123,12 +124,12 @@ public class reporteTrimestral extends javax.swing.JInternalFrame {
       List<EditarNota> Alumnos;
     private void btn_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrarActionPerformed
         // TODO add your handling code here:
-        String periodo= (String) cmb_periodo.getSelectedItem();
+      String periodo= (String)cmb_periodo.getSelectedItem();
         String grado= (String) cmb_grado.getSelectedItem();
         String seccion= (String) cmb_seccion.getSelectedItem();
        
-//        GenerarReportes reporte = new GenerarReportes();
-//        reporte.ReporteTrimestral(periodo, grado, seccion);
+        GenerarReportes reporte = new GenerarReportes();
+        reporte.RP1(grado, seccion, periodo);
         
        
        

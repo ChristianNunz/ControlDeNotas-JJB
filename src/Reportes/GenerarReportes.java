@@ -138,4 +138,28 @@ public class GenerarReportes {
              JOptionPane.showMessageDialog(null,"Error: "+e);
         }
     }
+    
+    // Reporte Alumnos por asignatura
+    
+    public void ALumnos(String grado, String seccion, String docente, String materia){
+        try {
+            File miDir = new File (".");
+            String ruta = miDir.getCanonicalPath();
+            JasperReport report = JasperCompileManager.compileReport(ruta+"\\src\\Reportes\\ReporteAlumnos.jrxml");
+            
+            ConectionDB con = new ConectionDB();
+            Map parametros = new HashMap<>();
+            parametros.put("docente", docente);
+            parametros.put("grado", grado);
+            parametros.put("materia", materia);
+            parametros.put("seccion", seccion);
+       
+            JasperPrint jp = JasperFillManager.fillReport(report,parametros,con.getconnection());            
+            JasperViewer.viewReport(jp,false);
+            JasperPrint print = JasperFillManager.fillReport(report,parametros,con.getconnection());
+            
+        } catch (IOException | JRException e) {
+             JOptionPane.showMessageDialog(null,"Error: "+e);
+        }
+    }
     }

@@ -5,7 +5,6 @@
  */
 package Views.Maestro;
 
-import Views.Administrador.*;
 import Acceso_Datos.ConectionDB;
 import Acceso_Datos.DocenteJpaController;
 import Acceso_Datos.GradoJpaController;
@@ -17,24 +16,18 @@ import Acceso_Datos.entityMain;
 import Logica_Negocios.Docente;
 import Logica_Negocios.Grado;
 import Logica_Negocios.Materia;
-import Logica_Negocios.MateriaGrado;
 import Logica_Negocios.Seccion;
-import Logica_Negocios.Turno;
+import Reportes.GenerarReportes;
 //import Reportes.GenerarReportes;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jorge Villanueva
  */
 public class ReporteReprobadosM extends javax.swing.JInternalFrame {
-
+      public String idLog;
     MateriaGradoJpaController materiaGradoJpaController = new MateriaGradoJpaController(entityMain.getInstance());
     MateriaJpaController materiaJpaController = new MateriaJpaController(entityMain.getInstance());
     GradoJpaController gjc = new GradoJpaController(entityMain.getInstance());
@@ -48,9 +41,7 @@ public class ReporteReprobadosM extends javax.swing.JInternalFrame {
     
     public ReporteReprobadosM() {
         initComponents();
-        LLenarComboS(); 
-        LLenarComboG(); 
-        LLenarComboD();
+       
     }
 
     /**
@@ -62,15 +53,15 @@ public class ReporteReprobadosM extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        GenerarReporte = new javax.swing.JButton();
-        cmb_grado = new javax.swing.JComboBox();
-        lblUsuario2 = new javax.swing.JLabel();
-        cmb_secc = new javax.swing.JComboBox();
-        lblUsuario3 = new javax.swing.JLabel();
-        cmb_docente = new javax.swing.JComboBox();
-        lblUsuario6 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLayeredPane2 = new javax.swing.JLayeredPane();
         cmb_periodo = new javax.swing.JComboBox();
+        lblUsuario2 = new javax.swing.JLabel();
+        cmb_grado = new javax.swing.JComboBox();
+        lblUsuario3 = new javax.swing.JLabel();
+        cmb_secc = new javax.swing.JComboBox();
+        lblUsuario6 = new javax.swing.JLabel();
+        cmb_docente = new javax.swing.JComboBox();
+        GenerarReporte = new javax.swing.JButton();
         lblUsuario8 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -92,93 +83,122 @@ public class ReporteReprobadosM extends javax.swing.JInternalFrame {
         setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        GenerarReporte.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLayeredPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reporte Alumnos Reprobados", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
+        jLayeredPane2.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
+        jLayeredPane2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
+        cmb_periodo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmb_periodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
+        jLayeredPane2.add(cmb_periodo);
+        cmb_periodo.setBounds(20, 50, 280, 23);
+
+        lblUsuario2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblUsuario2.setText("Grado");
+        jLayeredPane2.add(lblUsuario2);
+        lblUsuario2.setBounds(20, 70, 180, 20);
+
+        cmb_grado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLayeredPane2.add(cmb_grado);
+        cmb_grado.setBounds(20, 90, 280, 23);
+
+        lblUsuario3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblUsuario3.setText("Seccion");
+        jLayeredPane2.add(lblUsuario3);
+        lblUsuario3.setBounds(20, 110, 180, 20);
+
+        cmb_secc.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLayeredPane2.add(cmb_secc);
+        cmb_secc.setBounds(20, 130, 280, 23);
+
+        lblUsuario6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblUsuario6.setText("Docente");
+        jLayeredPane2.add(lblUsuario6);
+        lblUsuario6.setBounds(20, 150, 180, 20);
+
+        cmb_docente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLayeredPane2.add(cmb_docente);
+        cmb_docente.setBounds(20, 170, 280, 23);
+
+        GenerarReporte.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         GenerarReporte.setText("Generar Reporte ");
         GenerarReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GenerarReporteActionPerformed(evt);
             }
         });
-        getContentPane().add(GenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 180, -1));
+        jLayeredPane2.add(GenerarReporte);
+        GenerarReporte.setBounds(20, 200, 280, 25);
 
-        getContentPane().add(cmb_grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 180, -1));
+        lblUsuario8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblUsuario8.setText("Periodo");
+        jLayeredPane2.add(lblUsuario8);
+        lblUsuario8.setBounds(20, 30, 180, 20);
 
-        lblUsuario2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario2.setText("Grado:");
-        getContentPane().add(lblUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, 20));
-
-        getContentPane().add(cmb_secc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 180, -1));
-
-        lblUsuario3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario3.setText("Seccion:");
-        getContentPane().add(lblUsuario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, 20));
-
-        getContentPane().add(cmb_docente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 180, -1));
-
-        lblUsuario6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario6.setText("Docente:");
-        getContentPane().add(lblUsuario6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 20));
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel1.setText("REPORTE DE REPROBADOS  ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 270, 30));
-
-        cmb_periodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
-        getContentPane().add(cmb_periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 180, -1));
-
-        lblUsuario8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblUsuario8.setText("Periodo:");
-        getContentPane().add(lblUsuario8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 20));
+        getContentPane().add(jLayeredPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 310, 250));
 
         getAccessibleContext().setAccessibleName("Reprobados");
-        getAccessibleContext().setAccessibleDescription("Reporte Reprobados");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarReporteActionPerformed
-//        GenerarReportes gr = new GenerarReportes();
+        GenerarReportes gr = new GenerarReportes();
+        // String Nombremat = cmb_mat1.getSelectedItem().toString();
         String Nombred = cmb_docente.getSelectedItem().toString();
         String per = cmb_periodo.getSelectedItem().toString();
         String Nobresec= cmb_secc.getSelectedItem().toString();
         String Grado = cmb_grado.getSelectedItem().toString();
-//        gr.ReporteReprobadosM(Nobresec, per, Nombred, Grado);
+
+        if (per == "1")
+        {
+            gr.REPROBADOS1(Grado, Nobresec,Nombred);
+        }
+        else if(per == "2")
+        {
+            gr.REPROBADOS2(Grado, Nobresec,Nombred);
+        }
+        else
+        {
+            gr.REPROBADOS3(Grado, Nobresec,Nombred);
+        }
     }//GEN-LAST:event_GenerarReporteActionPerformed
 
-
+public void setIdLog(String id){
+         try {            
+         DocenteJpaController djc = new DocenteJpaController(entityMain.getInstance());
+         String idDocente=djc.GetIdDocneteByLoginId(id,con.conn);
+         this.idLog=idDocente;
+          LlenarGrados();
+          LlenarSecciones();
+         Docente docente=djc.findDocente(new BigDecimal(idDocente));
+         cmb_docente.addItem(docente.getDocenteNombre()+" "+docente.getDocenteApellido());
+         } catch (Exception e) {
+         }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GenerarReporte;
     private javax.swing.JComboBox cmb_docente;
     private javax.swing.JComboBox cmb_grado;
     private javax.swing.JComboBox cmb_periodo;
     private javax.swing.JComboBox cmb_secc;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLabel lblUsuario2;
     private javax.swing.JLabel lblUsuario3;
     private javax.swing.JLabel lblUsuario6;
     private javax.swing.JLabel lblUsuario8;
     // End of variables declaration//GEN-END:variables
 
-    private void LLenarComboS() {
-        List<Seccion> seccions = sjc.findSeccionEntities();
-      
-        for (Seccion seccion : seccions) {
-            cmb_secc.addItem(seccion.getNombreSeccion());
+     
+    private void LlenarSecciones(){
+        List<String> secciones = sjc.GetSecciones(idLog,con.conn);
+         for (String seccion : secciones) {
+            cmb_secc.addItem(seccion);
         }
     }
-    private void LLenarComboG() {
-        List<Grado> grados = gjc.findGradoEntities();
-        for (Grado grado : grados) {
-            cmb_grado.addItem(grado.getGrado());
-        }
-    }
-    
-     private void LLenarComboD() {
-        List<Docente> docentes = djc.findDocenteEntities();
-        for (Docente docente : docentes) {
-            if (docente.getDocenteEstado().equals("Activo")) {
-              cmb_docente.addItem(docente.getDocenteNombre() +" " + docente.getDocenteApellido());   
-            }            
+     private void LlenarGrados(){
+        List<String> grados = gjc.GetGrados(idLog,con.conn);
+         for (String grado : grados) {
+            cmb_grado.addItem(grado);
         }
     }
 }
