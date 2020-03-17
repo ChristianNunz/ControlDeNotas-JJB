@@ -59,7 +59,8 @@ public class GenerarReportes {
             File miDir = new File (".");
             String ruta = miDir.getCanonicalPath();
             
-            JasperReport report = JasperCompileManager.compileReport(ruta+"\\src\\Reportes\\ReporteNotaPeriodo"+periodo+".jrxml");
+            //JasperReport report = JasperCompileManager.compileReport(ruta+"\\src\\Reportes\\ReporteNotaPeriodo"+periodo+".jrxml");
+             JasperReport report = JasperCompileManager.compileReport(ruta+"\\src\\Reportes\\ReporteNotaPeriodo"+periodo+".jrxml");
 
             ConectionDB con = new ConectionDB();
             Map parametros = new HashMap<>();

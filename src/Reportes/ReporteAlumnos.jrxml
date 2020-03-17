@@ -16,7 +16,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[ SELECT * FROM v_alumnos
+		<![CDATA[SELECT * FROM v_alumnos
     WHERE grado = $P{grado} and Seccion= $P{seccion} and  materia= $P{materia} and docente = $P{docente}
     ORDER BY alumno, grado]]>
 	</queryString>
@@ -57,7 +57,7 @@
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{DOCENTE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DOCENTE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -82,7 +82,7 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{GRADO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{GRADO}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="201" y="0" width="37" height="20"/>
@@ -96,7 +96,7 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{AÑO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{AÑO}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="278" y="0" width="69" height="20"/>
@@ -110,7 +110,7 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{MATERIA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MATERIA}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -121,7 +121,7 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{ALUMNO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ALUMNO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

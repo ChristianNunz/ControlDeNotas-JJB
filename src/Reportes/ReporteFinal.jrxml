@@ -21,7 +21,7 @@
     case when PromF is null then '-' else PromF ||'' end as PromF,
     case when PromF>5 then 'Aprobada' else 'Reprobada' end as Resultado 
 FROM  (
-        SELECT al.alumno_nombre ||' '|| al.alumno_apellidos as Alumno, gra.grado,mat.materia_nombre Materia,sec.nombre_seccion Seccion, doc.docente_nombre Docente, mg.anho AÑO, (p1.nota1*0.35+p1.nota2*0.35+p1.nota3*0.30) AS PROMP1,(p2.nota1*0.35+p2.nota2*0.35+p2.nota3*0.30) AS PROMP2, 
+        SELECT al.alumno_nombre ||' '|| al.alumno_apellidos as Alumno, gra.grado,mat.materia_nombre Materia,sec.nombre_seccion Seccion, doc.docente_nombre ||' '|| doc.docente_apellido Docente, mg.anho AÑO, (p1.nota1*0.35+p1.nota2*0.35+p1.nota3*0.30) AS PROMP1,(p2.nota1*0.35+p2.nota2*0.35+p2.nota3*0.30) AS PROMP2, 
         (p3.nota1*0.35+p3.nota2*0.35+p3.nota3*0.30) AS PROMP3, ( (p1.nota1*0.35+p1.nota2*0.35+p1.nota3*0.30)+(p2.nota1*0.35+p2.nota2*0.35+p2.nota3*0.30)+(p3.nota1*0.35+p3.nota2*0.35+p3.nota3*0.30))/3 AS  PROMF FROM alumno AL
             left JOIN nota NT ON al.id_alumno = nt.id_alumno
             left JOIN periodo1 P1 ON nt.id_nota = p1.id_nota
@@ -243,6 +243,27 @@ FROM  (
 				</textElement>
 				<text><![CDATA[Directora]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="534" y="44" width="247" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Docente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="499" y="4" width="280" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma  ___________________________________]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="534" y="24" width="245" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOCENTE}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 </jasperReport>
